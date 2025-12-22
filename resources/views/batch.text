@@ -1,0 +1,67 @@
+insert into ghsscb.languages
+SELECT * from temp_ghss.languages;
+
+insert into ghsscb.domains
+SELECT * from temp_ghss.domains;
+
+insert into ghsscb.racks
+SELECT * from temp_ghss.racks;
+
+insert into ghsscb.books
+SELECT * from temp_ghss.books;
+
+insert into ghsscb.events
+SELECT * from temp_ghss.events;
+
+
+INSERT INTO ghsscb.applications (
+    photo,
+    name,
+    father_name,
+    bform,
+    gender,
+    phone,
+    address,
+    dob,
+    id_mark,
+    caste,
+    profession,
+    income,
+    grade,
+    group_id,
+    pass_year,
+    medium,
+    previous_school,
+    bise,
+    rollno,
+    obtained_marks,
+    max_marks,
+    status,
+    created_at
+)
+SELECT
+    photo,
+    name,
+    father_name,
+    bform,
+    gender,
+    phone,
+    address,
+    dob,
+    id_mark,
+    caste,
+    father_profession,
+    father_income,
+    admission_grade,
+    group_id,
+    pass_year,
+    medium,
+    previous_school,
+    bise,
+    rollno,
+    obtained_marks,
+    max_marks,
+    status,
+    created_at
+FROM
+    temp_ghss.applications;
