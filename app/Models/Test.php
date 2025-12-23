@@ -12,7 +12,7 @@ class Test extends Model
     protected $fillable = [
         'title',
         'max_marks',
-        'teacher_id',   //test owner id , blank if combined test
+        'user_id',   //test owner id , blank if combined test
 
         'is_open',
     ];
@@ -39,10 +39,10 @@ class Test extends Model
 
     public function scopeCombined($query)
     {
-        return $query->whereNull('teacher_id');
+        return $query->whereNull('user_id');
     }
     public function scopeIndividual($query)
     {
-        return $query->whereNotNull('teacher_id');
+        return $query->whereNotNull('user_id');
     }
 }

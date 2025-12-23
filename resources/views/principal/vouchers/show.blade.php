@@ -12,7 +12,7 @@
 
     <div class="grid md:grid-cols-3 md:w-4/5 mx-auto mt-6 bg-white md:p-8 p-4 rounded border">
         <h2 class="mb-4 col-span-full"><i class="bi-receipt text-slate-500"></i> {{ $voucher->name }} @ Rs.
-            {{ $voucher->amount }}</h2>
+            {{ $voucher->sumOfPayableAmount() }}</h2>
 
         <div class="md:col-span-2 text-slate-400 text-sm">
             Removing voucher is a destructive activity.

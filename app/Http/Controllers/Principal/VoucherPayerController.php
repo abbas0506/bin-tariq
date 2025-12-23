@@ -122,6 +122,8 @@ class VoucherPayerController extends Controller
                 // Bulk update
                 $student->fees()->create([
                     'voucher_id' => $voucher->id,
+                    'amount' => $student->fee,
+
                 ]);
             }
             return redirect()->route('principal.voucher.section.payers.index', [$voucherId, $sectionId])->with('success', 'Successfully imported!');

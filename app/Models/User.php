@@ -44,15 +44,40 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function teacher()
+    public function profile()
     {
-        return $this->hasOne(Teacher::class, 'user_id');
+        return $this->hasOne(Profile::class, 'user_id');
     }
-    // public function isIncharge()
-    // {
-    //     return $this->teacher?->allocations()
-    //         ->where('lecture_no', 1)
-    //         ->exists() ?? false;
-    // }
-
+    public function allocations()
+    {
+        return $this->hasMany(Allocation::class);
+    }
+    public function tests()
+    {
+        return $this->hasMany(Test::class);
+    }
+    public function testAllocations()
+    {
+        return $this->hasMany(TestAllocation::class);
+    }
+    public function isIncharge()
+    {
+        return $this->allocations->where('lecture_no', 1)->count();
+    }
+    public function sectionAsIncharge()
+    {
+        $sectionId = $this->allocations->where('lecture_no', 1)->value('section_id');
+        $section = Section::find($sectionId);
+        return $section;
+    }
+    public function tasks()
+    {
+        return $this->belongsToMany(Task::class)
+            ->withPivot('status')
+            ->withTimestamps();
+    }
+    public function assignments()
+    {
+        return $this->hasMany(Assignment::class);
+    }
 }

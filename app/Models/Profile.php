@@ -11,12 +11,18 @@ class Profile extends Model
     protected $fillable = [
         'user_id',
         'name',
-        'designation',
-        'bps',
+        'short_name',
+        'father_name',
         'phone',
+        'address',
         'cnic',
         'qualification',
-        'image',
+        'photo',
+        'status',
+        'seniority',
+        'gender',
+        'salary',
+        'joined_at',
 
         //bise tag will be in separate model
     ];
@@ -24,10 +30,5 @@ class Profile extends Model
     public function user()
     {
         return $this->morphOne(User::class, 'userable');
-    }
-
-    public function bookIssuances()
-    {
-        return $this->hasMany(BookIssuance::class, 'user_id');
     }
 }

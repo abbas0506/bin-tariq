@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Task extends Model
 {
     use HasFactory;
-    
+
     protected $fillable = [
         'description',
         'due_date',
@@ -25,9 +25,9 @@ class Task extends Model
 
     public function teachers()
     {
-        return $this->belongsToMany(Teacher::class, 'assignments')
-                    ->withPivot('status')
-                    ->withTimestamps();
+        return $this->belongsToMany(User::class, 'assignments')
+            ->withPivot('status')
+            ->withTimestamps();
     }
     public function isOpen()
     {
@@ -36,7 +36,8 @@ class Task extends Model
         else
             return false;
     }
-    public function whoHaveCompleted(){
+    public function whoHaveCompleted()
+    {
         $teachers = $this->assignments()
             ->where('status', 1)
             ->with('teacher')
@@ -44,7 +45,8 @@ class Task extends Model
             ->pluck('teacher');
         return $teachers;
     }
-    public function whoHaveNotCompleted(){
+    public function whoHaveNotCompleted()
+    {
         $teachers = $this->assignments()
             ->where('status', 0)
             ->with('teacher')
@@ -52,7 +54,8 @@ class Task extends Model
             ->pluck('teacher');
         return $teachers;
     }
-    public function whoHaveCompletedToday(){
+    public function whoHaveCompletedToday()
+    {
         $teachers = $this->assignments()
             ->where('status', 1)
             ->with('teacher')
@@ -61,5 +64,4 @@ class Task extends Model
             ->pluck('teacher');
         return $teachers;
     }
-   
 }

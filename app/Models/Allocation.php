@@ -12,7 +12,7 @@ class Allocation extends Model
         'section_id',
         'lecture_no',
         'subject_id',
-        'teacher_id',
+        'user_id',
         'day1',
         'day2',
         'day3',
@@ -36,9 +36,9 @@ class Allocation extends Model
     {
         return $this->belongsTo(Subject::class);
     }
-    public function teacher()
+    public function user()
     {
-        return $this->belongsTo(Teacher::class);
+        return $this->belongsTo(User::class);
     }
     public function scopeHavingLectureNo($query, $lecture_no)
     {

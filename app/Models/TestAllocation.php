@@ -13,7 +13,7 @@ class TestAllocation extends Model
         'section_id',
         'lecture_no',
         'subject_id',
-        'teacher_id',
+        'user_id',
         'max_marks',
         'test_date',
         'result_date',
@@ -34,9 +34,9 @@ class TestAllocation extends Model
     {
         return $this->belongsTo(Subject::class);
     }
-    public function teacher()
+    public function user()
     {
-        return $this->belongsTo(Teacher::class);
+        return $this->belongsTo(User::class);
     }
 
     public function results()
@@ -51,7 +51,7 @@ class TestAllocation extends Model
     public function scopeCombined($query)
     {
         return $query->whereHas('test', function ($query) {
-            $query->whereNull('teacher_id');
+            $query->whereNull('user_id');
         });
     }
     public function scopeResultSubmitted($query)

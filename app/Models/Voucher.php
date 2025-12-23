@@ -11,7 +11,6 @@ class Voucher extends Model
     protected $fillable = [
         'id',
         'name',
-        'amount',
         'due_date',
     ];
 
@@ -27,10 +26,13 @@ class Voucher extends Model
     {
         return $this->hasMany(Fee::class);
     }
-
     public function sumOfPaidAmount()
     {
-        return $this->fees->where('status',1)->count()*$this->amount;
+        return $this->fees->where('status', 1)->sum('amount');
+    }
+    public function sumOfPayableAmount()
+    {
+        return $this->fees->sum('amount');
     }
     public function isOpen()
     {
@@ -39,14 +41,14 @@ class Voucher extends Model
         else
             return false;
     }
-    
+
     // Get students of a section who have paid this voucher
     public function studentsWhoHavePaid($sectionId)
     {
         return Student::where('section_id', $sectionId)
             ->whereHas('fees', function ($query) {
                 $query->where('voucher_id', $this->id)
-                      ->where('status', 1);
+                    ->where('status', 1);
             })
             ->get();
     }
@@ -55,8 +57,8 @@ class Voucher extends Model
         return Student::where('section_id', $sectionId)
             ->whereHas('fees', function ($query) {
                 $query->where('voucher_id', $this->id)
-                      ->where('status', 1)
-                      ->whereDate('updated_at',today());
+                    ->where('status', 1)
+                    ->whereDate('updated_at', today());
             })
             ->get();
     }
@@ -67,7 +69,7 @@ class Voucher extends Model
         return Student::where('section_id', $sectionId)
             ->whereDoesntHave('fees', function ($query) {
                 $query->where('voucher_id', $this->id)
-                      ->where('status', 1);
+                    ->where('status', 1);
             })
             ->get();
     }
@@ -82,8 +84,6 @@ class Voucher extends Model
     }
     public function sumOfPaidAmountForSection($sectionId)
     {
-        return $this->studentsWhoHavePaid($sectionId)->count()*$this->amount;
+        return $this->studentsWhoHavePaid($sectionId)->count() * $this->amount;
     }
 }
-
-

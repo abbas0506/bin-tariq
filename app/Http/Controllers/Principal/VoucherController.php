@@ -109,7 +109,6 @@ class VoucherController extends Controller
         //
         $request->validate([
             'name' => 'required',
-            'amount' => 'required|numeric',
             'due_date' => 'required|date',
         ]);
 
@@ -117,7 +116,6 @@ class VoucherController extends Controller
             $voucher = Voucher::findOrFail($id);
             $voucher->update([
                 'name' => $request->name,
-                'amount' => $request->amount,
                 'due_date' => $request->due_date,
             ]);
             return redirect()->route('principal.vouchers.show', $voucher)->with('success', 'Successfully updated');

@@ -11,25 +11,14 @@ class Section extends Model
 
     protected $fillable = [
         'name',    //section label A, B, C
-        'grade',
+        'level',
     ];
-
-    public function fullName()
-    {
-        if ($this->name)
-            if ($this->grade == 0)
-                return $this->name;
-            else
-                return $this->grade . "(" . $this->name . ")";
-        else
-            return $this->grade;
-    }
 
     public function incharge()
     {
         //
-        $inchargeId = $this->allocations->where('lecture_no', 1)->value('teacher_id');
-        $incharge = Teacher::findOrFail($inchargeId);
+        $inchargeId = $this->allocations->where('lecture_no', 1)->value('user_id');
+        $incharge = User::findOrFail($inchargeId);
         return $incharge;
     }
 

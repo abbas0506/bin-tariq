@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('father_name')->nullable();
             $table->string('gender')->default('F');
             $table->string('cnic')->nullable();
-            $table->date('dob')->nullable();
             $table->text('address')->nullable();
             $table->string('phone')->nullable();
             $table->date('joined_at')->nullable();

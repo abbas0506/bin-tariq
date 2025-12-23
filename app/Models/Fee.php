@@ -12,6 +12,7 @@ class Fee extends Model
         'id',
         'student_id',
         'voucher_id',
+        'amount',
         'status',
     ];
 

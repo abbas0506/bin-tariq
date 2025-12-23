@@ -10,13 +10,13 @@ class Assignment extends Model
     use HasFactory;
     protected $fillable = [
         'task_id',
-        'teacher_id',
+        'user_id',
         'status', //boolean
     ];
 
-    public function teacher()
+    public function user()
     {
-        return $this->belongsTo(Teacher::class);
+        return $this->belongsTo(User::class);
     }
 
     public function task()

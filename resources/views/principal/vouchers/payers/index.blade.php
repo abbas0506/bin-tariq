@@ -60,7 +60,6 @@
                         <tr>
                             <th class="w-8">#</th>
                             <th class="w-40 text-left">Name</th>
-                            <th class="w-24">Group</th>
                             <th class="w-6"></th>
                         </tr>
                     </thead>
@@ -72,7 +71,6 @@
                                     <br>
                                     <span class="text-slate-400 text-xs">{{ $fee->student->father_name }}</span>
                                 </td>
-                                <td>{{ $fee->student->group?->name }}</td>
                                 <td>
                                     <div class="flex items-center justify-center">
                                         @if (!$fee->status)

@@ -38,11 +38,6 @@
                     <input type="text" name='name' class="custom-input" placeholder="For example: December Fee"
                         value="{{ $voucher->name }}" required>
                 </div>
-                <div class="">
-                    <label>Amount (Rs.)</label>
-                    <input type="number" name='amount' class="custom-input text-center" placeholder="Amount"
-                        value="{{ $voucher->amount }}" required>
-                </div>
                 <div>
                     <label>Due Date</label>
                     <input type="date" name='due_date' class="custom-input text-center" placeholder="Due date"
