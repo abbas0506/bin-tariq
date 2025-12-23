@@ -49,7 +49,7 @@
             <!-- front page ... section gazzet -->
             <div class="w-1/2 mx-auto">
                 <div class="relative">
-                    <div class="absolute"><img alt="logo" src="{{ public_path('/images/logo/dark_green.png') }}"
+                    <div class="absolute"><img alt="logo" src="{{ public_path('/images/logo/bin_tariq.png') }}"
                             class="w-16"></div>
                 </div>
                 <table class="w-full">
@@ -63,7 +63,7 @@
                     </tbody>
                 </table>
             </div>
-            <h4 class="mt-8 underline text-center">Class: {{ $section->fullName() }}</h4>
+            <h4 class="mt-8 underline text-center">Class: {{ $section->name }}</h4>
 
 
             <table class="table-auto w-full mt-4" cellspacing="0">

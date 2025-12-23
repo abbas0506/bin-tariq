@@ -72,9 +72,9 @@ class SignupController extends Controller
                     'password' => Hash::make($code),
                 ]);
 
-                $user->assignRole('teacher');
+                $user->assignRole('user');
 
-                $user->teacher()->create([
+                $user->user()->create([
                     'name' => $request->name,
                     'cnic' => $request->cnic,
                     'designation' => $request->designation,

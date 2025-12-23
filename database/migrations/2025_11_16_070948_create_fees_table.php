@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('student_id')->constrained()->cascadeOnDelete();
             $table->foreignId('voucher_id')->constrained()->cascadeOnDelete();
-            $table->boolean('status')->default(0);
-            // $table->unsignedMediumInteger('paid_amount')->default(0);
+            $table->unsignedMediumInteger('amount');
+            $table->boolean('status')->default(false);
             $table->timestamps();
         });
     }

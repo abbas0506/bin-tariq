@@ -15,6 +15,6 @@ class LibraryRuleSeeder extends Seeder
     {
         //
         LibraryRule::create(['user_type' => 'App\Models\Student', 'max_books' => 4, 'max_days' => 15, 'fine_per_day' => 0]);
-        LibraryRule::create(['user_type' => 'App\Models\Teacher', 'max_books' => 2, 'max_days' => 7, 'fine_per_day' => 10]);
+        LibraryRule::create(['user_type' => 'App\Models\User', 'max_books' => 2, 'max_days' => 7, 'fine_per_day' => 10]);
     }
 }

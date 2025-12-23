@@ -13,16 +13,21 @@ return new class extends Migration
     {
         Schema::create('profiles', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->string('name', 50);
-            $table->string('phone', 20)->nullable();
-            $table->string('cnic', 20)->unique();
+            $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade');
+            $table->string('name');
+            $table->string('short_name')->nullable();
+            $table->string('father_name')->nullable();
+            $table->string('gender')->default('F');
+            $table->string('cnic')->nullable();
+            $table->date('dob')->nullable();
+            $table->text('address')->nullable();
+            $table->string('phone')->nullable();
+            $table->date('joined_at')->nullable();
             $table->string('qualification')->nullable();
-            $table->string('designation', 20);
-            $table->unsignedTinyInteger('bps');
-            $table->string('image')->nullable();
-
-
+            $table->unsignedMediumInteger('salary')->default(0);
+            $table->string('photo')->nullable(); // photo field
+            $table->boolean('status')->default(true);
+            $table->unsignedTinyInteger('seniority')->nullable();
             $table->timestamps();
         });
     }

@@ -21,11 +21,11 @@
         @endif
 
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 w-4/5 md:w-3/4 mx-auto">
-            @forelse($teachers->sortByDesc('bps') as $teacher)
+            @forelse($users->sortByDesc('bps') as $user)
                 <div
                     class="bg-white rounded-2xl shadow-md hover:shadow-2xl transition-shadow duration-300 hover:scale-105 transform p-4 group">
-                    @if ($teacher->photo)
-                        <img src="{{ asset('storage/' . $teacher->photo) }}" alt="{{ $teacher->name }}"
+                    @if ($user->photo)
+                        <img src="{{ asset('storage/' . $user->photo) }}" alt="{{ $user->profile->name }}"
                             class="w-24 h-24 mx-auto rounded-full mb-4 shadow-sm">
                     @else
                         <div class="w-full h-36 bg-gray-200 flex items-center justify-center rounded-xl mb-4 text-gray-500">
@@ -33,17 +33,18 @@
                         </div>
                     @endif
 
-                    <h3 class="text-lg font-semibold text-gray-800">{{ $teacher->prefix }} {{ $teacher->name }}</h3>
-                    <p class="text-gray-500 text-sm">{{ $teacher->designation }}, BPS {{ $teacher->bps }}</p>
+                    <h3 class="text-lg font-semibold text-gray-800">{{ $user->prefix }} {{ $user->profile->name }}
+                    </h3>
+                    <p class="text-gray-500 text-sm">{{ $user->designation }}, BPS {{ $user->bps }}</p>
                     <div class="text-xs text-gray-500 mt-3">
-                        <p><i class="bi-at"></i> {{ $teacher->user?->email }}</p>
-                        <p><i class="bi-telephone"></i> {{ $teacher->phone }}</p>
-                        <p><i class="bi-clock"></i> {{ $teacher->joined_at->diffInYears(Carbon\Carbon::now()) }} years
+                        <p><i class="bi-at"></i> {{ $user->user?->email }}</p>
+                        <p><i class="bi-telephone"></i> {{ $user->phone }}</p>
+                        <p><i class="bi-clock"></i> {{ $user->joined_at->diffInYears(Carbon\Carbon::now()) }} years
                             experience</p>
                     </div>
                 </div>
             @empty
-                <p class="col-span-full text-center text-gray-500">No teacher profile yet. Be the first to join!</p>
+                <p class="col-span-full text-center text-gray-500">No user profile yet. Be the first to join!</p>
             @endforelse
         </div>
 

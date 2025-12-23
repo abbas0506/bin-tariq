@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Profile;
-use App\Models\Teacher;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -21,49 +20,30 @@ class UserSeeder extends Seeder
             'password' => Hash::make('password'),
         ]);
 
-        $user->assignRole(['admin', 'teacher']);
+        $user->assignRole(['principal']);
 
-        Teacher::create([
+        Profile::create([
 
             'user_id' => $user->id,
-            'name' => 'Muhammad Abbas',
-            'short_name' => 'Abbas',
-            'father_name' => 'Muhammad Yousaf',
-            'cnic' => '3530119663433',
-            'dob' => '06/05/1978',
-            'blood_group' => 'B+',
-            'address' => 'PTCL Exchange Road, Depalpur',
-            'phone' => '03000373004',
-            'joined_at' => '10/16/2025',
-            'designation' => 'Sr. Headmaster',
-            'qualification' => 'MS in Computer Sc.',
-            'bps' => 18,
-            'personal_no' => '31282674',
+            'name' => 'Amina Akhtar',
+            'short_name' => 'Amina',
+            'seniority' => 1,
+
         ]);
 
         $user = User::create([
-            'email' => 'muazzam@gmail.com',
+            'email' => 'admin@gmail.com',
             'password' => Hash::make('password'),
         ]);
 
-        $user->assignRole(['teacher']);
+        $user->assignRole(['admin']);
 
-        Teacher::create([
+        Profile::create([
 
             'user_id' => $user->id,
-            'name' => 'Muazzam Ali',
-            'short_name' => 'Moazzam',
-            'father_name' => 'Muhammad Ali',
-            'cnic' => '3530119663435',
-            'dob' => '06/05/1978',
-            'blood_group' => 'B+',
-            'address' => 'PTCL Exchange Road, Depalpur',
-            'phone' => '03000373004',
-            'joined_at' => '10/16/2025',
-            'designation' => 'SSE(Sc)',
-            'qualification' => 'MS in Computer Sc.',
-            'bps' => 16,
-            'personal_no' => '31282680',
+            'name' => 'Mr Admin',
+            'short_name' => 'Admin',
+            'seniority' => 2,
         ]);
     }
 }

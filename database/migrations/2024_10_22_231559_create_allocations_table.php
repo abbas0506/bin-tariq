@@ -16,14 +16,7 @@ return new class extends Migration
             $table->foreignId('section_id')->constrained()->cascadeOnDelete();
             $table->unsignedTinyInteger('lecture_no');
             $table->foreignId('subject_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('teacher_id')->nullable()->constrained('teachers')->onDelete('set null');
-            $table->unsignedTinyInteger('room_no')->nullable();
-            $table->boolean('day1')->default(true);
-            $table->boolean('day2')->default(true);
-            $table->boolean('day3')->default(true);
-            $table->boolean('day4')->default(true);
-            $table->boolean('day5')->default(true);
-            $table->boolean('day6')->default(true);
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

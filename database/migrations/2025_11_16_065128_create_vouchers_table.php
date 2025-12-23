@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('vouchers', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->unsignedMediumInteger('amount');
             $table->date('due_date');
             $table->timestamps();
         });

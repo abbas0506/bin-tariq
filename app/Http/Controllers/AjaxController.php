@@ -17,10 +17,10 @@ class AjaxController extends Controller
         ]);
 
         session([
-            'grade' => $request->grade,
+            'grade' => $request->level,
             'subject_id' => $request->subject_id,
         ]);
-        $chapters = Chapter::where('grade', $request->grade)
+        $chapters = Chapter::where('grade', $request->level)
             ->where('subject_id', $request->subject_id)
             ->get();
 
@@ -28,7 +28,7 @@ class AjaxController extends Controller
         foreach ($chapters->sortBy('chapter_no') as $chapter) {
             $tr .= "<tr>" .
                 "<td>" . $chapter->chapter_no . "</td>" .
-                "<td class='text-left'> <a href='/teacher/chapters/$chapter->id' class='link'>" . $chapter->name . "</a></td>" .
+                "<td class='text-left'> <a href='/user/chapters/$chapter->id' class='link'>" . $chapter->name . "</a></td>" .
                 "</tr>";
         }
 

@@ -2,7 +2,7 @@
     <div class="p-4 md:px-24 mt-12 border-t border-slate-400 bg-slate-100">
         <div class="flex justify-center items-center space-x-3">
             <div>
-                <img src="{{ asset('images/logo/dark_green.png') }}" alt="" class="w-12 md:w-20">
+                <img src="{{ asset('images/logo/bin_tariq.png') }}" alt="" class="w-12 md:w-20">
             </div>
             <div>
                 <h3 class="text-lg font-bold text-teal-800">Contact Us</h3>

@@ -9,7 +9,7 @@
 
 
                 <div>
-                    <img src="{{ asset('images/logo/dark_green.png') }}" alt="" class="w-24 md:w-36 mx-auto">
+                    <img src="{{ asset('images/logo/bin_tariq.png') }}" alt="" class="w-24 md:w-36 mx-auto">
                     <!-- <h2 class="text-4xl font-bold">LOGIN</h2> -->
                     <label for="">Registered users only</label>
                 </div>

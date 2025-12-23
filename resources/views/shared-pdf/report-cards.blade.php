@@ -54,7 +54,7 @@
                 @endif
                 <div class="w-1/2 mx-auto">
                     <div class="relative">
-                        <div class="absolute"><img alt="logo" src="{{ public_path('/images/logo/dark_green.png') }}"
+                        <div class="absolute"><img alt="logo" src="{{ public_path('/images/logo/bin_tariq.png') }}"
                                 class="w-12"></div>
                     </div>
                     <table class="w-full">
@@ -115,7 +115,7 @@
                         <tr>
                             <td class="text-left font-bold">Class</td>
                             <td>:</td>
-                            <td class="text-left">{{ $section->fullName() }} ({{ $student->rollno }})</td>
+                            <td class="text-left">{{ $section->name }} ({{ $student->rollno }})</td>
                         </tr>
                     </tbody>
                 </table>

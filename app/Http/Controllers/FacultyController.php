@@ -2,20 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Teacher;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Storage;
 
 class FacultyController extends Controller
 {
     public function index()
     {
-        $teachers = Teacher::all();
-        return view('faculty.index', compact('teachers'));
+        $users = User::all();
+        return view('faculty.index', compact('users'));
     }
 
     public function create()
@@ -29,7 +27,7 @@ class FacultyController extends Controller
             'name' => 'required|string|max:255',
             'short_name' => 'required|string|max:50',
             'father_name' => 'nullable|string|max:255',
-            'cnic' => 'required|string|max:20|unique:teachers',
+            'cnic' => 'required|string|max:20|unique:users',
             'dob' => 'nullable|date',
             'blood_group' => 'nullable|string|max:10',
             'address' => 'nullable|string',
@@ -44,7 +42,7 @@ class FacultyController extends Controller
         ]);
 
         if ($request->hasFile('photo')) {
-            $validated['photo'] = $request->file('photo')->store('teachers', 'public');
+            $validated['photo'] = $request->file('photo')->store('users', 'public');
         }
 
         DB::beginTransaction();
@@ -55,22 +53,22 @@ class FacultyController extends Controller
 
             ]);
 
-            $teacher = Teacher::create(array_merge($validated, [
+            $user = User::create(array_merge($validated, [
                 'user_id' => $user->id,
             ]));
             DB::commit();
-            return redirect()->route('faculty.index')->with('success', 'Teacher added successfully.');
+            return redirect()->route('faculty.index')->with('success', 'user added successfully.');
         } catch (Exception $ex) {
             Db::rollBack();
             return back()->with('warning', $ex->getMessage());
         }
     }
 
-    public function show(Teacher $teacher) {}
+    public function show(user $user) {}
 
     public function faculty()
     {
-        $teachers = Teacher::where('is_active', true)->orderBy('bps', 'desc')->get();
-        return view('faculty', compact('teachers'));
+        $users = User::where('is_active', true)->orderBy('bps', 'desc')->get();
+        return view('faculty', compact('users'));
     }
 }

@@ -1,0 +1,88 @@
+@extends('layouts.user')
+@section('page-content')
+    <div class="custom-container">
+        <h1>Class: {{ $section->name }}</h1>
+        <div class="bread-crumb">
+            <a href="{{ url('/') }}">Dashoboard</a>
+            <div>/</div>
+            <a href="{{ route('principal.sections.index') }}">Sections</a>
+            <div>/</div>
+            <div>{{ $section->name }}</div>
+        </div>
+
+        <!-- search -->
+        <div class="flex relative w-full md:w-1/3">
+            <input type="text" id='searchby' placeholder="Search ..." class="custom-search w-full" oninput="search(event)">
+            <i class="bx  bx-search absolute top-2 right-2"></i>
+        </div>
+        <div class="flex justify-center items-center gap-3 flex-wrap mt-5">
+            {{-- <a href="{{ route('user.students.create') }}"><i class="bi bi-person-add text-teal-600"></i></a> --}}
+            {{-- <a href="{{ route('principal.section.cards.index', $section) }}" class=""><i
+                    class="bi-person-badge text-indigo-600"></i></a> --}}
+            <a href="{{ route('user.students.print') }}"
+                class="flex justify-center items-center w-12 h-12 rounded-full border" target="_blank"><i
+                    class="bi-printer text-teal-600 text-xl"></i></a>
+        </div>
+
+        <!-- page message -->
+        @if ($errors->any())
+            <x-message :errors='$errors'></x-message>
+        @else
+            <x-message></x-message>
+        @endif
+
+        <div class="overflow-x-auto bg-white w-full mt-4">
+            <h2 class="text-slate-600 text-sm"> Students: {{ $section->students->count() }}</h2>
+            <table class="table-auto borderless w-full mt-3">
+                <thead>
+                    <tr>
+                        <th class="w-10">#</th>
+                        <th class="w-48 text-left">Name</th>
+                        <th class="w-16">Photo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($section->students->sortBy('rollno') as $student)
+                        <tr class="tr">
+                            <td>{{ $student->rollno }}</td>
+                            <td class="text-left text-xs md:text-sm">
+                                <a href="{{ route('user.students.show', $student) }}"
+                                    class="link">{{ $student->name }}</a>
+                                <br><span class="text-slate-400 text-xs">{{ $student->father_name }}</span>
+                            </td>
+                            <td><img src="{{ asset('storage/' . $student->photo) }}" alt="photo"
+                                    class="rounded mx-auto w-8 h-8"></td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+    <script>
+        function search(event) {
+            var searchtext = event.target.value.toLowerCase();
+            var str = 0;
+            $('.tr').each(function() {
+                if (!(
+                        $(this).children().eq(0).prop('outerText').toLowerCase().includes(searchtext) ||
+                        $(this).children().eq(1).prop('outerText').toLowerCase().includes(searchtext)
+                    )) {
+                    $(this).addClass('hidden');
+                } else {
+                    $(this).removeClass('hidden');
+                }
+            });
+        }
+
+        document.getElementById('translateBtn').onclick = function() {
+            let text = document.getElementById('english').value;
+
+            fetch("https://api.mymemory.translated.net/get?q=" + text + "&langpair=en|ur")
+                .then(res => res.json())
+                .then(data => {
+                    document.getElementById('urdu').value = data.responseData.translatedText;
+                });
+        };
+    </script>
+@endsection

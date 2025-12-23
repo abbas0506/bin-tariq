@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title', 60);
             $table->unsignedTinyInteger('max_marks')->default(20);
-            $table->foreignId('teacher_id')->nullable()->constrained('teachers')->onDelete('set null');
+            $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('set null');
 
             $table->boolean('is_open')->default(true);
             $table->timestamps();

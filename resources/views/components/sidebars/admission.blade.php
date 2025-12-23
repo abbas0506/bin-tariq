@@ -1,6 +1,6 @@
 <aside aria-label="Sidebar" id='sidebar'>
     <div class="flex justify-center items-center h-24 mt-6">
-        <img src="{{ asset('images/logo/dark_green.png') }}" alt="logo" class="w-20">
+        <img src="{{ asset('images/logo/bin_tariq.png') }}" alt="logo" class="w-20">
     </div>
     <div class="mt-8 font-bold text-center text-orange-300 uppercase tracking-wider">Admission</div>
     <hr class="border-teal-600 border-2 rounded-full mt-3 w-1/2 mx-auto">

@@ -6,7 +6,7 @@
 
         <!-- <div><img src="{{ url('images/small/key.png') }}" alt="key" class="w-32"></div> -->
         <div class="grid place-items-center w-full md:w-1/2 mx-auto">
-            <img src="{{ asset('images/logo/dark_green.png') }}" alt="" class="w-24 md:w-36 mx-auto">
+            <img src="{{ asset('images/logo/bin_tariq.png') }}" alt="" class="w-24 md:w-36 mx-auto">
             <!-- <h2 class="text-xl font-bold mt-6">SIGN UP</h2> -->
             <!-- <label for="">https://www.ghsscb.edu.pk</label> -->
 
