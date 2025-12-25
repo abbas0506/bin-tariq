@@ -1,13 +1,13 @@
-@extends('layouts.principal')
+@extends('layouts.app')
 @section('page-content')
     <div class="custom-container">
         <h1>Reset Index</h1>
         <div class="bread-crumb">
             <a href="{{ url('/') }}">Dashoboard</a>
             <div>/</div>
-            <a href="{{ route('principal.sections.index') }}">Sections</a>
+            <a href="{{ route('sections.index') }}">Sections</a>
             <div>/</div>
-            <a href="{{ route('principal.sections.show', $section) }}">{{ $section->name }}</a>
+            <a href="{{ route('sections.show', $section) }}">{{ $section->name }}</a>
             <div>/</div>
             <div>Print</div>
         </div>
@@ -22,22 +22,22 @@
         <div class="w-full mt-8">
             <h1 class="text-center">Section: {{ $section->name }} ({{ $section->students->count() }})</h1>
             <div class="grid grid-cols-2 place-items-center w-full md:w-3/4 mx-auto gap-4 mt-5">
-                <a href="{{ route('principal.sections.print.phoneList', $section) }}" target="_blank"
+                <a href="{{ route('sections.print.phoneList', $section) }}" target="_blank"
                     class="link w-full p-6 border shadow-md rounded-lg bg-slate-100 hover:no-underline text-center">
                     <div><i class="bi-telephone"></i></div>
                     <p>Phone List</p>
                 </a>
-                <a href="{{ route('principal.sections.print.attendanceList', $section) }}" target="_blank"
+                <a href="{{ route('sections.print.attendanceList', $section) }}" target="_blank"
                     class="link w-full p-6 border shadow-md rounded-lg bg-slate-100 hover:no-underline text-center">
                     <div><i class="bi-check"></i></div>
                     <p>Attendance List</p>
                 </a>
-                <a href="{{ route('principal.sections.print.studentDetail', $section) }}" target="_blank"
+                <a href="{{ route('sections.print.studentDetail', $section) }}" target="_blank"
                     class="link w-full p-6 border shadow-md rounded-lg bg-slate-100 hover:no-underline text-center">
                     <div><i class="bi-people"></i></div>
                     <p>Students Detail</p>
                 </a>
-                <a href="{{ route('principal.sections.print.orphanList', $section) }}" target="_blank"
+                <a href="{{ route('sections.print.orphanList', $section) }}" target="_blank"
                     class="link w-full p-6 border shadow-md rounded-lg bg-slate-100 hover:no-underline text-center">
                     <div><i class="bi-file-earmark-text"></i></div>
                     <p>Orphan List</p>

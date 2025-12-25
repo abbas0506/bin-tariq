@@ -1,11 +1,11 @@
-@extends('layouts.principal')
+@extends('layouts.app')
 
 @section('page-content')
     <h2>Creat Test Allocation</h2>
     <div class="bread-crumb">
         <a href="/">Home</a>
         <div>/</div>
-        <a href="{{ route('principal.test.allocations.index', $test) }}">Test Allocations</a>
+        <a href="{{ route('test.allocations.index', $test) }}">Test Allocations</a>
         <div>/</div>
         <div>Create New</div>
     </div>
@@ -22,7 +22,7 @@
         <h2 class="text-lg text-teal-500">{{ $test->title }}</h2>
         <div class="divider my-2"></div>
 
-        <form action="{{ route('principal.test.allocations.store', $test) }}" method="POST">
+        <form action="{{ route('test.allocations.store', $test) }}" method="POST">
             @csrf
             <input type="text" id='allocation_id' name='allocation_id' value="" hidden>
         </form>

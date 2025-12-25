@@ -43,7 +43,7 @@ class AttendanceController extends Controller
 
         $total_presence = Attendance::whereDate('date', $date)->where('status', 1)->count();
         $total_attendance = Attendance::whereDate('date', $date)->count();
-        return view('principal.attendance.index', compact('sections', 'date', 'total_presence', 'total_attendance'));
+        return view('attendance.index', compact('sections', 'date', 'total_presence', 'total_attendance'));
     }
 
 
@@ -73,7 +73,7 @@ class AttendanceController extends Controller
     {
         //
         $student = Student::find($id);
-        return view('principal.attendance.history', compact('student'));
+        return view('attendance.history', compact('student'));
     }
 
     /**
@@ -105,7 +105,7 @@ class AttendanceController extends Controller
             'date' => 'required',
         ]);
 
-        return  redirect()->route('principal.attendance.index')->with('filter_date', $request->date);
+        return  redirect()->route('attendance.index')->with('filter_date', $request->date);
     }
     public function clear(Request $request)
     {
@@ -113,12 +113,12 @@ class AttendanceController extends Controller
             'clear_date' => 'required',
         ]);
         Attendance::whereDate('date', $request->clear_date)->delete();
-        return  redirect()->route('principal.attendance.index')->with('filter_date', $request->clear_date);
+        return  redirect()->route('attendance.index')->with('filter_date', $request->clear_date);
     }
     public function attendanceByDate($sectionId, $date)
     {
         $section = Section::findOrFail($sectionId);
         $attendances = $section->attendances()->whereDate('date', $date)->get();
-        return view('principal.attendance.viewbydate', compact('attendances', 'section', 'date'));
+        return view('attendance.viewbydate', compact('attendances', 'section', 'date'));
     }
 }

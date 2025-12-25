@@ -24,7 +24,7 @@ class CollectiveTestController extends Controller
         $tests = Test::where('is_open', 1)
             ->has('testAllocations')
             ->get();
-        return view('principal.tests.index', compact('tests'));
+        return view('tests.index', compact('tests'));
     }
 
     /**
@@ -34,7 +34,7 @@ class CollectiveTestController extends Controller
     {
         //
         $sections = Section::all();
-        return view('principal.tests.create', compact('sections'));
+        return view('tests.create', compact('sections'));
     }
 
     /**
@@ -75,7 +75,7 @@ class CollectiveTestController extends Controller
             }
 
             DB::commit();
-            return redirect()->route('principal.tests.index')->with('success', 'Successfully created');
+            return redirect()->route('tests.index')->with('success', 'Successfully created');
         } catch (Exception $e) {
             DB::rollBack();
             return redirect()->back()->withErrors($e->getMessage());
@@ -90,7 +90,7 @@ class CollectiveTestController extends Controller
     {
         //
         $test = Test::findOrFail($id);
-        return view('principal.tests.show', compact('test'));
+        return view('tests.show', compact('test'));
     }
 
     /**
@@ -100,7 +100,7 @@ class CollectiveTestController extends Controller
     {
         //
         $test = Test::findOrFail($id);
-        return view('principal.tests.edit', compact('test'));
+        return view('tests.edit', compact('test'));
     }
 
     /**
@@ -131,7 +131,7 @@ class CollectiveTestController extends Controller
         $model = Test::findOrFail($id);
         try {
             $model->delete();
-            return redirect()->route('principal.tests.index')->with('success', 'Successfully deleted');
+            return redirect()->route('tests.index')->with('success', 'Successfully deleted');
         } catch (Exception $e) {
             return redirect()->back()->withErrors($e->getMessage());
             // something went wrong

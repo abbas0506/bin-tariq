@@ -1,4 +1,4 @@
-@extends('layouts.principal')
+@extends('layouts.app')
 @section('page-content')
 <div class="custom-container">
     <!-- Title     -->
@@ -23,7 +23,7 @@
     @endif
 
     <!-- New Event form -->
-    <form method="POST" action="{{ route('principal.events.store') }}" enctype="multipart/form-data">
+    <form method="POST" action="{{ route('events.store') }}" enctype="multipart/form-data">
         @csrf
         <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
             <div class="">
@@ -56,7 +56,7 @@
                 <input type="file" name="photo" class="custom-input">
             </div>
             <div>
-                <a href="{{ route('principal.events.index') }}" class="btn-gray px-5 rounded-full">Back</a>
+                <a href="{{ route('events.index') }}" class="btn-gray px-5 rounded-full">Back</a>
                 <button class="btn-blue border px-5 rounded-full">Create</button>
             </div>
 

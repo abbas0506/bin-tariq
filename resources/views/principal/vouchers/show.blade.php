@@ -1,11 +1,11 @@
-@extends('layouts.principal')
+@extends('layouts.app')
 @section('page-content')
     <h2>
         Voucher # {{ $voucher->id }}</h2>
     <div class="bread-crumb">
         <a href="/">Home</a>
         <div>/</div>
-        <a href="{{ route('principal.vouchers.index') }}">Vouchers</a>
+        <a href="{{ route('vouchers.index') }}">Vouchers</a>
         <div>/</div>
         <div>Edit</div>
     </div>
@@ -21,15 +21,14 @@
         </div>
         <div class="flex items-center justify-end space-x-2 mt-4">
             <div class="flex w-8 h-8 rounded-full border justify-center items-center">
-                <form action="{{ route('principal.vouchers.destroy', $voucher) }}" method="post"
-                    onsubmit="return confirmDel(event)">
+                <form action="{{ route('vouchers.destroy', $voucher) }}" method="post" onsubmit="return confirmDel(event)">
                     @csrf
                     @method('DELETE')
                     <button><i class="bx  bx-trash text-red-600"></i></button>
                 </form>
             </div>
             <div class="flex w-8 h-8 rounded-full border justify-center items-center">
-                <a href="{{ route('principal.vouchers.edit', $voucher) }}"><i class="bx  bx-pencil text-green-600"></i></a>
+                <a href="{{ route('vouchers.edit', $voucher) }}"><i class="bx  bx-pencil text-green-600"></i></a>
             </div>
 
         </div>
@@ -56,8 +55,7 @@
                 @foreach ($sections as $section)
                     <tr class="tr">
                         <td class="text-left text-sm">
-                            <a href="{{ route('principal.voucher.section.payers.index', [$voucher, $section]) }}"
-                                class="link">
+                            <a href="{{ route('voucher.section.payers.index', [$voucher, $section]) }}" class="link">
                                 {{ $section->name }}
                             </a>
                         </td>

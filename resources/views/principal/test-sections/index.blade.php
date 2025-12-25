@@ -1,11 +1,11 @@
-@extends('layouts.principal')
+@extends('layouts.app')
 @section('page-content')
     <div class="custom-container">
         <h1>Print Results</h1>
         <div class="bread-crumb">
             <a href="{{ url('/') }}">Dashoboard</a>
             <div>/</div>
-            <a href="{{ route('principal.tests.index') }}">Tests</a>
+            <a href="{{ route('tests.index') }}">Tests</a>
             <div>/</div>
             <div>Results</div>
             <div>/</div>
@@ -34,13 +34,13 @@
                     </div>
 
                     <div class="grid gap-1">
-                        <a href="{{ route('principal.test.section.result.print', [$test, $section]) }}" target="_blank"
+                        <a href="{{ route('test.section.result.print', [$test, $section]) }}" target="_blank"
                             class="btn-cyan rounded text-xs md:text-sm">Summary</a>
 
-                        <a href="{{ route('principal.test.section.positions.print', [$test, $section]) }}" target="_blank"
+                        <a href="{{ route('test.section.positions.print', [$test, $section]) }}" target="_blank"
                             class="btn-blue rounded text-xs md:text-sm">Positions</a>
-                        <a href="{{ route('principal.test.section.report-cards.print', [$test, $section]) }}"
-                            target="_blank" class="btn-sky rounded text-xs md:text-sm">Report Cards</a>
+                        <a href="{{ route('test.section.report-cards.print', [$test, $section]) }}" target="_blank"
+                            class="btn-sky rounded text-xs md:text-sm">Report Cards</a>
                     </div>
                 </div>
             @endforeach

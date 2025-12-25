@@ -51,7 +51,7 @@ class InchargeController extends Controller
         //
         $section = Section::findOrFail($id);
         $users = User::whereRelation('roles', 'name', 'user')->get();
-        return view('principal.incharges.edit', compact('section', 'users'));
+        return view('incharges.edit', compact('section', 'users'));
     }
 
     /**
@@ -72,7 +72,7 @@ class InchargeController extends Controller
                 'incharge_id' => $request->incharge_id,
             ]);
 
-            return redirect()->route('principal.section.lecture.schedule.index', [0, 0])->with('success', 'Successfully updated');;
+            return redirect()->route('section.lecture.schedule.index', [0, 0])->with('success', 'Successfully updated');;
         } catch (Exception $ex) {
             return redirect()->back()->withErrors($ex->getMessage());
         }

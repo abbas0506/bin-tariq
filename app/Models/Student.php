@@ -50,10 +50,6 @@ class Student extends Model
     {
         return $this->belongsTo(Section::class);
     }
-    public function group()
-    {
-        return $this->belongsTo(Group::class);
-    }
 
     public function vouchers()
     {
@@ -66,10 +62,6 @@ class Student extends Model
     }
 
 
-    public function bookIssuances()
-    {
-        return $this->hasMany(BookIssuance::class, 'user_id');
-    }
     public function attendances()
     {
         return $this->hasMany(Attendance::class);
@@ -97,18 +89,6 @@ class Student extends Model
         } else {
             return '';
         }
-        // Find the key (position) of the specific student
-        // $index = $sortedPercentages->search(function ($ranking) {
-        //     return $ranking['id'] == $this->id;
-        // });
-
-        // //!== will only be false if record could not be found
-        // if ($index !== false) {
-        //     // $ranking = $sortedPercentages->get($index);
-        //     return $index + 1;
-        // } else {
-        //     return '';
-        // }
     }
     public function testTotal($sortedPercentages)
     {

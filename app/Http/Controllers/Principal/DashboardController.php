@@ -23,7 +23,7 @@ class DashboardController extends Controller
         $tests = Test::all();
         // admin task have no user id
         $attendances = Attendance::where('date', today())->where('status', 1)->get();
-        return view('principal.dashboard', compact('sections', 'students', 'tests', 'attendances'));
+        return view('dashboard', compact('sections', 'students', 'tests', 'attendances'));
     }
 
     /**

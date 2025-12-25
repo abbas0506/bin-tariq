@@ -1,4 +1,4 @@
-@extends('layouts.principal')
+@extends('layouts.app')
 @section('page-content')
     <div class="custom-container">
         <h1>Classes</h1>
@@ -21,7 +21,7 @@
                 <tbody>
                     @foreach ($sections->sortBy('grade') as $section)
                         <tr class="tr">
-                            <td class="text-left"><a href="{{ route('principal.sections.show', $section) }}"
+                            <td class="text-left"><a href="{{ route('sections.show', $section) }}"
                                     class="link">{{ $section->name }}</a>
                                 @if ($section->students()->createdToday()->count())
                                     <span class="text-green-600 text-xs ml-2"><i
@@ -31,9 +31,9 @@
                             <td>{{ $section->students->count() }}</td>
                             <td>
                                 <div class="flex space-x-1 items-center justify-center">
-                                    <a href="{{ route('principal.sections.edit', $section) }}"><i
+                                    <a href="{{ route('sections.edit', $section) }}"><i
                                             class="bx-pencil text-green-600"></i></a>
-                                    <form action="{{ route('principal.sections.destroy', $section) }}" method="POST"
+                                    <form action="{{ route('sections.destroy', $section) }}" method="POST"
                                         onsubmit="return confirmDel(event)">
                                         @csrf @method('DELETE')
                                         <button type="submit"><i class="bx-trash text-red-600"></i></button>
@@ -48,7 +48,7 @@
             </table>
         </div>
     </div>
-    <a href="{{ route('principal.sections.create') }}"
+    <a href="{{ route('sections.create') }}"
         class="fixed bottom-8 right-8 flex rounded-full w-12 h-12 btn-blue justify-center items-center text-2xl"><i
             class="bi bi-plus"></i></a>
 @endsection

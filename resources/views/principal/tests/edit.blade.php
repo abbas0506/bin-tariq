@@ -1,10 +1,10 @@
-@extends('layouts.principal')
+@extends('layouts.app')
 @section('page-content')
     <h2>Edit Test</h2>
     <div class="bread-crumb">
         <a href="/">Home</a>
         <div>/</div>
-        <a href="{{ route('principal.tests.index') }}">Assessment</a>
+        <a href="{{ route('tests.index') }}">Assessment</a>
         <div>/</div>
         <div>Edit</div>
     </div>
@@ -16,7 +16,7 @@
         @else
             <x-message></x-message>
         @endif
-        <form action="{{ route('principal.tests.update', $test) }}" method='post' class="w-full grid gap-6"
+        <form action="{{ route('tests.update', $test) }}" method='post' class="w-full grid gap-6"
             onsubmit="return validate(event)">
             @csrf
             @method('patch')

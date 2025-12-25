@@ -13,12 +13,12 @@ class EventController extends Controller
     public function index()
     {
         $events = Event::latest()->paginate(10);
-        return view('principal.events.index', compact('events'));
+        return view('events.index', compact('events'));
     }
 
     public function create()
     {
-        return view('principal.events.create');
+        return view('events.create');
     }
 
     public function store(Request $request)
@@ -37,12 +37,12 @@ class EventController extends Controller
         }
 
         Event::create($data);
-        return redirect()->route('principal.events.index')->with('success', 'Event created successfully.');
+        return redirect()->route('events.index')->with('success', 'Event created successfully.');
     }
 
     public function edit(Event $event)
     {
-        return view('principal.events.edit', compact('event'));
+        return view('events.edit', compact('event'));
     }
 
     public function update(Request $request, Event $event)
@@ -65,7 +65,7 @@ class EventController extends Controller
         }
 
         $event->update($data);
-        return redirect()->route('principal.events.index')->with('success', 'Event updated successfully.');
+        return redirect()->route('events.index')->with('success', 'Event updated successfully.');
     }
 
     public function destroy(Event $event)
@@ -76,6 +76,6 @@ class EventController extends Controller
         }
 
         $event->delete();
-        return redirect()->route('principal.events.index')->with('success', 'Event deleted successfully.');
+        return redirect()->route('events.index')->with('success', 'Event deleted successfully.');
     }
 }

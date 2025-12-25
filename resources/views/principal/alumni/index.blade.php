@@ -1,4 +1,4 @@
-@extends('layouts.principal')
+@extends('layouts.app')
 @section('page-content')
     <div class="custom-container">
         <!-- Title     -->
@@ -53,9 +53,9 @@
                                     @endif
                                 </td>
                                 <td>
-                                    <a href="{{ route('principal.alumni.edit', $a) }}" class="btn btn-warning btn-sm"><i
+                                    <a href="{{ route('alumni.edit', $a) }}" class="btn btn-warning btn-sm"><i
                                             class="bx  bx-pencil"></i></a>
-                                    <form action="{{ route('principal.alumni.destroy', $a) }}" method="POST"
+                                    <form action="{{ route('alumni.destroy', $a) }}" method="POST"
                                         style="display:inline-block">
                                         @csrf @method('DELETE')
                                         <button class="btn btn-danger btn-sm" onclick="return confirm('Delete?')"><i

@@ -17,7 +17,7 @@ class userCardController extends Controller
     {
         //
         $users = User::orderBy('bps', 'desc')->get();
-        return view('principal.user-cards.index', compact('users'));
+        return view('user-cards.index', compact('users'));
     }
 
     /**
@@ -46,7 +46,7 @@ class userCardController extends Controller
             session([
                 'users' => $users,
             ]);
-            return redirect()->route('principal.user-cards.print');
+            return redirect()->route('user-cards.print');
         } catch (Exception $e) {
             return redirect()->back()->withErrors($e->getMessage());
             // something went wrong

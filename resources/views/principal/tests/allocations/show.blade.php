@@ -1,4 +1,4 @@
-@extends('layouts.principal')
+@extends('layouts.app')
 @section('page-content')
     <h2>{{ $testAllocation->test->title }} Result</h2>
     <div class="bread-crumb">
@@ -26,11 +26,11 @@
                 <i class="bi-printer"></i>
             </a>
             @if ($testAllocation->hasBeenSubmitted())
-                <a href="{{ route('principal.test.allocations.edit', [$test, $testAllocation]) }}"
+                <a href="{{ route('test.allocations.edit', [$test, $testAllocation]) }}"
                     class="flex justify-center items-center w-8 h-8 btn-blue rounded-full text-xs"><i
                         class="bx  bx-pencil"></i></a>
             @else
-                <form action="{{ route('principal.test.allocations.destroy', [$test, $testAllocation]) }}" method="POST"
+                <form action="{{ route('test.allocations.destroy', [$test, $testAllocation]) }}" method="POST"
                     onsubmit="confirmDel(event)" class="w-full">
                     @csrf
                     @method('DELETE')

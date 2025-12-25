@@ -1,4 +1,4 @@
-@extends('layouts.principal')
+@extends('layouts.app')
 @section('page-content')
     <h1>Assessment</h1>
     <div class="bread-crumb">
@@ -22,7 +22,7 @@
         </div>
 
         {{-- new buttn --}}
-        <a href="{{ route('principal.tests.create') }}"
+        <a href="{{ route('tests.create') }}"
             class="fixed bottom-4 right-4 flex justify-center items-center bg-teal-400 hover:bg-teal-600 hover:cursor-pointer rounded-full w-12 h-12"><i
                 class="bi-plus-lg"></i></a>
 
@@ -48,11 +48,11 @@
                         <td>{{ $loop->index + 1 }}</td>
                         <td class="text-left">
                             @if ($test->is_open)
-                                <a href="{{ route('principal.tests.show', $test) }}" class="link">{{ $test->title }}</a>
+                                <a href="{{ route('tests.show', $test) }}" class="link">{{ $test->title }}</a>
                                 <br><span class="text-slate-500 text-xs text-slate-400">
                                     {{ $test->created_at->format('d/m/Y H:i') }}</span>
                             @else
-                                <a href="{{ route('principal.tests.show', $test) }}">{{ $test->title }}</a>
+                                <a href="{{ route('tests.show', $test) }}">{{ $test->title }}</a>
                                 <br><span
                                     class="text-slate-500 text-xs text-slate-400">{{ $test->created_at->format('d/m/Y H:i') }}</span>
                             @endif

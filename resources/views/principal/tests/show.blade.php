@@ -1,11 +1,11 @@
-@extends('layouts.principal')
+@extends('layouts.app')
 @section('page-content')
     <h1>
         {{ $test->title }}</h1>
     <div class="bread-crumb">
         <a href="{{ url('/') }}">Home</a>
         <div>/</div>
-        <a href="{{ route('principal.tests.index') }}">Assessment</a>
+        <a href="{{ route('tests.index') }}">Assessment</a>
         <div>/</div>
         <div>View</div>
 
@@ -29,17 +29,16 @@
 
                 @if ($test->is_open)
                     {{-- new allocation --}}
-                    <a href="{{ route('principal.test.allocations.create', $test) }}"
+                    <a href="{{ route('test.allocations.create', $test) }}"
                         class="flex justify-center items-center w-8 h-8 btn-teal rounded-full text-xs"><i
                             class="bi-plus-lg text-blue-600 text-white"></i></a>
                     {{-- test edit button --}}
-                    <a href="{{ route('principal.tests.edit', $test) }}"
+                    <a href="{{ route('tests.edit', $test) }}"
                         class="flex justify-center items-center w-8 h-8 btn-teal rounded-full text-xs">
                         <i class="bx  bx-pencil text-slate-50"></i>
                     </a>
                     {{-- delete button --}}
-                    <form action="{{ route('principal.tests.destroy', $test) }}" method="POST"
-                        onsubmit="confirmDel(event)">
+                    <form action="{{ route('tests.destroy', $test) }}" method="POST" onsubmit="confirmDel(event)">
                         @csrf
                         @method('DELETE')
                         <button type="submit"
@@ -47,7 +46,7 @@
                             <i class="bi-trash3 text-white"></i>
                         </button>
                     </form>
-                    <form action="{{ route('principal.test.lock', $test) }}" method='post'>
+                    <form action="{{ route('test.lock', $test) }}" method='post'>
                         @csrf
                         @method('patch')
                         <button type="submit"
@@ -56,11 +55,11 @@
                     </form>
                 @else
                     {{-- print button --}}
-                    <a href="{{ route('principal.test.sections.index', $test) }}"
+                    <a href="{{ route('test.sections.index', $test) }}"
                         class="flex justify-center items-center w-8 h-8 btn-cyan rounded-full text-xs">
                         <i class="bi-printer text-slate-50"></i>
                     </a>
-                    <form action="{{ route('principal.test.unlock', $test) }}" method='post'>
+                    <form action="{{ route('test.unlock', $test) }}" method='post'>
                         @csrf
                         @method('patch')
                         <button type="submit"
@@ -118,8 +117,7 @@
                         <tr class="tr">
                             <td>{{ $loop->index + 1 }}</td>
                             <td class="text-left">
-                                <a href="{{ route('principal.test.allocations.show', [$test, $testAllocation]) }}"
-                                    class="link">
+                                <a href="{{ route('test.allocations.show', [$test, $testAllocation]) }}" class="link">
                                     {{ $testAllocation->subject->short_name }} -
                                     {{ $testAllocation->section->name }}
                                     @if ($testAllocation->result_date)
@@ -132,15 +130,13 @@
                             <td>{{ $testAllocation->max_marks }}</td>
                             <td class="@if ($testAllocation->result_date) submitted @else pending @endif">
                                 @if ($testAllocation->result_date)
-                                    <form action="{{ route('principal.test-allocation.unlock', $testAllocation) }}"
-                                        method='post'>
+                                    <form action="{{ route('test-allocation.unlock', $testAllocation) }}" method='post'>
                                         @csrf
                                         @method('patch')
                                         <button type="submit"><i class="bi-lock text-red-500 font-bold"></i></button>
                                     </form>
                                 @else
-                                    <form action="{{ route('principal.test-allocation.lock', $testAllocation) }}"
-                                        method='post'>
+                                    <form action="{{ route('test-allocation.lock', $testAllocation) }}" method='post'>
                                         @csrf
                                         @method('patch')
                                         <button type="submit"><i class="bi-unlock text-green-600 "></i></button>

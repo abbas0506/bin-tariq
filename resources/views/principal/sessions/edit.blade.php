@@ -1,11 +1,11 @@
-@extends('layouts.principal')
+@extends('layouts.app')
 @section('page-content')
     <div class="custom-container">
         <h1>Session Management</h1>
         <div class="bread-crumb">
             <a href="{{ url('/') }}">Dashoboard</a>
             <div>/</div>
-            <a href="{{ route('principal.sessions.index') }}">Sessions</a>
+            <a href="{{ route('sessions.index') }}">Sessions</a>
             <div>/</div>
             <div>{{ $session->title() }}</div>
             <div>/</div>
@@ -26,14 +26,14 @@
 
                             @if ($session->active == 1)
                                 <i class="bi bi-toggle2-on text-teal-600 text-lg"></i>
-                                <form action="{{ route('principal.sessions.update', $session) }}" method='post'>
+                                <form action="{{ route('sessions.update', $session) }}" method='post'>
                                     @csrf
                                     @method('PATCH')
                                     <button type="submmit" class="btn-red">Lock session</button>
                                 </form>
                             @else
                                 <i class="bi bi-toggle2-off text-red-600 text-lg"></i>
-                                <form action="{{ route('principal.sessions.update', $session) }}" method='post'>
+                                <form action="{{ route('sessions.update', $session) }}" method='post'>
                                     @csrf
                                     @method('PATCH')
                                     <button type="submmit" class="btn-teal">Unlock session</button>

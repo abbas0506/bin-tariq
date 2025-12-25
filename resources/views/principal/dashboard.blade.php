@@ -1,4 +1,4 @@
-@extends('layouts.principal')
+@extends('layouts.app')
 @section('page-content')
     <!--welcome  -->
     <div class="flex items-center">
@@ -11,7 +11,7 @@
 
     <!-- pallets -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-8">
-        <a href="{{ route('principal.sections.index') }}" class="pallet-box">
+        <a href="{{ route('sections.index') }}" class="pallet-box">
             <div class="flex-1">
                 <div class="title">Classes</div>
                 <div class="flex items-center">
@@ -24,7 +24,7 @@
                 <i class="bi bi-layers text-green-600"></i>
             </div>
         </a>
-        <a href="{{ route('principal.attendance.index') }}" class="pallet-box">
+        <a href="{{ route('attendance.index') }}" class="pallet-box">
             <div class="flex-1">
                 <div class="title">Attendance
                     @if ($attendances->count())
@@ -37,7 +37,7 @@
                 <i class="bi bi-person-check text-orange-400"></i>
             </div>
         </a>
-        <a href="{{ route('principal.tests.index') }}" class="pallet-box">
+        <a href="{{ route('tests.index') }}" class="pallet-box">
             <div class="flex-1">
                 <div class="title">Assessment
                     @if ($tests->where('is_open', 1)->count())
@@ -74,13 +74,13 @@
             <h3 class="bg-teal-100 rounded-t-lg px-2 py-1"><i class="bi-house-gear mr-2"></i> Home Config
             </h3>
             <div class="grid gap-2 text-sm p-2">
-                <a href="{{ route('principal.users.index') }}" class="link">Users</a>
-                <a href="{{ route('principal.alumni.index') }}" class="link">Alumni</a>
-                <a href="{{ route('principal.events.index') }}" class="link">Events</a>
-                <a href="{{ route('principal.subjects.index') }}" class="link">Subjects</a>
-                <a href="{{ route('principal.sections.index') }}" class="link">Classes</a>
+                <a href="{{ route('users.index') }}" class="link">Users</a>
+                <a href="{{ route('alumni.index') }}" class="link">Alumni</a>
+                <a href="{{ route('events.index') }}" class="link">Events</a>
+                <a href="{{ route('subjects.index') }}" class="link">Subjects</a>
+                <a href="{{ route('sections.index') }}" class="link">Classes</a>
                 <hr>
-                <a href="{{ route('principal.attendance-register.index') }}" class="link">Attendance
+                <a href="{{ route('attendance-register.index') }}" class="link">Attendance
                     Register</a>
             </div>
 

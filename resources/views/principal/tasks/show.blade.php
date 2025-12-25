@@ -1,11 +1,11 @@
-@extends('layouts.principal')
+@extends('layouts.app')
 @section('page-content')
     <h2>
         Task # {{ $task->id }}</h2>
     <div class="bread-crumb">
         <a href="/">Home</a>
         <div>/</div>
-        <a href="{{ route('principal.tasks.index') }}">Tasks</a>
+        <a href="{{ route('tasks.index') }}">Tasks</a>
         <div>/</div>
         <div>View</div>
     </div>
@@ -18,15 +18,14 @@
         </div>
         <div class="flex items-center justify-end space-x-2 mt-4">
             <div class="flex w-8 h-8 rounded-full border justify-center items-center">
-                <form action="{{ route('principal.tasks.destroy', $task) }}" method="post"
-                    onsubmit="return confirmDel(event)">
+                <form action="{{ route('tasks.destroy', $task) }}" method="post" onsubmit="return confirmDel(event)">
                     @csrf
                     @method('DELETE')
                     <button><i class="bx  bx-trash text-red-600"></i></button>
                 </form>
             </div>
             <div class="flex w-8 h-8 rounded-full border justify-center items-center">
-                <a href="{{ route('principal.tasks.edit', $task) }}"><i class="bx  bx-pencil text-green-600"></i></a>
+                <a href="{{ route('tasks.edit', $task) }}"><i class="bx  bx-pencil text-green-600"></i></a>
             </div>
 
         </div>
@@ -44,7 +43,7 @@
     <div class="md:w-4/5 overflow-x-auto mx-auto bg-white md:p-8 p-4 rounded border mt-3">
         <div class="flex justify-between items-center flex-wrap">
             <h2 class=""><i class="bi-calendar-event text-slate-500 mr-2"></i> {{ $task->description }} </h2>
-            <a href="{{ route('principal.task.assignments.create', $task) }}"><i class="bi-folder-plus"></i></a>
+            <a href="{{ route('task.assignments.create', $task) }}"><i class="bi-folder-plus"></i></a>
         </div>
         <table class="table-auto borderless w-full mt-5">
             <thead>
@@ -59,8 +58,7 @@
                         <td class="text-left text-sm">{{ $assignment->user->profile->name }}</td>
                         <td class="text-sm text-right">
 
-                            <form action="{{ route('principal.task.assignments.update', [$task, $assignment]) }}"
-                                method='post'>
+                            <form action="{{ route('task.assignments.update', [$task, $assignment]) }}" method='post'>
                                 @csrf
                                 @method('patch')
                                 <button type="submit">

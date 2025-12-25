@@ -16,7 +16,7 @@ class SubjectController extends Controller
     {
         //
         $subjects = Subject::all();
-        return view('principal.subjects.index', compact('subjects'));
+        return view('subjects.index', compact('subjects'));
     }
 
     /**
@@ -25,7 +25,7 @@ class SubjectController extends Controller
     public function create()
     {
         //
-        return view('principal.subjects.create');
+        return view('subjects.create');
     }
 
     /**
@@ -41,7 +41,7 @@ class SubjectController extends Controller
 
         try {
             Subject::create($request->all());
-            return redirect()->route('principal.subjects.index')->with('success', 'Successfully created');
+            return redirect()->route('subjects.index')->with('success', 'Successfully created');
         } catch (Exception $e) {
             return redirect()->back()->withErrors($e->getMessage());
             // something went wrong
@@ -64,7 +64,7 @@ class SubjectController extends Controller
     {
         //
         $subject = Subject::findOrFail($id);
-        return view('principal.subjects.edit', compact('subject'));
+        return view('subjects.edit', compact('subject'));
     }
 
     /**
@@ -81,7 +81,7 @@ class SubjectController extends Controller
         $model = Subject::findOrFail($id);
         try {
             $model->update($request->all());
-            return redirect()->route('principal.subjects.index')->with('success', 'Successfully updated');
+            return redirect()->route('subjects.index')->with('success', 'Successfully updated');
         } catch (Exception $ex) {
             return redirect()->back()->withErrors($ex->getMessage());
         }

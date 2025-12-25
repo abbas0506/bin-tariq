@@ -1,13 +1,13 @@
-@extends('layouts.principal')
+@extends('layouts.app')
 @section('page-content')
     <div class="custom-container">
         <h1>Reset Index</h1>
         <div class="bread-crumb">
             <a href="{{ url('/') }}">Dashoboard</a>
             <div>/</div>
-            <a href="{{ route('principal.sections.index') }}">Sections</a>
+            <a href="{{ route('sections.index') }}">Sections</a>
             <div>/</div>
-            <a href="{{ route('principal.sections.show', $section) }}">{{ $section->name }}</a>
+            <a href="{{ route('sections.show', $section) }}">{{ $section->name }}</a>
             <div>/</div>
             <div>Reset</div>
         </div>
@@ -24,7 +24,7 @@
             <p class="text-center text-red-600 leading-tight">Reset action occurs on the basis of student score in class.
                 This is destructive activity, do if only you understand the consequences</p>
             <div class="grid place-items-center p-8 gap-3">
-                <form action="{{ route('principal.sections.reset.rollno', $section) }}" method="post"
+                <form action="{{ route('sections.reset.rollno', $section) }}" method="post"
                     onsubmit="return confirmDel(event)">
                     @csrf
                     <button class="btn-blue rounded px-3 py-4">Reset Roll #</button>
@@ -33,7 +33,7 @@
             <hr>
             <!-- <div class="grid gap-5 p-8"> -->
             <!-- <p class="text-slate-600">Reset section roll numbers on the basis of student score</p> -->
-            <form action="{{ route('principal.sections.reset.admno', $section) }}" method="post" class="grid gap-5 p-8"
+            <form action="{{ route('sections.reset.admno', $section) }}" method="post" class="grid gap-5 p-8"
                 onsubmit="return confirmDel(event)">
                 @csrf
                 <input type="text" name="startvalue" class="custom-input text-center mx-auto" placeholder="1234"

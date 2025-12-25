@@ -1,6 +1,3 @@
-<div>
-    <!-- Very little is needed to make a happy life. - Marcus Aurelius -->
-</div>
 <aside aria-label="Sidebar" id='sidebar'>
     <div class="flex justify-center items-center h-24 mt-6">
         <img src="{{ asset('images/logo/bin_tariq.png') }}" alt="logo" class="w-20">
@@ -17,38 +14,38 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('principal.sections.index') }}" class="flex items-center">
+                <a href="{{ route('sections.index') }}" class="flex items-center">
                     <i class="bi bi-diagram-3"></i>
                     <span class="ml-3">Classes</span>
                 </a>
             </li>
             <li>
-                <!-- <a href="{{ route('principal.section.lecture.schedule.index', [0, 0]) }}" class="flex items-center"> -->
-                <a href="{{ route('principal.class-schedule') }}" class="flex items-center">
+                <!-- <a href="{{ route('section.lecture.schedule.index', [0, 0]) }}" class="flex items-center"> -->
+                <a href="{{ route('class-schedule') }}" class="flex items-center">
                     <i class="bi-clock"></i>
                     <span class="ml-3">Schedule</span>
                 </a>
             </li>
             <li>
-                <a href="{{ route('principal.attendance.index') }}" class="flex items-center">
+                <a href="{{ route('attendance.index') }}" class="flex items-center">
                     <i class="bi bi-person-check"></i>
                     <span class="ml-3">Attendance</span>
                 </a>
             </li>
             <li>
-                <a href="{{ route('principal.tests.index') }}" class="flex items-center">
+                <a href="{{ route('tests.index') }}" class="flex items-center">
                     <i class="bi bi-file-earmark-text"></i>
                     <span class="ml-3">Assessment</span>
                 </a>
             </li>
             <li>
-                <a href="{{ route('principal.vouchers.index') }}" class="flex items-center">
+                <a href="{{ route('vouchers.index') }}" class="flex items-center">
                     <i class="bi-receipt"></i>
                     <span class="ml-3">Vouchers</span>
                 </a>
             </li>
             <li>
-                <a href="{{ route('principal.tasks.index') }}" class="flex items-center">
+                <a href="{{ route('tasks.index') }}" class="flex items-center">
                     <i class="bi bi-calendar-event"></i>
                     <span class="ml-3">Misc. Tasks </span>
                 </a>

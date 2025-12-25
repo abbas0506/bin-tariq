@@ -1,4 +1,4 @@
-@extends('layouts.principal')
+@extends('layouts.app')
 @section('page-content')
     <div class="custom-container">
         <h1>Session Management</h1>
@@ -16,7 +16,7 @@
                 <i class="bx  bx-search absolute top-2 right-2"></i>
             </div>
 
-            <form method='post' action="{{ route('principal.sessions.store') }}">
+            <form method='post' action="{{ route('sessions.store') }}">
                 @csrf
                 <button type="submit" class="btn-indigo">Add New Session</button>
             </form>
@@ -42,7 +42,7 @@
                     <tr class="tr border-b text-center ">
                         <td class="py-2 text-slate-600">{{ $session->title() }}</td>
                         <td>
-                            <a href="{{ route('principal.sessions.edit', $session) }}" class="flex justify-center">
+                            <a href="{{ route('sessions.edit', $session) }}" class="flex justify-center">
                                 @if ($session->active == 1)
                                     <i class="bi bi-toggle2-on text-teal-600 text-lg"></i>
                                 @else

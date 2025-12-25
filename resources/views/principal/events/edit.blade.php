@@ -1,4 +1,4 @@
-@extends('layouts.principal')
+@extends('layouts.app')
 @section('page-content')
     <div class="custom-container">
         <div class="flex flex-wrap items-center gap-2">
@@ -19,7 +19,7 @@
         @else
             <x-message></x-message>
         @endif
-        <form method="POST" action="{{ route('principal.events.update', $event) }}" enctype="multipart/form-data">
+        <form method="POST" action="{{ route('events.update', $event) }}" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <div class="">
@@ -59,7 +59,7 @@
 
                 <div>
                     <button class="btn-blue rounded-full px-5">Update</button>
-                    <a href="{{ route('principal.events.index') }}" class="btn-gray px-5 rounded-full">Back</a>
+                    <a href="{{ route('events.index') }}" class="btn-gray px-5 rounded-full">Back</a>
                 </div>
             </div>
         </form>

@@ -1,10 +1,10 @@
-@extends('layouts.principal')
+@extends('layouts.app')
 @section('page-content')
     <h2>New Test</h2>
     <div class="bread-crumb">
         <a href="/">Home</a>
         <div>/</div>
-        <a href="{{ route('principal.vouchers.index') }}">Vouchers</a>
+        <a href="{{ route('vouchers.index') }}">Vouchers</a>
         <div>/</div>
         <div>New</div>
     </div>
@@ -16,8 +16,7 @@
         @else
             <x-message></x-message>
         @endif
-        <form action="{{ route('principal.vouchers.store') }}" method='post' class="w-full grid gap-6"
-            onsubmit="return validate(event)">
+        <form action="{{ route('vouchers.store') }}" method='post' class="w-full grid gap-6" onsubmit="return validate(event)">
             @csrf
             <div>
                 <input type="checkbox" id='is_tutionfee' name="is_tutionfee" class="mr-2" checked> <label

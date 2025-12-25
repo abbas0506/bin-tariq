@@ -130,7 +130,7 @@ class TestAllocationResultController extends Controller
             $testAllocation->update([
                 'result_date' => null,
             ]);
-            return redirect()->route('principal.test.allocations.index', $testAllocation->test)->with('success', 'Successfully deleted!');
+            return redirect()->route('test.allocations.index', $testAllocation->test)->with('success', 'Successfully deleted!');
         } catch (Exception $e) {
             return redirect()->back()->withErrors($e->getMessage());
         }

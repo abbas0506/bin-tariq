@@ -1,13 +1,13 @@
-@extends('layouts.principal')
+@extends('layouts.app')
 @section('page-content')
     <div class="custom-container">
         <h1>Import Voucher Payers</h1>
         <div class="bread-crumb">
             <a href="{{ url('/') }}">Dashoboard</a>
             <div>/</div>
-            <a href="{{ route('principal.vouchers.index') }}">Vouchers</a>
+            <a href="{{ route('vouchers.index') }}">Vouchers</a>
             <div>/</div>
-            <a href="{{ route('principal.vouchers.show', $voucher) }}"> #{{ $voucher->id }}</a>
+            <a href="{{ route('vouchers.show', $voucher) }}"> #{{ $voucher->id }}</a>
             <div>/</div>
             <div>C-{{ $section->name }}</div>
         </div>
@@ -27,7 +27,7 @@
             <x-message></x-message>
         @endif
         <div class="overflow-x-auto bg-white w-full mt-8">
-            <form action="{{ route('principal.voucher.section.payers.import.post', [$voucher, $section]) }}" method="post"
+            <form action="{{ route('voucher.section.payers.import.post', [$voucher, $section]) }}" method="post"
                 onsubmit="return confirmSubmit(event)">
                 @csrf
                 <table class="table-auto borderless w-full">
@@ -43,8 +43,7 @@
                         @foreach ($students->sortBy('rollno') as $student)
                             <tr class="tr">
                                 <td>{{ $student->rollno }}</td>
-                                <td class="text-left"><a
-                                        href="{{ route('principal.section.students.show', [$section, $student]) }}"
+                                <td class="text-left"><a href="{{ route('section.students.show', [$section, $student]) }}"
                                         class="link">{{ $student->name }}</a>
                                     <br>
                                     <span class="text-slate-400 text-sm">{{ $student->father_name }}</span>

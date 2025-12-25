@@ -1,11 +1,11 @@
-@extends('layouts.principal')
+@extends('layouts.app')
 @section('page-content')
     <div class="custom-container">
         <h1>Section: {{ $section->name }}</h1>
         <div class="bread-crumb">
             <a href="{{ url('/') }}">Dashoboard</a>
             <div>/</div>
-            <a href="{{ route('principal.sections.index') }}">Sections</a>
+            <a href="{{ route('sections.index') }}">Sections</a>
             <div>/</div>
             <div>{{ $section->name }}</div>
         </div>
@@ -17,20 +17,17 @@
             <i class="bx  bx-search absolute top-2 right-2"></i>
         </div>
         <div class="flex justify-center items-center gap-3 flex-wrap mt-5">
-            <a href="{{ route('principal.section.students.create', $section) }}"><i
-                    class="bi bi-person-add text-teal-600"></i></a>
-            <a href="{{ route('principal.sections.import', $section) }}" class=""><i
+            <a href="{{ route('section.students.create', $section) }}"><i class="bi bi-person-add text-teal-600"></i></a>
+            <a href="{{ route('sections.import', $section) }}" class=""><i
                     class="bi bi-file-earmark-plus text-teal-600"></i></a>
-            <a href="{{ route('principal.sections.export', $section) }}" class=""><i
+            <a href="{{ route('sections.export', $section) }}" class=""><i
                     class="bi bi-arrow-right-square text-teal-600"></i></a>
-            <a href="{{ route('principal.sections.reset', $section) }}" class=""><i
-                    class="bi-repeat-1 text-orange-600"></i></a>
-            <a href="{{ route('principal.section.cards.index', $section) }}" class=""><i
+            <a href="{{ route('sections.reset', $section) }}" class=""><i class="bi-repeat-1 text-orange-600"></i></a>
+            <a href="{{ route('section.cards.index', $section) }}" class=""><i
                     class="bi-person-badge text-indigo-600"></i></a>
-            <a href="{{ route('principal.sections.clean', $section) }}" class=""><i
+            <a href="{{ route('sections.clean', $section) }}" class=""><i
                     class="bx bx-recycle text-orange-600"></i></a>
-            <a href="{{ route('principal.sections.print', $section) }}" class=""><i
-                    class="bi-printer text-teal-600"></i></a>
+            <a href="{{ route('sections.print', $section) }}" class=""><i class="bi-printer text-teal-600"></i></a>
         </div>
 
         <!-- page message -->
@@ -56,7 +53,7 @@
                         <tr class="tr">
                             <td>{{ $student->rollno }}</td>
                             <td class="text-left">
-                                <a href="{{ route('principal.section.students.show', [$section, $student]) }}"
+                                <a href="{{ route('section.students.show', [$section, $student]) }}"
                                     class="link">{{ $student->name }}</a>
                                 <br><span class="text-slate-400 text-xs">{{ $student->father_name }}</span>
                             </td>

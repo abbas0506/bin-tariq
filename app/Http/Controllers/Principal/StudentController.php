@@ -17,7 +17,7 @@ class StudentController extends Controller
     {
         //
         $section = Section::findOrFail($sectionId);
-        return view('principal.students.create', compact('section'));
+        return view('students.create', compact('section'));
     }
 
     /**
@@ -39,7 +39,7 @@ class StudentController extends Controller
 
             $section = Section::findOrFail($sectionId);
             $section->students()->create($request->all());
-            return redirect()->route('principal.sections.show', $section)->with('success', 'Successfully created');
+            return redirect()->route('sections.show', $section)->with('success', 'Successfully created');
         } catch (Exception $e) {
             return redirect()->back()->withErrors($e->getMessage());
             // something went wrong
@@ -54,7 +54,7 @@ class StudentController extends Controller
         //
         $section = Section::findOrFail($sectionId);
         $student = Student::findOrFail($id);
-        return view('principal.students.show', compact('section', 'student'));
+        return view('students.show', compact('section', 'student'));
     }
 
     /**
@@ -65,7 +65,7 @@ class StudentController extends Controller
         //
         $section = Section::findOrFail($sectionId);
         $student = Student::findOrFail($id);
-        return view('principal.students.edit', compact('section', 'student'));
+        return view('students.edit', compact('section', 'student'));
     }
 
     /**
@@ -100,7 +100,7 @@ class StudentController extends Controller
                 $validated['photo'] = $path; // full path like "uploads/abc.jpg"
             }
             $student->update($validated);
-            return redirect()->route('principal.sections.show', $section)->with('success', 'Student successfully updated');
+            return redirect()->route('sections.show', $section)->with('success', 'Student successfully updated');
         } catch (Exception $e) {
             return redirect()->back()->withErrors($e->getMessage());
             // something went wrong
@@ -116,7 +116,7 @@ class StudentController extends Controller
         try {
             $student = Student::findOrFail($id);
             $student->delete();
-            return redirect()->route('principal.sections.show', $sectionId)->with('success', 'Successfully deleted!');
+            return redirect()->route('sections.show', $sectionId)->with('success', 'Successfully deleted!');
         } catch (Exception $e) {
             return redirect()->back()->withErrors($e->getMessage());
         }

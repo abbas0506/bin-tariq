@@ -5,7 +5,7 @@
         <div class="bread-crumb">
             <a href="{{ url('/') }}">Dashoboard</a>
             <div>/</div>
-            <a href="{{ route('principal.sections.index') }}">Sections</a>
+            <a href="{{ route('sections.index') }}">Sections</a>
             <div>/</div>
             <div>{{ $section->name }}</div>
         </div>
@@ -17,7 +17,7 @@
         </div>
         <div class="flex justify-center items-center gap-3 flex-wrap mt-5">
             {{-- <a href="{{ route('user.students.create') }}"><i class="bi bi-person-add text-teal-600"></i></a> --}}
-            {{-- <a href="{{ route('principal.section.cards.index', $section) }}" class=""><i
+            {{-- <a href="{{ route('section.cards.index', $section) }}" class=""><i
                     class="bi-person-badge text-indigo-600"></i></a> --}}
             <a href="{{ route('user.students.print') }}"
                 class="flex justify-center items-center w-12 h-12 rounded-full border" target="_blank"><i

@@ -1,13 +1,13 @@
-@extends('layouts.principal')
+@extends('layouts.app')
 @section('page-content')
     <div class="custom-container">
         <h1>Voucher Payers</h1>
         <div class="bread-crumb">
             <a href="{{ url('/') }}">Dashoboard</a>
             <div>/</div>
-            <a href="{{ route('principal.vouchers.index') }}">Vouchers</a>
+            <a href="{{ route('vouchers.index') }}">Vouchers</a>
             <div>/</div>
-            <a href="{{ route('principal.vouchers.show', $voucher) }}"> #{{ $voucher->id }}</a>
+            <a href="{{ route('vouchers.show', $voucher) }}"> #{{ $voucher->id }}</a>
             <div>/</div>
             <div>C-{{ $section->name }}</div>
         </div>
@@ -20,7 +20,7 @@
                     Remove only if you are sure!
                 </div>
                 <div class="text-right">
-                    <form action="{{ route('principal.voucher.section.payers.clean', [$voucher, $section]) }}" method="POST"
+                    <form action="{{ route('voucher.section.payers.clean', [$voucher, $section]) }}" method="POST"
                         onsubmit="confirmClean(event)">
                         @csrf
                         @method('DELETE')
@@ -40,7 +40,7 @@
                     <i class="bx  bx-search absolute top-2 right-2"></i>
                 </div>
                 <div>
-                    <a href="{{ route('principal.voucher.section.payers.import', [$voucher, $section]) }}"
+                    <a href="{{ route('voucher.section.payers.import', [$voucher, $section]) }}"
                         class="btn-blue px-5 py-2 rounded"><i class="bi-upload text-white mr-2"></i>
                         Import</a>
                 </div>
@@ -75,7 +75,7 @@
                                     <div class="flex items-center justify-center">
                                         @if (!$fee->status)
                                             <form
-                                                action="{{ route('principal.voucher.section.payers.destroy', [$voucher, $section, $fee]) }}"
+                                                action="{{ route('voucher.section.payers.destroy', [$voucher, $section, $fee]) }}"
                                                 method="POST" onsubmit="return confirmDel(event)">
                                                 @csrf
                                                 @method('DELETE')

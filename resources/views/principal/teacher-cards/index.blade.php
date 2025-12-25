@@ -1,4 +1,4 @@
-@extends('layouts.principal')
+@extends('layouts.app')
 @section('page-content')
     <div class="custom-container">
         <!-- Title     -->
@@ -8,14 +8,14 @@
                 <div class="bread-crumb">
                     <a href="{{ url('/') }}">Dashboard</a>
                     <div>/</div>
-                    <a href="{{ route('principal.users.index') }}">users</a>
+                    <a href="{{ route('users.index') }}">users</a>
                     <div>/</div>
                     <div>Cards</div>
                 </div>
             </div>
         </div>
 
-        <form action="{{ route('principal.user-cards.store') }}" method="post">
+        <form action="{{ route('user-cards.store') }}" method="post">
             @csrf
             <div class="flex mt-4">
                 <!-- search -->

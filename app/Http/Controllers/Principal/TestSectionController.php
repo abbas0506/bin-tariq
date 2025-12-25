@@ -20,7 +20,7 @@ class TestSectionController extends Controller
         $sectionIds = $test->testAllocations->pluck('section_id')->unique()->toArray();
         $sections = Section::whereIn('id', $sectionIds)->get();
 
-        return view('principal.test-sections.index', compact('test', 'sections'));
+        return view('test-sections.index', compact('test', 'sections'));
     }
 
     /**

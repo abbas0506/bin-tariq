@@ -1,18 +1,18 @@
-@extends('layouts.principal')
+@extends('layouts.app')
 @section('page-content')
     <h2>
         Tasks # {{ $task->id }}</h2>
     <div class="bread-crumb">
         <a href="/">Home</a>
         <div>/</div>
-        <a href="{{ route('principal.tasks.index') }}">Tasks</a>
+        <a href="{{ route('tasks.index') }}">Tasks</a>
         <div>/</div>
         <div>Edit</div>
     </div>
 
     <div class="text-right">
         <div class="flex w-8 h-8 rounded-full border justify-center items-center">
-            <a href="{{ route('principal.tasks.show', $task) }}"><i class="bi-x text-slate-600"></i></a>
+            <a href="{{ route('tasks.show', $task) }}"><i class="bi-x text-slate-600"></i></a>
         </div>
 
     </div>
@@ -28,7 +28,7 @@
 
     <div class="md:w-4/5 mx-auto bg-white md:p-8 p-4 rounded border mt-3">
         <h2> <i class="bi-calendar-event text-slate-500 mr-1"></i> Task Info</h2>
-        <form action="{{ route('principal.tasks.update', $task) }}" method='post' class="w-full grid gap-6 mt-5"
+        <form action="{{ route('tasks.update', $task) }}" method='post' class="w-full grid gap-6 mt-5"
             onsubmit="return validate(event)">
             @csrf
             @method('PUT')

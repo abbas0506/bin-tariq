@@ -19,7 +19,7 @@ class TaskController extends Controller
     {
         //
         $tasks = Task::all();
-        return view('principal.tasks.index', compact('tasks'));
+        return view('tasks.index', compact('tasks'));
     }
 
     /**
@@ -29,7 +29,7 @@ class TaskController extends Controller
     {
         //
         $users = User::all();
-        return view('principal.tasks.create', compact('users'));
+        return view('tasks.create', compact('users'));
     }
 
     /**
@@ -70,7 +70,7 @@ class TaskController extends Controller
                 ]);
             }
             DB::commit();
-            return redirect()->route('principal.tasks.index')->with('success', 'Successfully created');
+            return redirect()->route('tasks.index')->with('success', 'Successfully created');
         } catch (Exception $e) {
             DB::rollBack();
             return redirect()->back()->withErrors($e->getMessage());
@@ -85,7 +85,7 @@ class TaskController extends Controller
     {
         //
         $task = Task::findOrFail($id);
-        return view('principal.tasks.show', compact('task'));
+        return view('tasks.show', compact('task'));
     }
 
     /**
@@ -94,7 +94,7 @@ class TaskController extends Controller
     public function edit(Task $task)
     {
         //
-        return view('principal.tasks.edit', compact('task'));
+        return view('tasks.edit', compact('task'));
     }
 
     /**
@@ -111,7 +111,7 @@ class TaskController extends Controller
         $model = Task::findOrFail($id);
         try {
             $model->update($request->all());
-            return redirect()->route('principal.tasks.index')->with('success', 'Successfully updated');
+            return redirect()->route('tasks.index')->with('success', 'Successfully updated');
         } catch (Exception $ex) {
             return redirect()->back()->withErrors($ex->getMessage());
         }
@@ -125,7 +125,7 @@ class TaskController extends Controller
         //
         try {
             $task->delete();
-            return redirect()->route('principal.tasks.index')->with('success', 'Successfully deleted');
+            return redirect()->route('tasks.index')->with('success', 'Successfully deleted');
         } catch (Exception $e) {
             return redirect()->back()->withErrors($e->getMessage());
             // something went wrong

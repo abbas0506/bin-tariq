@@ -18,7 +18,7 @@ class VoucherController extends Controller
     {
         //
         $vouchers = Voucher::all();
-        return view('principal.vouchers.index', compact('vouchers'));
+        return view('vouchers.index', compact('vouchers'));
     }
 
     /**
@@ -28,7 +28,7 @@ class VoucherController extends Controller
     {
         //
         $sections = Section::all();
-        return view('principal.vouchers.create', compact('sections'));
+        return view('vouchers.create', compact('sections'));
     }
 
     /**
@@ -71,7 +71,7 @@ class VoucherController extends Controller
             }
 
             DB::commit();
-            return redirect()->route('principal.vouchers.index')->with('success', 'Successfully created');
+            return redirect()->route('vouchers.index')->with('success', 'Successfully created');
         } catch (Exception $e) {
             DB::rollBack();
             return redirect()->back()->withErrors($e->getMessage());
@@ -87,7 +87,7 @@ class VoucherController extends Controller
         //
         $voucher = Voucher::findOrFail($id);
         $sections = Section::all();
-        return view('principal.vouchers.show', compact('voucher', 'sections'));
+        return view('vouchers.show', compact('voucher', 'sections'));
     }
 
     /**
@@ -98,7 +98,7 @@ class VoucherController extends Controller
         //
         $voucher = Voucher::findOrFail($id);
         $sections = Section::all();
-        return view('principal.vouchers.edit', compact('voucher', 'sections'));
+        return view('vouchers.edit', compact('voucher', 'sections'));
     }
 
     /**
@@ -118,7 +118,7 @@ class VoucherController extends Controller
                 'name' => $request->name,
                 'due_date' => $request->due_date,
             ]);
-            return redirect()->route('principal.vouchers.show', $voucher)->with('success', 'Successfully updated');
+            return redirect()->route('vouchers.show', $voucher)->with('success', 'Successfully updated');
         } catch (Exception $e) {
             return redirect()->back()->withErrors($e->getMessage());
             // something went wrong
@@ -134,7 +134,7 @@ class VoucherController extends Controller
         $voucher = Voucher::findOrFail($id);
         try {
             $voucher->delete();
-            return redirect()->route('principal.vouchers.index')->with('success', 'Successfully deleted');
+            return redirect()->route('vouchers.index')->with('success', 'Successfully deleted');
         } catch (Exception $e) {
             return redirect()->back()->withErrors($e->getMessage());
             // something went wrong

@@ -1,10 +1,10 @@
-@extends('layouts.principal')
+@extends('layouts.app')
 @section('page-content')
     <h2>New Test</h2>
     <div class="bread-crumb">
         <a href="/">Home</a>
         <div>/</div>
-        <a href="{{ route('principal.tests.index') }}">Assessment</a>
+        <a href="{{ route('tests.index') }}">Assessment</a>
         <div>/</div>
         <div>New</div>
     </div>
@@ -18,8 +18,7 @@
         @endif
 
         <h2>Test Info.</h2>
-        <form action="{{ route('principal.tests.store') }}" method='post' class="grid gap-8 w-full"
-            onsubmit="return validate(event)">
+        <form action="{{ route('tests.store') }}" method='post' class="grid gap-8 w-full" onsubmit="return validate(event)">
             @csrf
             <div class="grid md:grid-cols-2 gap-3">
                 <div class="md:col-span-full">

@@ -1,10 +1,10 @@
-@extends('layouts.principal')
+@extends('layouts.app')
 @section('page-content')
     <h2>New Task</h2>
     <div class="bread-crumb">
         <a href="/">Home</a>
         <div>/</div>
-        <a href="{{ route('principal.tasks.index') }}">Tasks</a>
+        <a href="{{ route('tasks.index') }}">Tasks</a>
         <div>/</div>
         <div>New</div>
     </div>
@@ -16,8 +16,7 @@
         @else
             <x-message></x-message>
         @endif
-        <form action="{{ route('principal.tasks.store') }}" method='post' class="w-full grid gap-6"
-            onsubmit="return validate(event)">
+        <form action="{{ route('tasks.store') }}" method='post' class="w-full grid gap-6" onsubmit="return validate(event)">
             @csrf
             <div class="grid md:grid-cols-2 gap-3">
                 <div class="md:col-span-2">

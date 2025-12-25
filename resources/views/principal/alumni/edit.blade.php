@@ -1,4 +1,4 @@
-@extends('layouts.principal')
+@extends('layouts.app')
 
 @section('page-content')
     <style>
@@ -51,7 +51,7 @@
                 <div class="bread-crumb">
                     <a href="{{ url('/') }}">Dashboard</a>
                     <div>/</div>
-                    <a href="{{ route('principal.alumni.index') }}">Alumni</a>
+                    <a href="{{ route('alumni.index') }}">Alumni</a>
                     <div>/</div>
                     <div>{{ $alumni->id }}</div>
                     <div>/</div>
@@ -67,7 +67,7 @@
         @endif
 
         <div class="w-full md:w-4/5 bg-slate-100 mx-auto p-8 mt-8 shadow-lg">
-            <form action="{{ route('principal.alumni.update', $alumni) }}" method="post" enctype="multipart/form-data">
+            <form action="{{ route('alumni.update', $alumni) }}" method="post" enctype="multipart/form-data">
                 @csrf
                 @method('PATCH')
                 <div class="photo-upload-wrapper">

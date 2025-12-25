@@ -31,7 +31,7 @@ class AssignmentController extends Controller
         $users = user::whereDoesntHave('assignments', function ($q) use ($taskId) {
             $q->where('task_id', $taskId);
         })->get();
-        return view('principal.tasks.assignments.create', compact('task', 'users'));
+        return view('tasks.assignments.create', compact('task', 'users'));
     }
 
     /**
@@ -50,7 +50,7 @@ class AssignmentController extends Controller
                 'status' => 0,
             ]); // user IDs
 
-            return redirect()->route('principal.tasks.show', $task)->with('success', "Successfully updated");
+            return redirect()->route('tasks.show', $task)->with('success', "Successfully updated");
         } catch (Exception $e) {
             return redirect()->back()->withErrors($e->getMessage());
             // something went wrong

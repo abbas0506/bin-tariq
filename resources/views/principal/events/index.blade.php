@@ -1,4 +1,4 @@
-@extends('layouts.principal')
+@extends('layouts.app')
 @section('page-content')
     <div class="custom-container">
         <!-- Title     -->
@@ -28,7 +28,7 @@
                     <i class="bx  bx-search absolute top-2 right-2"></i>
                 </div>
                 <div class="">
-                    <a href="{{ route('principal.events.create') }}"
+                    <a href="{{ route('events.create') }}"
                         class="fixed w-12 h-12 bottom-4 right-4 rounded-full btn-blue flex items-center justify-center"><i
                             class="bi bi-plus text-xl"></i></a>
                 </div>
@@ -58,9 +58,9 @@
                                     @endif
                                 </td>
                                 <td>
-                                    <a href="{{ route('principal.events.edit', $event) }}"
+                                    <a href="{{ route('events.edit', $event) }}"
                                         class="btn-green rounded-full btn-sm">Edit</a>
-                                    <form action="{{ route('principal.events.destroy', $event) }}" method="POST"
+                                    <form action="{{ route('events.destroy', $event) }}" method="POST"
                                         style="display:inline-block;">
                                         @csrf @method('DELETE')
                                         <button class="btn-red btn-sm rounded-full"

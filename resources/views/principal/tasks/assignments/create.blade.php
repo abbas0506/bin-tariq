@@ -1,4 +1,4 @@
-@extends('layouts.principal')
+@extends('layouts.app')
 @section('page-content')
     <h1>Tasks</h1>
     <div class="bread-crumb">
@@ -39,7 +39,7 @@
                         <td>{{ $loop->index + 1 }}</td>
                         <td class="text-left">{{ $user->profile->name }}</td>
                         <td class="text-right">
-                            <form action="{{ route('principal.task.assignments.store', [$task]) }}" method='post'>
+                            <form action="{{ route('task.assignments.store', [$task]) }}" method='post'>
                                 @csrf
                                 <input type="hidden" name="user_id" value="{{ $user->id }}">
                                 <button type="submit">

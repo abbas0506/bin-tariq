@@ -28,7 +28,7 @@ class VoucherPayerController extends Controller
             ->with('student') // optional: eager load student
             ->get();
 
-        return view('principal.vouchers.payers.index', compact('voucher', 'section', 'fees'));
+        return view('vouchers.payers.index', compact('voucher', 'section', 'fees'));
     }
 
     /**
@@ -82,7 +82,7 @@ class VoucherPayerController extends Controller
         try {
             $fee = Fee::findOrFail($id);
             $fee->delete();
-            return redirect()->route('principal.voucher.section.payers.index', [$voucherId, $sectionId])->with('success', 'Successfully deleted');
+            return redirect()->route('voucher.section.payers.index', [$voucherId, $sectionId])->with('success', 'Successfully deleted');
         } catch (Exception $e) {
             return redirect()->back()->withErrors($e->getMessage());
             // something went wrong
@@ -100,7 +100,7 @@ class VoucherPayerController extends Controller
                 $query->where('voucher_id', $voucherId);
             })
             ->get();
-        return view('principal.vouchers.payers.import', compact('voucher', 'section', 'students'));
+        return view('vouchers.payers.import', compact('voucher', 'section', 'students'));
     }
     public function postImport(Request $request, $voucherId, $sectionId)
     {
@@ -126,7 +126,7 @@ class VoucherPayerController extends Controller
 
                 ]);
             }
-            return redirect()->route('principal.voucher.section.payers.index', [$voucherId, $sectionId])->with('success', 'Successfully imported!');
+            return redirect()->route('voucher.section.payers.index', [$voucherId, $sectionId])->with('success', 'Successfully imported!');
         } catch (Exception $e) {
             return redirect()->back()->withErrors($e->getMessage());
             // something went wrong

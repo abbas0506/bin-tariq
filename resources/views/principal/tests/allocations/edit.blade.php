@@ -1,10 +1,10 @@
-@extends('layouts.principal')
+@extends('layouts.app')
 @section('page-content')
     <h2>Edit Test</h2>
     <div class="bread-crumb">
         <a href="/">Home</a>
         <div>/</div>
-        <a href="{{ route('principal.tests.index') }}">Tests</a>
+        <a href="{{ route('tests.index') }}">Tests</a>
         <div>/</div>
         <div>Edit</div>
     </div>
@@ -25,7 +25,7 @@
                     {{ $testAllocation->user->profile->name }}</span></p>
         </div>
 
-        <form action="{{ route('principal.test.allocations.update', [$test, $testAllocation]) }}" method='post'
+        <form action="{{ route('test.allocations.update', [$test, $testAllocation]) }}" method='post'
             class="w-full grid gap-6 mt-6">
             @csrf
             @method('patch')

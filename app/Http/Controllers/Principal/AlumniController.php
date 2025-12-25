@@ -13,7 +13,7 @@ class AlumniController extends Controller
     public function index()
     {
         $alumni = Alumni::latest()->paginate(10);
-        return view('principal.alumni.index', compact('alumni'));
+        return view('alumni.index', compact('alumni'));
     }
 
     public function create()
@@ -38,14 +38,14 @@ class AlumniController extends Controller
         }
 
         Alumni::create($data);
-        return redirect()->route('principal.alumni.index')->with('success', 'Alumni added successfully.');
+        return redirect()->route('alumni.index')->with('success', 'Alumni added successfully.');
     }
 
     public function edit($id)
 
     {
         $alumni = Alumni::findOrFail($id);
-        return view('principal.alumni.edit', compact('alumni'));
+        return view('alumni.edit', compact('alumni'));
     }
 
     public function update(Request $request, $id)
@@ -70,7 +70,7 @@ class AlumniController extends Controller
             }
 
             $alumni->update($data);
-            return redirect()->route('principal.alumni.index')->with('success', 'Alumni updated successfully.');
+            return redirect()->route('alumni.index')->with('success', 'Alumni updated successfully.');
         } catch (Exception $ex) {
             return back()->with('warning', $ex->getMessage());
         }
@@ -84,6 +84,6 @@ class AlumniController extends Controller
         }
 
         $alumni->delete();
-        return redirect()->route('principal.alumni.index')->with('success', 'Alumni deleted.');
+        return redirect()->route('alumni.index')->with('success', 'Alumni deleted.');
     }
 }

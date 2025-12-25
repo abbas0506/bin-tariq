@@ -99,29 +99,29 @@
         <x-message></x-message>
     @endif
     <!-- <section class="w-screen h-screen">
-        <div class="flex flex-col md:flex-row-reverse justify-between items-center px-5 md:px-24 h-full py-16">
-            <div class="flex flex-1 justify-end items-center">
-                <img src="{{ url(asset('images/small/admission-2.png')) }}" alt="student" class="w-64 h-64 md:w-96 md:h-96">
+            <div class="flex flex-col md:flex-row-reverse justify-between items-center px-5 md:px-24 h-full py-16">
+                <div class="flex flex-1 justify-end items-center">
+                    <img src="{{ url(asset('images/small/admission-2.png')) }}" alt="student" class="w-64 h-64 md:w-96 md:h-96">
+
+                </div>
+
+                <div class="flex flex-col flex-1 gap-y-2 justify-center">
+                    <p>2025</p>
+                    <h2 class="text-2xl md:text-4xl font-bold">Admission <span class="text-teal-700"> Open</span></h2>
+                    <p class="text-slate-600 text-sm md:text-lg leading-relaxed mt-4">We are thrilled to welcome ambitious students to our dynamic academic journey, proudly offering FA, Pre-Engineering, and ICS programs.</p>
+                    <a href="{{ url('admission-25') }}">
+                        <div class="button-container">
+                            <button class="px-5 py-2 text-lg font-semibold mt-5 bg-teal-400 hover:bg-teal-600 rounded-full">
+                                Apply Now
+                            </button>
+                            <i class="bi bi-cursor-fill pointer-icon"></i>
+
+                        </div>
+                    </a>
+                </div>
 
             </div>
-
-            <div class="flex flex-col flex-1 gap-y-2 justify-center">
-                <p>2025</p>
-                <h2 class="text-2xl md:text-4xl font-bold">Admission <span class="text-teal-700"> Open</span></h2>
-                <p class="text-slate-600 text-sm md:text-lg leading-relaxed mt-4">We are thrilled to welcome ambitious students to our dynamic academic journey, proudly offering FA, Pre-Engineering, and ICS programs.</p>
-                <a href="{{ url('admission-25') }}">
-                    <div class="button-container">
-                        <button class="px-5 py-2 text-lg font-semibold mt-5 bg-teal-400 hover:bg-teal-600 rounded-full">
-                            Apply Now
-                        </button>
-                        <i class="bi bi-cursor-fill pointer-icon"></i>
-
-                    </div>
-                </a>
-            </div>
-
-        </div>
-    </section> -->
+        </section> -->
     <section class="w-screen h-screen">
         <div class="flex flex-col md:flex-row-reverse justify-between items-center px-5 md:px-24 h-full pt-16">
             <div class="flex flex-1 justify-end items-center">
@@ -143,25 +143,25 @@
         </div>
     </section>
     <!-- <section class="mt-5 md:mt-0">
-        <div class="justify-center w-full bg-teal-50">
-            <div class="grid grid-cols-1 md:grid-cols-2  items-center p-5 md:px-24 gap-5 md:gap-16">
-                <div class="place-items-center md:place-items-start">
-                    <img src="{{ url('images/small/quiz.png') }}" alt="test" class="bg-cover">
-                </div>
-                <div class="">
-                    <h3 class="text-xl md:text-2xl">Self Assessment</h3>
-                    <p class="text-sm md:text-lg mt-1">Self assessment improves your underdtanding about the subject, helps you identify your deficiency areas and gauage your performance. We offer self assessment from grade 9 to 10 </p>
-                    <div class="mt-6">
-                        <a href="{{ url('https://www.exampixel.com/') }}" target="_blank" class="bg-teal-600 hover:bg-teal-800 text-slate-100 rounded-md duration-200 px-6 py-2">
-                            Start Test
-                            <i class="bi-arrow-right"></i>
-                        </a>
+            <div class="justify-center w-full bg-teal-50">
+                <div class="grid grid-cols-1 md:grid-cols-2  items-center p-5 md:px-24 gap-5 md:gap-16">
+                    <div class="place-items-center md:place-items-start">
+                        <img src="{{ url('images/small/quiz.png') }}" alt="test" class="bg-cover">
+                    </div>
+                    <div class="">
+                        <h3 class="text-xl md:text-2xl">Self Assessment</h3>
+                        <p class="text-sm md:text-lg mt-1">Self assessment improves your underdtanding about the subject, helps you identify your deficiency areas and gauage your performance. We offer self assessment from grade 9 to 10 </p>
+                        <div class="mt-6">
+                            <a href="{{ url('https://www.exampixel.com/') }}" target="_blank" class="bg-teal-600 hover:bg-teal-800 text-slate-100 rounded-md duration-200 px-6 py-2">
+                                Start Test
+                                <i class="bi-arrow-right"></i>
+                            </a>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-        </div>
-    </section> -->
+            </div>
+        </section> -->
     <!-- features section -->
     <section id='features' class="md:mt-24 px-4 md:px-24 mt-12">
         <h2 class="text-2xl md:text-4xl text-center">WELCOME TO</h2>

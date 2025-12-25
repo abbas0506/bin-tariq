@@ -1,4 +1,4 @@
-@extends('layouts.principal')
+@extends('layouts.app')
 @section('page-content')
     <h1>Collective Tests</h1>
     <div class="bread-crumb">
@@ -16,7 +16,7 @@
                     oninput="search(event)">
                 <i class="bx  bx-search absolute top-2 right-2"></i>
             </div>
-            <a href="{{ route('principal.vouchers.create') }}"
+            <a href="{{ route('vouchers.create') }}"
                 class="fixed bottom-4 right-4 flex justify-center items-center bg-teal-400 hover:bg-teal-600 hover:cursor-pointer rounded-full w-12 h-12"><i
                     class="bi-plus-lg"></i></a>
         </div>
@@ -43,13 +43,12 @@
                         <td>{{ $loop->index + 1 }}</td>
                         <td class="text-left">
                             @if ($voucher->isOpen())
-                                <a href="{{ route('principal.vouchers.show', $voucher) }}"
-                                    class="link">{{ $voucher->name }}</a>
+                                <a href="{{ route('vouchers.show', $voucher) }}" class="link">{{ $voucher->name }}</a>
                                 <br>
                                 <span>@Rs. {{ $voucher->amount }} <span class="text-slate-400 text-xs">till
                                         {{ $voucher->due_date->format('d-m-Y') }}</span>
                                 @else
-                                    <a href="{{ route('principal.vouchers.show', $voucher) }}">{{ $voucher->name }}</a><br>
+                                    <a href="{{ route('vouchers.show', $voucher) }}">{{ $voucher->name }}</a><br>
                                     <span>@Rs. {{ $voucher->amount }} <span class="text-slate-400 text-xs">till
                                             {{ $voucher->due_date->format('d-m-Y') }}</span>
                             @endif

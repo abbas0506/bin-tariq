@@ -1,4 +1,4 @@
-@extends('layouts.principal')
+@extends('layouts.app')
 @section('page-content')
     <h1>Tasks</h1>
     <div class="bread-crumb">
@@ -16,7 +16,7 @@
                     oninput="search(event)">
                 <i class="bx  bx-search absolute top-2 right-2"></i>
             </div>
-            <a href="{{ route('principal.tasks.create') }}"
+            <a href="{{ route('tasks.create') }}"
                 class="fixed bottom-4 right-4 flex justify-center items-center bg-teal-400 hover:bg-teal-600 hover:cursor-pointer rounded-full w-12 h-12"><i
                     class="bi-plus-lg"></i></a>
         </div>
@@ -51,13 +51,12 @@
                             <td>{{ $loop->index + 1 }}</td>
                             <td class="text-left">
                                 @if ($task->isOpen())
-                                    <a href="{{ route('principal.tasks.show', $task) }}"
-                                        class="link">{{ $task->description }}</a>
+                                    <a href="{{ route('tasks.show', $task) }}" class="link">{{ $task->description }}</a>
                                     <br>
                                     <span class="text-xs text-slate-400">Due date:
                                         {{ $task->due_date->format('d-m-Y') }}</span>
                                 @else
-                                    <a href="{{ route('principal.tasks.show', $task) }}">{{ $task->description }}</a>
+                                    <a href="{{ route('tasks.show', $task) }}">{{ $task->description }}</a>
                                     <br>
                                     <span class="text-xs text-slate-400">Due date:
                                         {{ $task->due_date->format('d-m-Y') }}</span>

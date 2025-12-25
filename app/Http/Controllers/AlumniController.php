@@ -43,6 +43,6 @@ class AlumniController extends Controller
     public function edit($id)
     {
         $alumni = Alumni::findOrFail($id);
-        return view('principal.alumni.edit', compact('alumni'));
+        return view('alumni.edit', compact('alumni'));
     }
 }

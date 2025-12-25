@@ -1,4 +1,4 @@
-@extends('layouts.principal')
+@extends('layouts.app')
 @section('page-content')
     <div class="custom-container">
         <h1>Attendance Register</h1>
@@ -16,7 +16,7 @@
             @else
                 <x-message></x-message>
             @endif
-            <form method="POST" action="{{ route('principal.attendance-register.store') }}" target="_blank">
+            <form method="POST" action="{{ route('attendance-register.store') }}" target="_blank">
                 @csrf
 
                 <label>Year</label>

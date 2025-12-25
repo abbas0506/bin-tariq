@@ -33,7 +33,7 @@ class AttendanceRegisterController extends Controller
             12 => 'December',
         ];
 
-        return view('principal.attendance-register.index', compact('years', 'months'));
+        return view('attendance-register.index', compact('years', 'months'));
     }
 
 
@@ -87,7 +87,7 @@ class AttendanceRegisterController extends Controller
         });
 
 
-        $pdf = PDF::loadView('principal.attendance-register.pdf', compact(
+        $pdf = PDF::loadView('attendance-register.pdf', compact(
             'userChunks',
             'monthData',
             'year',
