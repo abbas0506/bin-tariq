@@ -13,7 +13,7 @@
         <div class="md:w-4/5 mx-auto bg-white mt-8">
             <input type="date" id='filter_date' class="custom-input-borderless md:w-3/4">
             {{-- filter form  --}}
-            <form action="{{ route('attendance.filter') }}" method="get" id="form_filter">
+            <form action="{{ route('attendance.filter') }}" method="post" id="form_filter">
                 @csrf
                 <input type="hidden" name="date" id="date">
             </form>

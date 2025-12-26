@@ -22,10 +22,10 @@
             <i class="bx  bx-search absolute top-2 right-2"></i>
         </div>
         <div class="flex gap-3">
-            <a href="{{ url('principal/user-schedule') }}"><i class="bi-repeat text-green-700"></i></a>
+            <a href="{{ url('user-schedule') }}"><i class="bi-repeat text-green-700"></i></a>
             <a href="#" onclick="submitForm()"><i class="bi-printer text-cyan-700"></i></a>
             {{-- data clear form --}}
-            <form action="{{ url('principal/class-schedule/clear') }}" method="post" onsubmit="return confirmClear(event)">
+            <form action="{{ url('class-schedule/clear') }}" method="post" onsubmit="return confirmClear(event)">
                 @csrf
                 <button type="submit"><i class="bi-recycle text-orange-600"></i></button>
             </form>

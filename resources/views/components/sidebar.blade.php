@@ -44,19 +44,19 @@
                 </a>
             </li>
             <li>
-                <a href="" class="flex items-center">
+                <a href="{{ route('tests.index') }}" class="flex items-center">
                     <i class="bi bi-file-earmark-text"></i>
                     <span class="ml-3">Assessment</span>
                 </a>
             </li>
             <li>
-                <a href="" class="flex items-center">
+                <a href="{{ route('vouchers.index') }}" class="flex items-center">
                     <i class="bi-receipt"></i>
                     <span class="ml-3">Vouchers</span>
                 </a>
             </li>
             <li>
-                <a href="" class="flex items-center">
+                <a href="{{ route('tasks.index') }}" class="flex items-center">
                     <i class="bi bi-calendar-event"></i>
                     <span class="ml-3">Misc. Tasks </span>
                 </a>

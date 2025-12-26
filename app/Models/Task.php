@@ -23,7 +23,7 @@ class Task extends Model
         return $this->hasMany(Assignment::class);
     }
 
-    public function teachers()
+    public function users()
     {
         return $this->belongsToMany(User::class, 'assignments')
             ->withPivot('status')

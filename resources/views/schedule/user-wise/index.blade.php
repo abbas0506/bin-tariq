@@ -20,7 +20,7 @@
             <i class="bx  bx-search absolute top-2 right-2"></i>
         </div>
         <div class="flex gap-3">
-            <a href="{{ url('principal/class-schedule') }}"><i class="bi-repeat text-green-700"></i></a>
+            <a href="{{ url('class-schedule') }}"><i class="bi-repeat text-green-700"></i></a>
             <a href="#" onclick="setPrintModeAndSubmitForm(0)"><i class="bi-printer text-cyan-700"></i></a>
             <a href="#" onclick="setPrintModeAndSubmitForm(1)"><i class="bi-grid text-cyan-700"></i></a>
         </div>

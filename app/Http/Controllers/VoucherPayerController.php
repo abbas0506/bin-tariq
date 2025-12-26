@@ -1,9 +1,7 @@
 <?php
 
-namespace App\Http\Controllers\Principal;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Models\cr;
 use App\Models\Fee;
 use App\Models\Section;
 use App\Models\Student;

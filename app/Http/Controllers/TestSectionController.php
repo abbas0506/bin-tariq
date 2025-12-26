@@ -1,23 +1,25 @@
 <?php
 
-namespace App\Http\Controllers\Principal;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Models\Student;
-use App\Models\User;
-use Exception;
+use App\Models\Section;
+use App\Models\Test;
 use Illuminate\Http\Request;
 
-class userCardController extends Controller
+class TestSectionController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($id)
     {
         //
-        $users = User::orderBy('bps', 'desc')->get();
-        return view('user-cards.index', compact('users'));
+        $test = Test::findOrFail($id);
+
+        $sectionIds = $test->testAllocations->pluck('section_id')->unique()->toArray();
+        $sections = Section::whereIn('id', $sectionIds)->get();
+
+        return view('test-sections.index', compact('test', 'sections'));
     }
 
     /**
@@ -34,23 +36,6 @@ class userCardController extends Controller
     public function store(Request $request)
     {
         //
-        $request->validate([
-            'ids_array' => 'required',
-        ]);
-
-
-        try {
-            $idsArray = array();
-            $idsArray = $request->ids_array;
-            $users = User::whereIn('id', $idsArray)->get();
-            session([
-                'users' => $users,
-            ]);
-            return redirect()->route('user-cards.print');
-        } catch (Exception $e) {
-            return redirect()->back()->withErrors($e->getMessage());
-            // something went wrong
-        }
     }
 
     /**

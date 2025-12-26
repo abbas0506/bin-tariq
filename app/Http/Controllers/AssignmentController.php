@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Http\Controllers\Principal;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Models\Assignment;
 use App\Models\Task;
 use App\Models\user;

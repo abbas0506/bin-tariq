@@ -1,14 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Principal;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Models\Allocation;
-use App\Models\Grade;
-use App\Models\Result;
 use App\Models\Section;
 use App\Models\Test;
-use App\Models\TestAllocation;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
