@@ -1,11 +1,11 @@
-@extends('layouts.user')
+@extends('layouts.app')
 @section('page-content')
     <div class="custom-container">
         <h1>Class: {{ $section->name }}</h1>
         <div class="bread-crumb">
             <a href="{{ url('/') }}">Dashoboard</a>
             <div>/</div>
-            <a href="{{ route('user.section.attendance.index', $section) }}">Attendance</a>
+            <a href="{{ route('section.attendance.index', $section) }}">Attendance</a>
             <div>/</div>
             <div>Create</div>
         </div>
@@ -26,7 +26,7 @@
 
         <div class="overflow-x-auto bg-white w-full mt-8">
             <h2><i class="bi-clock mr-3"></i>{{ now()->format('d-m-Y') }}</h2>
-            <form action="{{ route('user.section.attendance.store', [$section]) }}" method="post" class="mt-3">
+            <form action="{{ route('section.attendance.store', [$section]) }}" method="post" class="mt-3">
                 @csrf
                 <table class="table-auto borderless w-full">
                     <thead>

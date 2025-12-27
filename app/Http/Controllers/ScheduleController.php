@@ -8,6 +8,7 @@ use App\Models\Section;
 use App\Models\Subject;
 use App\Models\User;
 use Exception;
+use Illuminate\Support\Facades\Auth;
 
 class ScheduleController extends Controller
 {
@@ -25,7 +26,7 @@ class ScheduleController extends Controller
         $section = Section::findOrFail($sectionId);
         $subjects = Subject::all();
         $users = User::whereHas('roles', function ($q) {
-            $q->where('name', 'user');
+            $q->where('name', 'teacher');
         })->get();
         return view('schedule.section-wise.create', compact('section', 'subjects', 'users', 'lecture_no'));
     }
@@ -70,7 +71,7 @@ class ScheduleController extends Controller
         $section = Section::findOrFail($sectionId);
         $subjects = Subject::all();
         $users = User::whereHas('roles', function ($q) {
-            $q->where('name', 'user');
+            $q->where('name', 'teacher');
         })->get();
 
         $allocation = Allocation::findOrFail($allocation_id);

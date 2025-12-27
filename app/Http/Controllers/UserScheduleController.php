@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf as PDF;
 use Exception;
+use Illuminate\Support\Facades\Auth;
 
 class UserScheduleController extends Controller
 {
@@ -16,6 +17,12 @@ class UserScheduleController extends Controller
         $users = User::has('allocations')->get()->sortByDesc('bps'); //get active sections
         $lectures = Lecture::all();
         return view('schedule.user-wise.index', compact('users', 'lectures'));
+    }
+
+    public function show()
+    {
+        $schedules = Auth::user()->allocations;
+        return view('schedule.show', compact('schedules'));
     }
 
     public function print()

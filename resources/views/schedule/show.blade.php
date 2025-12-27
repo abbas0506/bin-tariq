@@ -1,4 +1,4 @@
-@extends('layouts.user')
+@extends('layouts.app')
 @section('page-content')
     <div class="custom-container">
         <h1>My Schedule</h1>

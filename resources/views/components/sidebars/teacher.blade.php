@@ -15,7 +15,7 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('user.my-schedule.index') }}" class="flex items-center">
+                <a href="" class="flex items-center">
                     <i class="bi-clock"></i>
                     <span class="ml-3">Schedule</span>
                 </a>
@@ -23,21 +23,19 @@
 
             @if (Auth::user()->isIncharge())
                 <li>
-                    <a href="{{ route('user.students.index') }}" class="flex items-center">
+                    <a href="" class="flex items-center">
                         <i class="bi-diagram-2"></i>
                         <span class="ml-3">My Class</span>
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('user.section.attendance.index', Auth::user()->sectionAsIncharge()) }}"
-                        class="flex items-center">
+                    <a href="{{ route('attendance.summary') }}" class="flex items-center">
                         <i class="bi-person-check"></i>
                         <span class="ml-3">Attendance</span>
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('user.section.fee.index', Auth::user()->sectionAsIncharge()) }}"
-                        class="flex items-center">
+                    <a href="" class="flex items-center">
                         <i class="bi-currency-rupee"></i>
                         <span class="ml-3">Fee / Dues</span>
                     </a>
@@ -49,12 +47,6 @@
                     <span class="ml-3">Assessment</span>
                 </a>
             </li>
-            {{-- <li>
-                <a href="" class="flex items-center">
-                    <i class="bi bi-file-earmark-text"></i>
-                    <span class="ml-3">Create Test</span>
-                </a>
-            </li> --}}
             <li>
                 <a href="{{ url('signout') }}" class="flex items-center">
                     <i class="bi bi-power"></i>

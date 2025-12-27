@@ -13,6 +13,7 @@ use App\Http\Controllers\PdfController;
 use App\Http\Controllers\ReportCardController;
 use App\Http\Controllers\ResultDetailController;
 use App\Http\Controllers\ScheduleController;
+use App\Http\Controllers\SectionAttendanceController;
 use App\Http\Controllers\SectionCardController;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\SectionResultController;
@@ -89,9 +90,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::delete('voucher/{voucher}/section/{section}/clean', [VoucherPayerController::class, 'postClean'])->name('voucher.section.payers.clean');
 
     Route::get('sections/list/{page}', [SectionController::class, 'list'])->name('sections.list');
-    Route::get('attendance/list', [AttendanceController::class, 'list'])->name('attendance.list');
-    Route::get('attendance/filter', [AttendanceController::class, 'filter'])->name('attendance.filter');
-    Route::resource('section.attendance', AttendanceController::class);
     Route::resource('section.fee', FeeController::class);
     Route::resource('section.students', StudentController::class);
     Route::get('sections/import/{section}', [SectionController::class, 'import'])->name('sections.import');
@@ -114,13 +112,15 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('class-schedule/post', [SectionScheduleController::class, 'post'])->name('class-schedule.post');
     Route::post('class-schedule/clear', [SectionScheduleController::class, 'clear']);
     Route::get('user-schedule', [UserScheduleController::class, 'index'])->name('user-schedule');
+    Route::get('user-schedule/view', [UserScheduleController::class, 'show'])->name('user-schedule.show');
     Route::get('user-schedule/print', [UserScheduleController::class, 'print'])->name('user-schedule.print');
     Route::post('user-schedule/post', [UserScheduleController::class, 'post'])->name('user-schedule.post');
 
     // attendance
-    Route::resource('attendance', AttendanceController::class);
-    Route::post('attendances/filter', [AttendanceController::class, 'filter'])->name('attendance.filter');
-    Route::post('attendances/clear', [AttendanceController::class, 'clear'])->name('attendance.clear');
+    Route::get('attendance/summary', [SectionAttendanceController::class, 'summary'])->name('attendance.summary');
+    Route::get('attendance/filter', [SectionAttendanceController::class, 'filter'])->name('attendance.filter');
+    Route::post('attendances/filter', [SectionAttendanceController::class, 'filter'])->name('attendance.filter');
+    Route::resource('section.attendance', SectionAttendanceController::class);
 
     // assessment
     Route::resource('tests', CollectiveTestController::class);
@@ -148,11 +148,6 @@ Route::middleware(['auth'])->group(function () {
 
     Route::group(['prefix' => 'principal', 'as' => 'principal.', 'middleware' => ['role:principal']], function () {
         Route::get('/', [PrincipalDashboardController::class, 'index']);
-
-
-
-
-
         Route::resource('user-cards', userCardController::class);
         Route::get('users-cards/print', [PrincipalPdfController::class, 'printuserCards'])->name('user-cards.print');
 
@@ -168,9 +163,6 @@ Route::middleware(['auth'])->group(function () {
         Route::get('sections/{section}/print/attendance-list', [ControllersPdfController::class, 'printAttendanceList'])->name('sections.print.attendanceList');
         Route::get('sections/{section}/print/student-detail', [PdfController::class, 'printStudentDetail'])->name('sections.print.studentDetail');
         Route::get('sections/{section}/print/orphan-list', [PdfController::class, 'printOrphanList'])->name('sections.print.orphanList');
-
-        Route::resource('attendance-register', AttendanceRegisterController::class);
-        Route::get('attendanceByDate/{section}/{date}', [AttendanceController::class, 'attendanceByDate'])->name('attendance.byDate');
     });
 
     Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => ['auth', 'role:user']], function () {
@@ -185,12 +177,6 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('section.attendance', userAttendanceController::class);
         Route::resource('section.fee', FeeController::class);
         Route::resource('tasks', userTaskController::class);
-    });
-    Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'role:admin']], function () {
-        Route::get('/', [DashboardController::class, 'index']);
-        Route::resource('attendances', AdminAttendanceController::class);
-        Route::resource('fees', AdminFeeController::class);
-        Route::resource('salaries', AdminFeeController::class);
     });
 
     Route::group(['prefix' => 'shared', 'as' => 'shared.', 'middleware' => ['role:user|admin']], function () {

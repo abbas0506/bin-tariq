@@ -14,20 +14,31 @@
                 </a>
             </li>
             <li>
+                <a href="{{ route('users.index') }}" class="flex items-center">
+                    <i class="bi bi-person-circle"></i>
+                    <span class="ml-3">Users</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('subjects.index') }}" class="flex items-center">
+                    <i class="bx-book"></i>
+                    <span class="ml-3">Subjects</span>
+                </a>
+            </li>
+            <li>
                 <a href="{{ route('sections.index') }}" class="flex items-center">
                     <i class="bi bi-diagram-3"></i>
                     <span class="ml-3">Classes</span>
                 </a>
             </li>
             <li>
-                <!-- <a href="{{ route('section.lecture.schedule.index', [0, 0]) }}" class="flex items-center"> -->
                 <a href="{{ route('class-schedule') }}" class="flex items-center">
                     <i class="bi-clock"></i>
                     <span class="ml-3">Schedule</span>
                 </a>
             </li>
             <li>
-                <a href="{{ route('attendance.index') }}" class="flex items-center">
+                <a href="{{ route('attendance.summary') }}" class="flex items-center">
                     <i class="bi bi-person-check"></i>
                     <span class="ml-3">Attendance</span>
                 </a>

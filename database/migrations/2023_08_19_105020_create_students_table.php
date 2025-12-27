@@ -13,14 +13,14 @@ return new class extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
             $table->id();
-            $table->string('photo', 50)->nullable();
             $table->string('name', 50);
             $table->string('father_name', 50)->nullable();
-            $table->string('bform', 15);
+            $table->string('bform', 15)->nullable();
             $table->string('gender', 1)->default('m');
             $table->string('phone', 16)->nullable();
             $table->string('address', 100)->nullable();
             $table->date('dob')->nullable();
+            $table->string('photo', 50)->nullable();
 
             $table->foreignId('section_id')->constrained()->cascadeOnDelete();
             $table->string('rollno');

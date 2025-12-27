@@ -66,9 +66,10 @@ class User extends Authenticatable
     }
     public function sectionAsIncharge()
     {
-        $sectionId = $this->allocations->where('lecture_no', 1)->value('section_id');
-        $section = Section::find($sectionId);
-        return $section;
+        $sectionIds = $this->allocations->where('lecture_no', 1)->pluck('section_id');
+        $sections = Section::whereIn('id', $sectionIds)->get();
+        if ($sections) return $sections;
+        return collect();
     }
     public function tasks()
     {

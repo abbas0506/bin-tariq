@@ -27,8 +27,8 @@ class StudentController extends Controller
         $request->validate([
             'name' => 'required',
             'father_name' => 'nullable|string',
-            'bform' => 'required|string',
-            'phone' => 'required|string',
+            'bform' => 'nullable|string',
+            'phone' => 'nullable|string',
             'rollno' => 'required|numeric',
             'fee' => 'required|numeric',
         ]);

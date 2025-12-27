@@ -11,6 +11,12 @@ class AttendancePolicy
     /**
      * Determine whether the user can view any models.
      */
+    public function viewSummary(User $user): bool
+    {
+        //
+        return $user->hasAnyRole(['principal', 'admin', 'teacher']);
+    }
+
     public function viewAny(User $user): bool
     {
         //

@@ -5,7 +5,7 @@
         <div class="bread-crumb">
             <a href="{{ url('/') }}">Dashoboard</a>
             <div>/</div>
-            <a href="{{ route('attendance.index') }}">Attendance</a>
+            <a href="{{ route('section.attendance.index', $section) }}">Attendance</a>
             <div>/</div>
             <div>History</div>
         </div>
@@ -21,7 +21,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($student->attendances->where('status', 0) as $attendance)
+                    @foreach ($attendances as $attendance)
                         <tr class="tr">
                             <td>{{ $loop->index + 1 }}</td>
                             <td class="text-left">{{ $attendance->created_at->format('d-m-Y') }}</td>
@@ -33,7 +33,7 @@
 
         </div>
         <div class="text-center mt-8">
-            <a href="{{ route('attendance.index') }}" class="btn-blue rounded py-2 px-5">Close</a>
+            <a href="{{ route('section.attendance.index', $section) }}" class="btn-blue rounded py-2 px-5">Close</a>
         </div>
     </div>
 @endsection

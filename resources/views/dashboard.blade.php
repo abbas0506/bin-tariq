@@ -23,7 +23,7 @@
                 <i class="bi bi-layers text-green-600"></i>
             </div>
         </a>
-        <a href="{{ route('attendance.list') }}" class="pallet-box">
+        <a href="{{ route('attendance.summary') }}" class="pallet-box">
             <div class="flex-1">
                 <div class="title">Attendance
                     @if ($attendances->count())
