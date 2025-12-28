@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Models\Student;
 use App\Models\TestAllocation;
 use Exception;
@@ -26,7 +25,7 @@ class ImportStudentController extends Controller
 
         //send only missing students list that needs to be included for results
 
-        return view('user.results.import-students', compact('testAllocation', 'missingStudents'));
+        return view('tests.test-allocations.import', compact('testAllocation', 'missingStudents'));
     }
 
     /**
@@ -62,7 +61,7 @@ class ImportStudentController extends Controller
                 ]);
             }
             DB::commit();
-            return redirect()->route('user.test-allocation.results.index', $testAllocation)->with('success', 'Successfully imported');
+            return redirect()->route('test.test-allocations.show', [$testAllocation->test, $testAllocation])->with('success', 'Successfully imported');
         } catch (Exception $e) {
             DB::rollBack();
             return redirect()->back()->withErrors($e->getMessage());

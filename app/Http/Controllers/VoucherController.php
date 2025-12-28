@@ -26,7 +26,7 @@ class VoucherController extends Controller
     public function create()
     {
         //
-        $sections = Section::all();
+        $sections = Section::whereHas('students')->get();
         return view('vouchers.create', compact('sections'));
     }
 

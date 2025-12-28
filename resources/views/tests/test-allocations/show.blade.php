@@ -4,19 +4,19 @@
     <div class="bread-crumb">
         <a href="{{ url('/') }}">Home</a>
         <div>/</div>
-        <a href="{{ route('user.tests.index') }}">Tests</a>
+        <a href="{{ route('tests.index') }}">Tests</a>
         <div>/</div>
-        <a href="{{ route('user.test.test-allocations.index', $testAllocation->test) }}">Subjects</a>
+        <a href="{{ route('test.test-allocations.index', [$testAllocation->test, $testAllocation]) }}">Subjects</a>
         <div>/</div>
-        <div>Results</div>
+        <div>{{ $testAllocation->subject->short_name }}</div>
+
     </div>
 
     <div class="md:w-4/5 mx-auto flex justify-between flex-wrap mt-6 bg-white md:p-8 p-4 rounded border gap-3">
         <div class="flex-1 text-slate-400 text-sm ">
             <h2>{{ $testAllocation->subject->name }} - {{ $testAllocation->section->name }}</h2>
-            <span>{{ $testAllocation->user->profile->name }}</span>
             @if ($testAllocation->result_date)
-                <span>submitted result at: {{ $testAllocation->result_date }}</span>
+                <span>Result submitted at: {{ $testAllocation->result_date }}</span>
             @endif
         </div>
         <div class="flex space-x-3 items-center">
@@ -25,12 +25,16 @@
                 class="flex justify-center items-center w-8 h-8 btn-teal rounded-full text-xs text-white">
                 <i class="bi-printer"></i>
             </a>
+            <a href="{{ route('test-allocation.import.index', $testAllocation) }}"
+                class="flex justify-center items-center btn-green w-8 h-8 btn-teal rounded-full text-xs text-white"><i
+                    class="bi-person-add"></i></a>
+
             @if ($testAllocation->hasBeenSubmitted())
-                <a href="{{ route('test.allocations.edit', [$test, $testAllocation]) }}"
+                <a href="{{ route('test.test-allocations.edit', [$test, $testAllocation]) }}"
                     class="flex justify-center items-center w-8 h-8 btn-blue rounded-full text-xs"><i
                         class="bx  bx-pencil"></i></a>
             @else
-                <form action="{{ route('test.allocations.destroy', [$test, $testAllocation]) }}" method="POST"
+                <form action="{{ route('test.test-allocations.destroy', [$test, $testAllocation]) }}" method="POST"
                     onsubmit="confirmDel(event)" class="w-full">
                     @csrf
                     @method('DELETE')
@@ -45,13 +49,27 @@
 
     <div class="md:w-4/5 mx-auto mt-6 bg-white md:p-8 p-4 rounded border gap-3">
         {{-- search --}}
-        <div class="flex justify-between items-center flex-wrap">
+        <div class="flex justify-end md:justify-between items-center gap-2 flex-wrap">
             <div class="flex relative w-full md:w-1/3">
                 <input type="text" id='searchby' placeholder="Search ..." class="custom-search w-full"
                     oninput="search(event)">
                 <i class="bx  bx-search absolute top-2 right-2"></i>
             </div>
-            <div class="text-slate-500 text-sm">Max. Marks: {{ $testAllocation->max_marks }} </div>
+            @if ($testAllocation->hasBeenSubmitted())
+                <form action="{{ route('test-allocation.unlock', $testAllocation) }}" method="post">
+                    @csrf
+                    @method('patch')
+                    <button type="submit"
+                        class="flex justify-center items-center w-8 h-8 btn-red rounded-full text-sm text-white"><i
+                            class="bi-lock"></i></button>
+                </form>
+            @else
+                @if ($testAllocation->appearingStudents->count())
+                    <a href="{{ route('test-allocation.results.edit', [$testAllocation, 0]) }}"
+                        class="flex justify-center items-center w-8 h-8 btn-sky rounded-full text-sm text-white"><i
+                            class="bx-pencil"></i></a>
+                @endif
+            @endif
         </div>
 
 
@@ -62,8 +80,8 @@
             <x-message></x-message>
         @endif
 
-
-        <div class="overflow-x-auto w-full mt-6">
+        <div class="text-slate-500 text-sm mt-6 text-right">Max. Marks: {{ $testAllocation->max_marks }} </div>
+        <div class="overflow-x-auto w-full mt-2">
             <table class="table-fixed borderless w-full">
                 <thead>
                     <tr>
@@ -84,6 +102,20 @@
                 </tbody>
             </table>
         </div>
+        <!-- dont show final submission if no student -->
+        @if (!$testAllocation->hasBeenSubmitted() && $testAllocation->appearingStudents->count())
+            <div class="md:w-2/3 mx-auto mt-8 text-center">
+                <h3 class="text-red-600">Please note!</h3>
+                <p>Once you have finished result, please make final submission as a last & necessary step. Remember, after
+                    final, the result will be locked </p>
+                <form action="{{ route('test-allocation.lock', $testAllocation) }}" method="post"
+                    class="mt-6 text-center">
+                    @csrf
+                    @method('patch')
+                    <button type="submit" class="btn-red rounded p-2 px-5 text-sm">Make Final Submission</button>
+                </form>
+            </div>
+        @endif
     @endsection
     @section('script')
         <script type="text/javascript">

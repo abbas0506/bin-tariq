@@ -29,7 +29,7 @@
 
                 @if ($test->is_open)
                     {{-- new allocation --}}
-                    <a href="{{ route('test.allocations.create', $test) }}"
+                    <a href="{{ route('test.test-allocations.create', $test) }}"
                         class="flex justify-center items-center w-8 h-8 btn-teal rounded-full text-xs"><i
                             class="bi-plus-lg text-blue-600 text-white"></i></a>
                     {{-- test edit button --}}
@@ -117,7 +117,8 @@
                         <tr class="tr">
                             <td>{{ $loop->index + 1 }}</td>
                             <td class="text-left">
-                                <a href="{{ route('test.allocations.show', [$test, $testAllocation]) }}" class="link">
+                                <a href="{{ route('test.test-allocations.show', [$test, $testAllocation]) }}"
+                                    class="link">
                                     {{ $testAllocation->subject->short_name }} -
                                     {{ $testAllocation->section->name }}
                                     @if ($testAllocation->result_date)
@@ -133,13 +134,13 @@
                                     <form action="{{ route('test-allocation.unlock', $testAllocation) }}" method='post'>
                                         @csrf
                                         @method('patch')
-                                        <button type="submit"><i class="bi-lock text-red-500 font-bold"></i></button>
+                                        <button type="submit"><i class="bi-check text-green-600 font-bold"></i></button>
                                     </form>
                                 @else
                                     <form action="{{ route('test-allocation.lock', $testAllocation) }}" method='post'>
                                         @csrf
                                         @method('patch')
-                                        <button type="submit"><i class="bi-unlock text-green-600 "></i></button>
+                                        <button type="submit"><i class="bi-question text-red-600 "></i></button>
                                     </form>
                                 @endif
                             </td>

@@ -8,7 +8,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class CollectiveTestController extends Controller
+class TestController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -28,7 +28,7 @@ class CollectiveTestController extends Controller
     public function create()
     {
         //
-        $sections = Section::all();
+        $sections = Section::whereHas('students')->get();
         return view('tests.create', compact('sections'));
     }
 

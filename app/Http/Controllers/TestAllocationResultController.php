@@ -1,10 +1,7 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Models\Allocation;
-use App\Models\Test;
 use App\Models\TestAllocation;
 use Exception;
 use Illuminate\Http\Request;
@@ -19,12 +16,7 @@ class TestAllocationResultController extends Controller
     public function index($id)
     {
         //
-        $testAllocation = TestAllocation::with('results')->findOrFail($id);
-        // if result already submitted, dont enter edit mode
-        if ($testAllocation->result_date)
-            return view('user.results.show', compact('testAllocation'));
-        else
-            return view('user.results.index', compact('testAllocation'));
+
     }
 
     /**
@@ -50,9 +42,7 @@ class TestAllocationResultController extends Controller
     public function show($testAllocationId, $id)
     {
         //
-        $result = Result::with('student')->findOrFail($id);
-        $testAllocation = TestAllocation::findOrFail($testAllocationId);
-        return view('user.results.show', compact('testAllocation', 'result'));
+
     }
 
     /**
@@ -61,8 +51,8 @@ class TestAllocationResultController extends Controller
     public function edit(string $id)
     {
         //
-        $testAllocation = TestAllocation::with('results')->findOrFail($id);
-        return view('user.results.edit', compact('testAllocation'));
+        $testAllocation = TestAllocation::with('results')->find($id);
+        return view('tests.test-allocations.result', compact('testAllocation'));
     }
 
     /**
@@ -97,7 +87,7 @@ class TestAllocationResultController extends Controller
                 ]);
             }
             DB::commit();
-            return redirect()->route('user.test-allocation.results.index', $testAllocation)->with('success', 'Successfully saved');
+            return redirect()->route('test.test-allocations.show', [$testAllocation->test, $testAllocation])->with('success', 'Successfully saved');
         } catch (Exception $e) {
             db::rollBack();
             return redirect()->back()->withErrors($e->getMessage());
@@ -116,6 +106,21 @@ class TestAllocationResultController extends Controller
             $result = Result::findOrFail($id);
             $result->delete();
             return redirect()->back()->with('success', 'Successfully deleted!');
+        } catch (Exception $e) {
+            return redirect()->back()->withErrors($e->getMessage());
+        }
+    }
+
+    public function lock(Request $request, $id)
+    {
+
+        $testAllocation = TestAllocation::findOrFail($id);
+
+        try {
+            $testAllocation->update([
+                'result_date' => now(),
+            ]);
+            return redirect()->route('test.test.allocations.index', $testAllocation->test)->with('success', 'Successfully deleted!');
         } catch (Exception $e) {
             return redirect()->back()->withErrors($e->getMessage());
         }

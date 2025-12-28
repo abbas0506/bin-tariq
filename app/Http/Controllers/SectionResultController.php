@@ -8,7 +8,7 @@ use App\Models\Test;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf as PDF;
 
-class ResultDetailController extends Controller
+class SectionResultController extends Controller
 {
     /**
      * Display a listing of the resource.

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('page-content')
     <div class="custom-container">
-        <h1>Voucher Payers</h1>
+        <h1>Voucher Payments</h1>
         <div class="bread-crumb">
             <a href="{{ url('/') }}">Dashoboard</a>
             <div>/</div>
@@ -9,25 +9,30 @@
             <div>/</div>
             <a href="{{ route('vouchers.show', $voucher) }}"> #{{ $voucher->id }}</a>
             <div>/</div>
-            <div>C-{{ $section->name }}</div>
+            <div>{{ $section->name }}</div>
         </div>
 
         @if ($voucher->fees()->whereHas('student', fn($q) => $q->where('section_id', $section->id))->count())
-            <div class="grid md:grid-cols-3 md:w-4/5 mx-auto mt-6 bg-white md:p-8 p-4 rounded border">
+            <div class="grid md:grid-cols-3 md:w-4/5 mx-auto mt-6 bg-white md:p-8 p-4 gap-2 rounded border">
+                <h2 class="col-span-full">{{ $voucher->name }} @ <span
+                        class="text-slate-600 text-sm font-normal">{{ $section->name }}</span>
+                </h2>
                 <div class="md:col-span-2 text-slate-400 text-sm">
-                    Cleaning is a destructive process.
-                    It will destory all fee payments from this class against this voucher.
+                    Clean action will destory all fee payments from this class against this voucher.
                     Remove only if you are sure!
                 </div>
-                <div class="text-right">
-                    <form action="{{ route('voucher.section.payers.clean', [$voucher, $section]) }}" method="POST"
+                <div class="flex gap-2 items-center justify-end">
+                    <form action="{{ route('voucher.section.payments.clean', [$voucher, $section]) }}" method="POST"
                         onsubmit="confirmClean(event)">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn-red rounded px-5 py-2">
-                            <i class="bi-trash3 text-white"></i> Clean All
+                        <button type="submit" class="btn-red rounded">
+                            <i class="bi-trash3 text-white"></i>
                         </button>
                     </form>
+                    <a href="{{ route('voucher.section.payments.import', [$voucher, $section]) }}"
+                        class="btn-blue rounded"><i class="bi-person-add text-white"></i>
+                    </a>
                 </div>
             </div>
         @endif
@@ -40,9 +45,7 @@
                     <i class="bx  bx-search absolute top-2 right-2"></i>
                 </div>
                 <div>
-                    <a href="{{ route('voucher.section.payers.import', [$voucher, $section]) }}"
-                        class="btn-blue px-5 py-2 rounded"><i class="bi-upload text-white mr-2"></i>
-                        Import</a>
+
                 </div>
             </div>
 
@@ -59,34 +62,56 @@
                     <thead>
                         <tr>
                             <th class="w-8">#</th>
-                            <th class="w-40 text-left">Name</th>
+                            <th class="w-48 text-left">Name</th>
                             <th class="w-6"></th>
+                            <th class="w-16"></th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($fees as $fee)
+                        @foreach ($fees->sortBy('student.rollno') as $fee)
                             <tr class="tr">
                                 <td>{{ $fee->student->rollno }}</td>
-                                <td class="text-left"><a href="" class="link">{{ $fee->student->name }}</a>
+                                <td class="text-left"><a
+                                        href="{{ route('voucher.section.payments.show', [$voucher, $section, $fee->student]) }}"
+                                        class="link">
+                                        {{ $fee->student->name }}</a>
                                     <br>
                                     <span class="text-slate-400 text-xs">{{ $fee->student->father_name }}</span>
                                 </td>
+
                                 <td>
-                                    <div class="flex items-center justify-center">
+                                    <div class="flex items-center justify-center space-x-2 rounded">
+
                                         @if (!$fee->status)
                                             <form
-                                                action="{{ route('voucher.section.payers.destroy', [$voucher, $section, $fee]) }}"
+                                                action="{{ route('voucher.section.payments.destroy', [$voucher, $section, $fee]) }}"
                                                 method="POST" onsubmit="return confirmDel(event)">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="bg-transparent p-0 border-0">
+                                                <button type="submit">
                                                     <i class="bi-x text-red-600"></i>
                                                 </button>
                                             </form>
                                         @else
                                             <i class="bi-x text-red-300"></i>
                                         @endif
+                                        <a href="{{ route('voucher.section.payments.edit', [$voucher, $section, $fee]) }}"><i
+                                                class="bx-pencil text-sm text-green-600"></i></a>
                                     </div>
+                                </td>
+                                <td>
+                                    @if (!$fee->status)
+                                        <form action="{{ route('voucher.section.payments.update', [$voucher, 1, $fee]) }}"
+                                            method="POST" onsubmit="return confirmUpdate(event, {{ $fee->amount }})">
+                                            @csrf
+                                            @method('PATCH')
+                                            <button type="submit" class="btn-blue rounded">
+                                                Accept Fee
+                                            </button>
+                                        </form>
+                                    @else
+                                        <i class="bi-check text-green-800"></i>
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach
@@ -110,6 +135,25 @@
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
                 confirmButtonText: 'Yes, remove payer!'
+            }).then((result) => {
+                if (result.value) {
+                    form.submit();
+                }
+            })
+        }
+
+        function confirmUpdate(event, amount) {
+            event.preventDefault(); // prevent form submit
+            var form = event.target; // storing the form
+
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "Fee (" + amount + ") will be paid !",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, accept fee!'
             }).then((result) => {
                 if (result.value) {
                     form.submit();

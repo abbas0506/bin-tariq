@@ -47,7 +47,7 @@ class TestAllocationController extends Controller
             })
             ->get();
 
-        return view('tests.allocations.create', compact('test', 'unallocated'));
+        return view('tests.test-allocations.create', compact('test', 'unallocated'));
     }
 
     /**
@@ -86,7 +86,7 @@ class TestAllocationController extends Controller
         //
         $test = Test::findOrFail($testId);
         $testAllocation = TestAllocation::findOrFail($id);
-        return view('tests.allocations.show', compact('test', 'testAllocation'));
+        return view('tests.test-allocations.show', compact('test', 'testAllocation'));
     }
 
 
@@ -99,7 +99,7 @@ class TestAllocationController extends Controller
         $test = Test::findOrFail($testId);
         $testAllocation = TestAllocation::findOrFail($id);
         $users = User::where('is_active', true)->get();
-        return view('tests.allocations.edit', compact('test', 'testAllocation', 'users'));
+        return view('tests.test-allocations.edit', compact('test', 'testAllocation', 'users'));
     }
 
     /**

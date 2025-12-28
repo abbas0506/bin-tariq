@@ -9,36 +9,22 @@ class Student extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'photo',
         'name',
+        'father_name',
         'bform',
+        'gender',
         'dob',
-        'id_mark',
         'phone',
         'address',
-        'caste',
-        'distinction',
-        'gender',
-        'blood_group',
-        'is_orphan',
-        'father_name',
-        'father_cnic',
+        'photo',
+        'fee',
 
         //academic info
-        'group_id',
         'section_id',
         'rollno',
         'admission_no',
         'admission_date',
-        'score',
 
-        // guardian info
-        'caste',
-        'profession',
-        'income',
-
-        'card_printed',
-        'library_banned',
 
     ];
 

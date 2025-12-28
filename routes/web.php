@@ -3,12 +3,11 @@
 use App\Http\Controllers\AssignmentController;
 use App\Http\Controllers\AuthController;
 
-use App\Http\Controllers\AttendanceController;
-use App\Http\Controllers\CollectiveTestController;
+use App\Http\Controllers\TestController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\FacultyController;
 use App\Http\Controllers\FeeController;
 use App\Http\Controllers\GallaryController;
+use App\Http\Controllers\ImportStudentController;
 use App\Http\Controllers\PdfController;
 use App\Http\Controllers\ReportCardController;
 use App\Http\Controllers\ResultDetailController;
@@ -26,11 +25,12 @@ use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TestPositionController;
 use App\Http\Controllers\TestSectionController;
 use App\Http\Controllers\TestAllocationController;
+use App\Http\Controllers\TestAllocationResultController;
 use App\Http\Controllers\userController;
 use App\Http\Controllers\UserRoleController;
 use App\Http\Controllers\UserScheduleController;
 use App\Http\Controllers\VoucherController;
-use App\Http\Controllers\VoucherPayerController;
+use App\Http\Controllers\VoucherPaymentController;
 use App\Models\Event;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -59,6 +59,7 @@ Route::get('/', function () {
 // Route::view('/', '');
 Route::view('about', 'about');
 Route::view('contact', 'contact');
+Route::view('faculty', 'faculty');
 Route::get('gallary', [GallaryController::class, 'index']);
 
 Route::view('login', 'login');
@@ -71,10 +72,12 @@ Route::view('forgot', 'forgot');
 Route::post('forgot', [AuthController::class, 'forgot']);
 
 Route::post('login', [AuthController::class, 'login']);
+Route::view('change/password', 'change_password');
+Route::post('change/password', [AuthController::class, 'changePassword'])->name('change.password');
+
 
 Route::post('login/as', [AuthController::class, 'loginAs'])->name('login.as');
 Route::get('signout', [AuthController::class, 'signout'])->name('signout');
-Route::resource('faculty', FacultyController::class)->only('index', 'create', 'store');
 
 Route::group(['middleware' => ['auth']], function () {
     Route::get('dashboard', [DashboardController::class, 'index']);
@@ -84,10 +87,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('sections', SectionController::class);
 
     Route::resource('vouchers', VoucherController::class);
-    Route::resource('voucher.section.payers', VoucherPayerController::class);
-    Route::get('voucher/{voucher}/section/{section}/missing/import', [VoucherPayerController::class, 'import'])->name('voucher.section.payers.import');
-    Route::post('voucher/{voucher}/section/{section}/missing/import', [VoucherPayerController::class, 'postImport'])->name('voucher.section.payers.import.post');
-    Route::delete('voucher/{voucher}/section/{section}/clean', [VoucherPayerController::class, 'postClean'])->name('voucher.section.payers.clean');
+    Route::resource('voucher.section.payments', VoucherPaymentController::class);
+    Route::get('voucher/{voucher}/section/{section}/missing/import', [VoucherPaymentController::class, 'import'])->name('voucher.section.payments.import');
+    Route::post('voucher/{voucher}/section/{section}/missing/import', [VoucherPaymentController::class, 'postImport'])->name('voucher.section.payments.import.post');
+    Route::delete('voucher/{voucher}/section/{section}/clean', [VoucherPaymentController::class, 'postClean'])->name('voucher.section.payments.clean');
 
     Route::get('sections/list/{page}', [SectionController::class, 'list'])->name('sections.list');
     Route::resource('section.fee', FeeController::class);
@@ -123,16 +126,21 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('section.attendance', SectionAttendanceController::class);
 
     // assessment
-    Route::resource('tests', CollectiveTestController::class);
+    Route::resource('tests', TestController::class);
     Route::resource('test.sections', TestSectionController::class);
     Route::resource('test.section.results', SectionResultController::class);
-    Route::resource('test.allocations', TestAllocationController::class);
+    Route::resource('test.test-allocations', TestAllocationController::class);
+
+    Route::resource('test-allocation.results', TestAllocationResultController::class);
+    Route::resource('test-allocation.import', ImportStudentController::class);
 
     // lock /unlock
-    Route::patch('test/{id}/lock', [CollectiveTestController::class, 'lock'])->name('test.lock');
-    Route::patch('test/{id}/unlock', [CollectiveTestController::class, 'unlock'])->name('test.unlock');
+    Route::patch('test/{id}/lock', [TestController::class, 'lock'])->name('test.lock');
+    Route::patch('test/{id}/unlock', [TestController::class, 'unlock'])->name('test.unlock');
     Route::patch('test-allocation/{id}/lock', [TestAllocationController::class, 'lock'])->name('test-allocation.lock');
     Route::patch('test-allocation/{id}/unlock', [TestAllocationController::class, 'unlock'])->name('test-allocation.unlock');
+
+
 
     Route::get('test/{t}/section/{s}/result/print', [ResultDetailController::class, 'print'])->name('test.section.result.print');
     Route::get('test/{t}/section/{s}/positions/print', [TestPositionController::class, 'print'])->name('test.section.positions.print');
@@ -147,16 +155,7 @@ Route::group(['middleware' => ['auth']], function () {
 Route::middleware(['auth'])->group(function () {
 
     Route::group(['prefix' => 'principal', 'as' => 'principal.', 'middleware' => ['role:principal']], function () {
-        Route::get('/', [PrincipalDashboardController::class, 'index']);
-        Route::resource('user-cards', userCardController::class);
-        Route::get('users-cards/print', [PrincipalPdfController::class, 'printuserCards'])->name('user-cards.print');
 
-
-        Route::view('change/password', 'change_password');
-        Route::post('change/password', [AuthController::class, 'changePassword'])->name('change.password');
-
-        // Route::resource('users', userController::class);
-        Route::resource('incharges', InchargeController::class);
 
 
         Route::get('sections/{section}/print/phone-list', [PrincipalPdfController::class, 'printPhoneList'])->name('sections.print.phoneList');
@@ -168,15 +167,9 @@ Route::middleware(['auth'])->group(function () {
     Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => ['auth', 'role:user']], function () {
         Route::get('/', [DashboardController::class, 'index']);
         Route::resource('tests', TestController::class);
-        Route::resource('students', userStudentController::class);
         Route::get('student-list/print', [userStudentController::class, 'print'])->name('students.print');
         Route::resource('my-schedule', MyScheduleController::class);
         Route::resource('test.test-allocations', TestAllocationController::class);
-        Route::resource('test-allocation.results', TestAllocationResultController::class);
-        Route::resource('test-allocation.import-students', ImportStudentController::class);
-        Route::resource('section.attendance', userAttendanceController::class);
-        Route::resource('section.fee', FeeController::class);
-        Route::resource('tasks', userTaskController::class);
     });
 
     Route::group(['prefix' => 'shared', 'as' => 'shared.', 'middleware' => ['role:user|admin']], function () {

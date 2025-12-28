@@ -27,7 +27,7 @@
             <x-message></x-message>
         @endif
         <div class="overflow-x-auto bg-white w-full mt-8">
-            <form action="{{ route('voucher.section.payers.import.post', [$voucher, $section]) }}" method="post"
+            <form action="{{ route('voucher.section.payments.import.post', [$voucher, $section]) }}" method="post"
                 onsubmit="return confirmSubmit(event)">
                 @csrf
                 <table class="table-auto borderless w-full">

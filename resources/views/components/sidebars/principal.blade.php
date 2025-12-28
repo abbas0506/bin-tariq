@@ -27,7 +27,7 @@
             </li>
             <li>
                 <a href="{{ route('sections.index') }}" class="flex items-center">
-                    <i class="bi bi-diagram-3"></i>
+                    <i class="bi bi-layers"></i>
                     <span class="ml-3">Classes</span>
                 </a>
             </li>
@@ -44,21 +44,22 @@
                 </a>
             </li>
             <li>
+                <a href="{{ route('vouchers.index') }}" class="flex items-center">
+                    <i class="bi-receipt"></i>
+                    <span class="ml-3">Fee / Dues</span>
+                </a>
+            </li>
+            <li>
                 <a href="{{ route('tests.index') }}" class="flex items-center">
-                    <i class="bi bi-file-earmark-text"></i>
+                    <i class="bi-clipboard-check"></i>
                     <span class="ml-3">Assessment</span>
                 </a>
             </li>
-            <li>
-                <a href="{{ route('vouchers.index') }}" class="flex items-center">
-                    <i class="bi-receipt"></i>
-                    <span class="ml-3">Vouchers</span>
-                </a>
-            </li>
+
             <li>
                 <a href="{{ route('tasks.index') }}" class="flex items-center">
                     <i class="bi bi-calendar-event"></i>
-                    <span class="ml-3">Misc. Tasks </span>
+                    <span class="ml-3">Tasks Control </span>
                 </a>
             </li>
 

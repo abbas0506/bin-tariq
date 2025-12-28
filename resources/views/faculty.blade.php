@@ -10,12 +10,12 @@
             <div class="max-w-7xl mx-auto px-4 py-20 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
                 <div>
                     <h1 class="text-3xl md:text-4xl font-bold text-teal-700 mb-6">
-                        Welcome to <span class="text-slate-600">Our School</span>
+                        Highly Skilled <span class="text-slate-600">Faculty</span>
                     </h1>
                     <p class="text-lg leading-relaxed text-gray-700">
-                        Our school fosters a learning environment where every student is inspired to achieve excellence.
-                        With passionate educators, modern labs, and a well-equipped library, we ensure holistic development
-                        for all.
+                        We have highly skilled faculty who known the necessities and age dependant social and mental
+                        requirements of your kids.
+                        We follow activity based teaching method as it is an accepted concept of modern education.
                     </p>
                 </div>
                 <div class="relative">

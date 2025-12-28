@@ -55,7 +55,7 @@
                 @foreach ($sections as $section)
                     <tr class="tr">
                         <td class="text-left text-sm">
-                            <a href="{{ route('voucher.section.payers.index', [$voucher, $section]) }}" class="link">
+                            <a href="{{ route('voucher.section.payments.index', [$voucher, $section]) }}" class="link">
                                 {{ $section->name }}
                             </a>
                         </td>

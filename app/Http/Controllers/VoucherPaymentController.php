@@ -9,11 +9,8 @@ use App\Models\Voucher;
 use Exception;
 use Illuminate\Http\Request;
 
-class VoucherPayerController extends Controller
+class VoucherPaymentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index($voucherId, $sectionId)
     {
         //
@@ -32,9 +29,14 @@ class VoucherPayerController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create($voucherId, $feeId)
     {
         //
+        // $voucher = Voucher::find($voucherId);
+        // $fee = Fee::find($feeId);
+        // $student = $fee->student;
+
+        // return view('vouchers.payments.create', compact('voucher', 'student', 'fee'));
     }
 
     /**
@@ -48,27 +50,60 @@ class VoucherPayerController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($id)
+    public function show($voucherId, $sectionId, $studentId)
     {
         //
+        $voucher = Voucher::find($voucherId);
+        $section = Section::find($sectionId);
+        $student = Student::find($studentId);
 
+        return view('vouchers.payments.show', compact('voucher', 'section', 'student'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit()
+    public function edit($voucherId, $sectionId, $feeId)
     {
         //
+        $voucher = Voucher::find($voucherId);
+        $section = Section::find($sectionId);
+        $fee = Fee::find($feeId);
+        $student = $fee->student;
 
+        return view('vouchers.payments.edit', compact('voucher', 'section', 'student', 'fee'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $voucherId, $sectionId, $feeId)
     {
         //
+
+        try {
+            $fee = Fee::find($feeId);
+            $section = Section::find($sectionId);
+            $voucher = Voucher::find($voucherId);
+            if (!$request->amount)
+                $fee->update(
+                    [
+                        'status' => 1,
+                    ]
+                );
+            else {
+                $fee->update(
+                    [
+                        'status' => $request->status,
+                        'amount' => $request->amount
+                    ]
+                );
+            }
+            return redirect()->route('voucher.section.payments.index', [$voucher, $section])->with('success', 'Successfully updated');
+        } catch (Exception $e) {
+            return redirect()->back()->withErrors($e->getMessage());
+            // something went wrong
+        }
     }
 
     /**
