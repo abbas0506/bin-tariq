@@ -26,7 +26,10 @@
         @else
             <x-message></x-message>
         @endif
-        <div class="overflow-x-auto bg-white w-full mt-8">
+
+        <h2 class="mt-8">{{ $student->name }} <br><span
+                class="text-slate-400 font-normal">{{ $student->father_name }}</span></h2>
+        <div class="overflow-x-auto bg-white w-full mt-1">
             <table class="table-auto borderless w-full">
                 <thead>
                     <tr>

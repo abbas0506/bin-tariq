@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('page-content')
-    <h1>Collective Tests</h1>
+    <h1>Fee Vouchers</h1>
     <div class="bread-crumb">
         <a href="{{ url('/') }}">Home</a>
         <div>/</div>
