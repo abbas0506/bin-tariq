@@ -81,8 +81,8 @@
         @endif
     </div>
 
-    @if ($test->is_open)
-        <div class="md:w-4/5 mx-auto mt-6 bg-white md:p-8 p-4 rounded border overflow-auto">
+    <div class="md:w-4/5 mx-auto mt-6 bg-white md:p-8 p-4 rounded border overflow-auto">
+        @if ($test->is_open)
             <!-- search -->
             <div class="flex items-center justify-between flex-wrap gap-4">
                 <div class="flex relative w-full md:w-1/3">
@@ -149,7 +149,23 @@
 
                 </tbody>
             </table>
-    @endif
+        @else
+            <div class="grid md:grid-cols-2 gap-3">
+                @foreach ($sections as $section)
+                    <div class="p-5 rounded bg-slate-100">
+                        <h2>{{ $section->name }}</h2>
+                        <div class="grid gap-[2px] mt-2 text-sm">
+                            <a href="{{ route('section-result', [$test, $section]) }}" class="link"
+                                target="_blank">Section Result</a>
+                            <a href="{{ route('section-positions', [$test, $section]) }}" class="link"
+                                target="_blank">Positions List</a>
+                            <a href="{{ route('report-cards', [$test, $section]) }}" class="link" target="_blank">Report
+                                Cards</a>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        @endif
     </div>
 @endsection
 @section('script')

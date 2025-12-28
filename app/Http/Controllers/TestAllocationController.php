@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Allocation;
+use App\Models\Section;
 use App\Models\User;
 use App\Models\Test;
 use App\Models\TestAllocation;

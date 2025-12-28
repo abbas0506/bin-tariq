@@ -16,8 +16,7 @@ class TestController extends Controller
     public function index()
     {
         //
-        $tests = Test::where('is_open', 1)
-            ->has('testAllocations')
+        $tests = Test::has('testAllocations')
             ->get();
         return view('tests.index', compact('tests'));
     }
@@ -85,7 +84,10 @@ class TestController extends Controller
     {
         //
         $test = Test::findOrFail($id);
-        return view('tests.show', compact('test'));
+        $sectionIds = $test->testAllocations->pluck('section_id')->unique()->toArray();
+        $sections = Section::whereIn('id', $sectionIds)->get();
+
+        return view('tests.show', compact('test', 'sections'));
     }
 
     /**

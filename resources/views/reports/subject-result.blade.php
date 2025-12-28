@@ -83,7 +83,8 @@
                         <!-- calculate percentage -->
                         @php $percentage=round($result->obtained_marks/$testAllocation->max_marks*100,1); @endphp
                         <tr class="">
-                            <td>{{ Number::ordinal($loop->index + 1) }}</td>
+                            {{-- <td>{{ Number::ordinal($loop->index + 1) }}</td> --}}
+                            <td>{{ $loop->index + 1 }}</td>
                             <td class="text-left">{{ ucwords(strtolower($result->student->name)) }} s/o
                                 {{ ucwords(strtolower($result->student->father_name)) }}</td>
                             <td>{{ $result->obtained_marks }}</td>
@@ -98,7 +99,7 @@
             <table class="w-full mt-3">
                 <tbody>
                     <tr>
-                        <td class="text-left text-sm font-bold">Overall Result</td>
+                        <td class="text-left text-sm font-bold">Result Detail</td>
                         <td class="text-right text-sm font-bold">Total Marks: {{ $testAllocation->max_marks }}</td>
                     </tr>
                 </tbody>

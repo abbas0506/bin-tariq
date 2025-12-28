@@ -27,11 +27,6 @@ class Test extends Model
         return $this->belongsToMany(Allocation::class, 'test_allocations', 'test_id', 'allocation_id');
     }
 
-    // public function allocations()
-    // {
-    //     return $this->hasManyThrough(Allocation::class, TestAllocation::class);
-    // }
-
     public function testAllocations()
     {
         return $this->hasMany(TestAllocation::class);

@@ -10,6 +10,7 @@ use App\Http\Controllers\GallaryController;
 use App\Http\Controllers\ImportStudentController;
 use App\Http\Controllers\PdfController;
 use App\Http\Controllers\ReportCardController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ResultDetailController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\SectionAttendanceController;
@@ -65,9 +66,6 @@ Route::get('gallary', [GallaryController::class, 'index']);
 Route::view('login', 'login');
 Route::get('switch/as/{role}', [UserController::class, 'switchAs']);
 
-Route::resource('signup', SignupController::class);
-Route::view('signup-success', 'signup-success');
-
 Route::view('forgot', 'forgot');
 Route::post('forgot', [AuthController::class, 'forgot']);
 
@@ -81,23 +79,20 @@ Route::get('signout', [AuthController::class, 'signout'])->name('signout');
 
 Route::group(['middleware' => ['auth']], function () {
     Route::get('dashboard', [DashboardController::class, 'index']);
+
+    // users
     Route::resource('users', UserController::class);
     Route::resource('user.roles',  UserRoleController::class);
+
+    // subjects
     Route::resource('subjects', SubjectController::class);
     Route::resource('sections', SectionController::class);
 
-    Route::resource('vouchers', VoucherController::class);
-    Route::resource('voucher.section.payments', VoucherPaymentController::class);
-    Route::get('voucher/{voucher}/section/{section}/missing/import', [VoucherPaymentController::class, 'import'])->name('voucher.section.payments.import');
-    Route::post('voucher/{voucher}/section/{section}/missing/import', [VoucherPaymentController::class, 'postImport'])->name('voucher.section.payments.import.post');
-    Route::delete('voucher/{voucher}/section/{section}/clean', [VoucherPaymentController::class, 'postClean'])->name('voucher.section.payments.clean');
-
+    // Classes/Sections
     Route::get('sections/list/{page}', [SectionController::class, 'list'])->name('sections.list');
-    Route::resource('section.fee', FeeController::class);
     Route::resource('section.students', StudentController::class);
     Route::get('sections/import/{section}', [SectionController::class, 'import'])->name('sections.import');
     Route::post('sections/import', [SectionController::class, 'postImport'])->name('sections.import.post');
-
     Route::get('sections/{section}/export', [SectionController::class, 'export'])->name('sections.export');
     Route::post('sections/export', [SectionController::class, 'postExport'])->name('sections.export.post');
     Route::get('sections/{section}/clean', [SectionController::class, 'clean'])->name('sections.clean');
@@ -105,6 +100,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('section/{section}/reset-rollno', [SectionController::class, 'resetRollNo'])->name('sections.reset.rollno');
     Route::post('sections/{section}/clean', [SectionController::class, 'postClean'])->name('sections.clean.post');
 
+    // student cards
     Route::resource('section.cards', SectionCardController::class);
     Route::get('section/cards/{section}/print', [SectionCardController::class, 'print'])->name('section.cards.print');
 
@@ -125,12 +121,18 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('attendances/filter', [SectionAttendanceController::class, 'filter'])->name('attendance.filter');
     Route::resource('section.attendance', SectionAttendanceController::class);
 
+    // Fee
+    Route::resource('vouchers', VoucherController::class);
+    Route::resource('voucher.section.payments', VoucherPaymentController::class);
+    Route::get('voucher/{voucher}/section/{section}/missing/import', [VoucherPaymentController::class, 'import'])->name('voucher.section.payments.import');
+    Route::post('voucher/{voucher}/section/{section}/missing/import', [VoucherPaymentController::class, 'postImport'])->name('voucher.section.payments.import.post');
+    Route::delete('voucher/{voucher}/section/{section}/clean', [VoucherPaymentController::class, 'postClean'])->name('voucher.section.payments.clean');
+
     // assessment
     Route::resource('tests', TestController::class);
     Route::resource('test.sections', TestSectionController::class);
     Route::resource('test.section.results', SectionResultController::class);
     Route::resource('test.test-allocations', TestAllocationController::class);
-
     Route::resource('test-allocation.results', TestAllocationResultController::class);
     Route::resource('test-allocation.import', ImportStudentController::class);
 
@@ -140,42 +142,13 @@ Route::group(['middleware' => ['auth']], function () {
     Route::patch('test-allocation/{id}/lock', [TestAllocationController::class, 'lock'])->name('test-allocation.lock');
     Route::patch('test-allocation/{id}/unlock', [TestAllocationController::class, 'unlock'])->name('test-allocation.unlock');
 
-
-
-    Route::get('test/{t}/section/{s}/result/print', [ResultDetailController::class, 'print'])->name('test.section.result.print');
-    Route::get('test/{t}/section/{s}/positions/print', [TestPositionController::class, 'print'])->name('test.section.positions.print');
-    Route::get('test/{t}/section/{s}/report-cards/print', [ReportCardController::class, 'print'])->name('test.section.report-cards.print');
-
+    // Tasks
     Route::resource('tasks', TaskController::class);
     Route::resource('task.assignments', AssignmentController::class);
-});
 
-
-
-Route::middleware(['auth'])->group(function () {
-
-    Route::group(['prefix' => 'principal', 'as' => 'principal.', 'middleware' => ['role:principal']], function () {
-
-
-
-        Route::get('sections/{section}/print/phone-list', [PrincipalPdfController::class, 'printPhoneList'])->name('sections.print.phoneList');
-        Route::get('sections/{section}/print/attendance-list', [ControllersPdfController::class, 'printAttendanceList'])->name('sections.print.attendanceList');
-        Route::get('sections/{section}/print/student-detail', [PdfController::class, 'printStudentDetail'])->name('sections.print.studentDetail');
-        Route::get('sections/{section}/print/orphan-list', [PdfController::class, 'printOrphanList'])->name('sections.print.orphanList');
-    });
-
-    Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => ['auth', 'role:user']], function () {
-        Route::get('/', [DashboardController::class, 'index']);
-        Route::resource('tests', TestController::class);
-        Route::get('student-list/print', [userStudentController::class, 'print'])->name('students.print');
-        Route::resource('my-schedule', MyScheduleController::class);
-        Route::resource('test.test-allocations', TestAllocationController::class);
-    });
-
-    Route::group(['prefix' => 'shared', 'as' => 'shared.', 'middleware' => ['role:user|admin']], function () {
-        Route::get('test-allocation/{id}/result/print', [SubjectResultController::class, 'print'])->name('test-allocation.result.print');
-        Route::get('test/{t}/section/{s}/result/print', [ResultDetailController::class, 'print'])->name('test.section.result.print');
-        Route::get('test/{t}/section/{s}/positions/print', [TestPositionController::class, 'print'])->name('test.section.positions.print');
-        Route::get('test/{t}/section/{s}/report-cards/print', [ReportCardController::class, 'print'])->name('test.section.report-cards.print');
-    });
+    // Reports
+    Route::get('reports/test-allocations/{s}/result/pdf', [ReportController::class, 'subjectResult'])->name('subject-result');
+    Route::get('reports/tests/{t}/sections/{s}/result/pdf', [ReportController::class, 'sectionResult'])->name('section-result');
+    Route::get('reports/tests/{t}/sections/{s}/positions/pdf', [ReportController::class, 'sectionPositions'])->name('section-positions');
+    Route::get('reports/tests/{t}/sections/{s}/report-cards/pdf', [ReportController::class, 'reportCards'])->name('report-cards');
 });

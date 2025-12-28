@@ -21,7 +21,7 @@
         </div>
         <div class="flex space-x-3 items-center">
             {{-- print button --}}
-            <a href="{{ route('shared.test-allocation.result.print', $testAllocation) }}" target="_blank"
+            <a href="{{ route('subject-result', $testAllocation) }}" target="_blank"
                 class="flex justify-center items-center w-8 h-8 btn-teal rounded-full text-xs text-white">
                 <i class="bi-printer"></i>
             </a>
