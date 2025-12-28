@@ -12,8 +12,6 @@
             <div>Payments</div>
         </div>
 
-
-
         <!-- search -->
         <div class="flex relative w-full md:w-1/3 mt-5">
             <input type="text" id='searchby' placeholder="Search ..." class="custom-search w-full" oninput="search(event)">
