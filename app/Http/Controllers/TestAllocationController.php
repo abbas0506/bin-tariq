@@ -99,7 +99,9 @@ class TestAllocationController extends Controller
         //
         $test = Test::findOrFail($testId);
         $testAllocation = TestAllocation::findOrFail($id);
-        $users = User::where('is_active', true)->get();
+        $users = User::whereHas('roles', function ($q) {
+            $q->where('name', 'teacher');
+        })->get();
         return view('tests.test-allocations.edit', compact('test', 'testAllocation', 'users'));
     }
 
@@ -129,7 +131,7 @@ class TestAllocationController extends Controller
                     'max_marks' => $request->max_marks,
                 ]);
             }
-            return redirect()->route('test.allocations.index', $test)->with('success', 'Successfully created');
+            return redirect()->route('test.test-allocations.index', $test)->with('success', 'Successfully created');
         } catch (Exception $e) {
             return redirect()->back()->withErrors($e->getMessage());
             // something went wrong

@@ -16,6 +16,7 @@ class TestController extends Controller
     public function index()
     {
         //
+        $this->authorize('viewAny', Test::class);
         $tests = Test::has('testAllocations')
             ->get();
         return view('tests.index', compact('tests'));
@@ -27,6 +28,7 @@ class TestController extends Controller
     public function create()
     {
         //
+        $this->authorize('create', Test::class);
         $sections = Section::whereHas('students')->get();
         return view('tests.create', compact('sections'));
     }
@@ -37,6 +39,7 @@ class TestController extends Controller
     public function store(Request $request)
     {
         //
+        $this->authorize('create', Test::class);
         $request->validate([
             'title' => 'required',
             'max_marks' => 'required|numeric',
@@ -84,6 +87,8 @@ class TestController extends Controller
     {
         //
         $test = Test::findOrFail($id);
+        $this->authorize('view', $test);
+
         $sectionIds = $test->testAllocations->pluck('section_id')->unique()->toArray();
         $sections = Section::whereIn('id', $sectionIds)->get();
 
@@ -97,6 +102,8 @@ class TestController extends Controller
     {
         //
         $test = Test::findOrFail($id);
+        $this->authorize('update', $test);
+
         return view('tests.edit', compact('test'));
     }
 
@@ -110,9 +117,10 @@ class TestController extends Controller
             'title' => 'required',
         ]);
 
-        $model = Test::findOrFail($id);
+        $test = Test::findOrFail($id);
+        $this->authorize('update', $test);
         try {
-            $model->update($request->all());
+            $test->update($request->all());
             return redirect()->back()->with('success', 'Successfully updated');
         } catch (Exception $ex) {
             return redirect()->back()->withErrors($ex->getMessage());
@@ -125,9 +133,10 @@ class TestController extends Controller
     public function destroy(string $id)
     {
         //
-        $model = Test::findOrFail($id);
+        $test = Test::findOrFail($id);
+        $this->authorize('update', $test);
         try {
-            $model->delete();
+            $test->delete();
             return redirect()->route('tests.index')->with('success', 'Successfully deleted');
         } catch (Exception $e) {
             return redirect()->back()->withErrors($e->getMessage());
@@ -138,6 +147,8 @@ class TestController extends Controller
     {
         //
         $test = Test::findOrFail($id);
+        $this->authorize('lock', $test);
+
         try {
             $test->update([
                 'is_open' => false,
@@ -151,6 +162,7 @@ class TestController extends Controller
     {
         //
         $test = Test::findOrFail($id);
+        $this->authorize('unlock', $test);
         try {
             $test->update([
                 'is_open' => true,

@@ -25,7 +25,7 @@
                     {{ $testAllocation->user->profile->name }}</span></p>
         </div>
 
-        <form action="{{ route('test.allocations.update', [$test, $testAllocation]) }}" method='post'
+        <form action="{{ route('test.test-allocations.update', [$test, $testAllocation]) }}" method='post'
             class="w-full grid gap-6 mt-6">
             @csrf
             @method('patch')

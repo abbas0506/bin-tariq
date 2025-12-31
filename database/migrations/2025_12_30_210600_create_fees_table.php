@@ -11,11 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('vouchers', function (Blueprint $table) {
+        Schema::create('fees', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->foreignId('student_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('fee_type_id')->constrained()->cascadeOnDelete();
             $table->unsignedTinyInteger('month')->nullable(); //required only if tution fee
+            $table->unsignedMediumInteger('amount');
             $table->date('due_date');
+            $table->boolean('status')->default(false);
+            $table->foreignId('transaction_id')->constrained()->cascadeOnDelete();
+            // $table->foreignId('voucher_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }
@@ -25,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('vouchers');
+        Schema::dropIfExists('fees');
     }
 };

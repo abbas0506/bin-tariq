@@ -70,4 +70,9 @@ class SectionPolicy
         //
         return $user->hasAnyRole('principal');
     }
+    public function clean(User $user, Section $section): bool
+    {
+        //
+        return $user->hasAnyRole('principal');
+    }
 }

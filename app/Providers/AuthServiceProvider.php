@@ -7,9 +7,13 @@ namespace App\Providers;
 use App\Models\Attendance;
 use App\Models\Fee;
 use App\Models\Section;
+use App\Models\Test;
+use App\Models\Voucher;
 use App\Policies\AttendancePolicy;
 use App\Policies\FeePolicy;
 use App\Policies\SectionPolicy;
+use App\Policies\TestPolicy;
+use App\Policies\VoucherPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -24,6 +28,8 @@ class AuthServiceProvider extends ServiceProvider
         Section::class => SectionPolicy::class,
         Attendance::class => AttendancePolicy::class,
         Fee::class => FeePolicy::class,
+        Voucher::class => VoucherPolicy::class,
+        Test::class => TestPolicy::class,
     ];
 
     /**

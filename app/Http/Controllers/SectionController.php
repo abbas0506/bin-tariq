@@ -118,16 +118,20 @@ class SectionController extends Controller
     {
         //
         $section = Section::findOrFail($id);
+        $this->authorize('clean', $section);
+
         return view('sections.clean', compact('section'));
     }
     // remove all students
-    public function postClean(Request $request, $sectionId)
+    public function postClean(Request $request, $id)
     {
         //
         $request->validate([
             'student_ids_array' => 'required',
         ]);
 
+        $section = Section::find($id);
+        $this->authorize('clean', $section);
 
         try {
             $studentIdsArray = array();

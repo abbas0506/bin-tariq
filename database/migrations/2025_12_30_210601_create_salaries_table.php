@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('fees', function (Blueprint $table) {
+        Schema::create('salaries', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('student_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('voucher_id')->constrained()->cascadeOnDelete();
-            $table->unsignedMediumInteger('amount');
-            $table->boolean('status')->default(false);
+            $table->unsignedMediumInteger('amount')->default(0);
+            $table->unsignedTinyInteger('month');
+            $table->foreignId('transaction_id')->constrained('transactions')->cascadeOnDelete();
             $table->timestamps();
         });
     }
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('fees');
+        Schema::dropIfExists('salaries');
     }
 };

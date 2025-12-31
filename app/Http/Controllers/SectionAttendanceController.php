@@ -53,6 +53,8 @@ class SectionAttendanceController extends Controller
     public function index($id)
     {
         //
+        $this->authorize('viewAny', Attendance::class);
+
         $section = Section::findOrFail($id);
         $date = session('date') ?? now()->toDateString();
         $attendances = $section->attendances()->whereDate('date', $date)->get();
@@ -109,6 +111,8 @@ class SectionAttendanceController extends Controller
 
     public function show($id, $studentId)
     {
+        $this->authorize('view', Attendance::class);
+
         $section = Section::find($id);
         $student = Student::find($studentId);
 

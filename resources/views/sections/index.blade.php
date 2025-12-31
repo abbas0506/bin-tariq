@@ -35,9 +35,12 @@
             </table>
         </div>
     </div>
-    <a href="{{ route('sections.create') }}"
-        class="fixed bottom-8 right-8 flex rounded-full w-12 h-12 btn-blue justify-center items-center text-2xl"><i
-            class="bi bi-plus"></i></a>
+
+    @can('create', Section::class)
+        <a href="{{ route('sections.create') }}"
+            class="fixed bottom-8 right-8 flex rounded-full w-12 h-12 btn-blue justify-center items-center text-2xl"><i
+                class="bi bi-plus"></i></a>
+    @endcan
 @endsection
 @section('script')
     <script type="text/javascript">

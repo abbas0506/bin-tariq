@@ -22,20 +22,25 @@
     <div class="md:w-4/5 mx-auto grid gap-3 md:p-8 p-5 border rounded relative">
         <div class="absolute top-2 right-2">
             <div class="flex items-center justify-center space-x-2">
-                <div class="flex w-8 h-8 rounded-full border justify-center items-center">
-                    <form action="{{ route('section.students.destroy', [$section, $student]) }}" method="post"
-                        onsubmit="return confirmDel(event)">
-                        @csrf
-                        @method('DELETE')
-                        <button><i class="bx-trash text-red-600"></i></button>
-                    </form>
-                </div>
-                <div class="flex w-8 h-8 rounded-full border justify-center items-center">
-                    <a href="{{ route('section.students.edit', [$section, $student]) }}">
-                        <i class="bx-pencil text-green-600"></i></a>
-                </div>
-                <div class="flex w-8 h-8 rounded-full border justify-center items-center">
-                    <a href="{{ route('sections.show', $section) }}"><i class="bi-x-lg"></i></a>
+                @can('delete', $student)
+                    <div class="flex w-8 h-8 rounded-full border justify-center items-center">
+                        <form action="{{ route('section.students.destroy', [$section, $student]) }}" method="post"
+                            onsubmit="return confirmDel(event)">
+                            @csrf
+                            @method('DELETE')
+                            <button><i class="bx-trash text-red-600"></i></button>
+                        </form>
+                    </div>
+                @endcan
+                @can('update', $student)
+                    <div class="flex w-8 h-8 rounded-full border justify-center items-center">
+                        <a href="{{ route('section.students.edit', [$section, $student]) }}">
+                            <i class="bx-pencil text-green-600"></i></a>
+                    </div>
+                @endcan
+
+                <div class="">
+                    <a href="{{ route('sections.show', $section) }}"><i class="bi-x"></i></a>
                 </div>
             </div>
         </div>

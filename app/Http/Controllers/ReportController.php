@@ -8,6 +8,8 @@ use App\Models\Student;
 use App\Models\Test;
 use App\Models\TestAllocation;
 use Barryvdh\DomPDF\Facade\Pdf as PDF;
+use Exception;
+use Illuminate\Support\Facades\Log;
 
 class ReportController extends Controller
 {
@@ -143,5 +145,26 @@ class ReportController extends Controller
         $pdf->set_option("isPhpEnabled", true);
         $file = "report-cards" . "-" . rand(1, 100) . ".pdf";
         return $pdf->stream($file);
+    }
+
+    public function userCards()
+    {
+
+        try {
+            if (session('users')) {
+                $users = session('users');
+                $pdf = PDF::loadview('user-cards.pdf-lg', compact('users'))->setPaper('a4', 'portrait');
+                $pdf->set_option("isPhpEnabled", true);
+                $file = "cards.pdf";
+                return $pdf->stream($file);
+            } else {
+                echo "Nothing to print";
+            }
+        } catch (Exception $ex) {
+            Log::error('An error occurred: ' . $ex->getMessage(), [
+                'file' => $ex->getFile(),
+                'line' => $ex->getLine(),
+            ]);
+        }
     }
 }

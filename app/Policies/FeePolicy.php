@@ -14,6 +14,7 @@ class FeePolicy
     public function viewAny(User $user): bool
     {
         //
+        return $user->hasAnyRole(['principal', 'admin', 'teacher']);
     }
 
     /**
@@ -22,6 +23,7 @@ class FeePolicy
     public function view(User $user, Fee $fee): bool
     {
         //
+        return $user->hasAnyRole(['principal', 'admin', 'teacher']);
     }
 
     /**
@@ -30,6 +32,7 @@ class FeePolicy
     public function create(User $user): bool
     {
         //
+        return $user->hasAnyRole(['principal', 'admin']);
     }
 
     /**
@@ -38,6 +41,7 @@ class FeePolicy
     public function update(User $user, Fee $fee): bool
     {
         //
+        return $user->hasAnyRole(['principal', 'admin']);
     }
 
     /**
@@ -46,21 +50,6 @@ class FeePolicy
     public function delete(User $user, Fee $fee): bool
     {
         //
-    }
-
-    /**
-     * Determine whether the user can restore the model.
-     */
-    public function restore(User $user, Fee $fee): bool
-    {
-        //
-    }
-
-    /**
-     * Determine whether the user can permanently delete the model.
-     */
-    public function forceDelete(User $user, Fee $fee): bool
-    {
-        //
+        return $user->hasRole(['principal']);
     }
 }

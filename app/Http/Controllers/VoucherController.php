@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Fee;
 use App\Models\Section;
 use App\Models\Voucher;
 use Exception;
@@ -16,6 +17,8 @@ class VoucherController extends Controller
     public function index()
     {
         //
+        $this->authorize('viewAny', Voucher::class);
+
         $vouchers = Voucher::all();
         return view('vouchers.index', compact('vouchers'));
     }
@@ -26,6 +29,7 @@ class VoucherController extends Controller
     public function create()
     {
         //
+        $this->authorize('create', Voucher::class);
         $sections = Section::whereHas('students')->get();
         return view('vouchers.create', compact('sections'));
     }
@@ -35,6 +39,8 @@ class VoucherController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create', Voucher::class);
+
         $request->validate([
             'name' => 'required',
             'due_date' => 'required|date',
@@ -85,6 +91,8 @@ class VoucherController extends Controller
     {
         //
         $voucher = Voucher::findOrFail($id);
+        $this->authorize('view', $voucher);
+
         $sections = Section::all();
         return view('vouchers.show', compact('voucher', 'sections'));
     }
@@ -96,6 +104,9 @@ class VoucherController extends Controller
     {
         //
         $voucher = Voucher::findOrFail($id);
+        $this->authorize('update', $voucher);
+
+
         $sections = Section::all();
         return view('vouchers.edit', compact('voucher', 'sections'));
     }
@@ -112,7 +123,9 @@ class VoucherController extends Controller
         ]);
 
         try {
-            $voucher = Voucher::findOrFail($id);
+            $voucher = Voucher::find($id);
+            $this->authorize('update', $voucher);
+
             $voucher->update([
                 'name' => $request->name,
                 'due_date' => $request->due_date,
@@ -131,6 +144,8 @@ class VoucherController extends Controller
     {
         //
         $voucher = Voucher::findOrFail($id);
+        $this->authorize('delete', $voucher);
+
         try {
             $voucher->delete();
             return redirect()->route('vouchers.index')->with('success', 'Successfully deleted');

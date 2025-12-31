@@ -16,9 +16,11 @@
                     oninput="search(event)">
                 <i class="bx  bx-search absolute top-2 right-2"></i>
             </div>
-            <a href="{{ route('vouchers.create') }}"
-                class="fixed bottom-4 right-4 flex justify-center items-center bg-teal-400 hover:bg-teal-600 hover:cursor-pointer rounded-full w-12 h-12"><i
-                    class="bi-plus-lg"></i></a>
+            @role('principal')
+                <a href="{{ route('vouchers.create') }}"
+                    class="fixed bottom-4 right-4 flex justify-center items-center bg-teal-400 hover:bg-teal-600 hover:cursor-pointer rounded-full w-12 h-12"><i
+                        class="bi-plus-lg"></i></a>
+            @endrole
         </div>
 
         <!-- page message -->

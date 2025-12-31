@@ -36,8 +36,11 @@
                         class="bi-repeat-1 text-orange-600"></i></a>
                 <a href="{{ route('section.cards.index', $section) }}" class=""><i
                         class="bi-person-badge text-indigo-600"></i></a>
-                <a href="{{ route('sections.clean', $section) }}" class=""><i
-                        class="bx bx-recycle text-orange-600"></i></a>
+
+                @can('clean', $section)
+                    <a href="{{ route('sections.clean', $section) }}" class=""><i
+                            class="bx bx-recycle text-orange-600"></i></a>
+                @endcan
                 <a href="{{ route('section.cards.index', $section) }}" class=""><i
                         class="bi-printer text-teal-600"></i></a>
             </div>

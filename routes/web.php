@@ -5,26 +5,18 @@ use App\Http\Controllers\AuthController;
 
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\FeeController;
 use App\Http\Controllers\GallaryController;
 use App\Http\Controllers\ImportStudentController;
-use App\Http\Controllers\PdfController;
-use App\Http\Controllers\ReportCardController;
 use App\Http\Controllers\ReportController;
-use App\Http\Controllers\ResultDetailController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\SectionAttendanceController;
 use App\Http\Controllers\SectionCardController;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\SectionResultController;
 use App\Http\Controllers\SectionScheduleController;
-use App\Http\Controllers\SignupController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SubjectController;
-use App\Http\Controllers\SubjectResultController;
 use App\Http\Controllers\TaskController;
-use App\Http\Controllers\TestPositionController;
-use App\Http\Controllers\TestSectionController;
 use App\Http\Controllers\TestAllocationController;
 use App\Http\Controllers\TestAllocationResultController;
 use App\Http\Controllers\userController;
@@ -130,7 +122,6 @@ Route::group(['middleware' => ['auth']], function () {
 
     // assessment
     Route::resource('tests', TestController::class);
-    Route::resource('test.sections', TestSectionController::class);
     Route::resource('test.section.results', SectionResultController::class);
     Route::resource('test.test-allocations', TestAllocationController::class);
     Route::resource('test-allocation.results', TestAllocationResultController::class);

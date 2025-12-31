@@ -2,21 +2,15 @@
 
 namespace App\Policies;
 
-use App\Models\Attendance;
 use App\Models\User;
+use App\Models\Voucher;
 use Illuminate\Auth\Access\Response;
 
-class AttendancePolicy
+class VoucherPolicy
 {
     /**
      * Determine whether the user can view any models.
      */
-    public function viewSummary(User $user): bool
-    {
-        //
-        return $user->hasAnyRole(['principal', 'admin', 'teacher']);
-    }
-
     public function viewAny(User $user): bool
     {
         //
@@ -26,7 +20,7 @@ class AttendancePolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Attendance $attendance): bool
+    public function view(User $user, Voucher $voucher): bool
     {
         //
         return $user->hasAnyRole(['principal', 'admin', 'teacher']);
@@ -38,22 +32,22 @@ class AttendancePolicy
     public function create(User $user): bool
     {
         //
-        return $user->hasAnyRole(['principal', 'admin', 'teacher']);
+        return $user->hasAnyRole(['principal']);
     }
 
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Attendance $attendance): bool
+    public function update(User $user, Voucher $voucher): bool
     {
         //
-        return $user->hasAnyRole(['principal', 'admin', 'teacher']);
+        return $user->hasAnyRole(['principal']);
     }
 
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Attendance $attendance): bool
+    public function delete(User $user, Voucher $voucher): bool
     {
         //
         return $user->hasAnyRole(['principal']);
@@ -62,7 +56,7 @@ class AttendancePolicy
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, Attendance $attendance): bool
+    public function restore(User $user, Voucher $voucher): bool
     {
         //
         return $user->hasAnyRole(['principal']);
@@ -71,7 +65,7 @@ class AttendancePolicy
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, Attendance $attendance): bool
+    public function forceDelete(User $user, Voucher $voucher): bool
     {
         //
         return $user->hasAnyRole(['principal']);

@@ -44,9 +44,9 @@
                 <a href="{{ url('forgot') }}" class="text-xs link">Forgot Password?</a>
             </div>
             <!-- </div> -->
-            <div class="text-center text-xs">
-                Dont have an account?<a href="{{ route('signup.create') }}" class="font-bold ml-2 link">Signup</a>
-            </div>
+            {{-- <div class="text-center text-xs">
+                Dont have an account?<a href="#" class="font-bold ml-2 link">Signup</a>
+            </div> --}}
         </div>
     </div>
 @endsection

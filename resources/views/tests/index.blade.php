@@ -22,9 +22,11 @@
         </div>
 
         {{-- new buttn --}}
-        <a href="{{ route('tests.create') }}"
-            class="fixed bottom-4 right-4 flex justify-center items-center bg-teal-400 hover:bg-teal-600 hover:cursor-pointer rounded-full w-12 h-12"><i
-                class="bi-plus-lg"></i></a>
+        @can('create', App\Models\Test::class)
+            <a href="{{ route('tests.create') }}"
+                class="fixed bottom-4 right-4 flex justify-center items-center bg-teal-400 hover:bg-teal-600 hover:cursor-pointer rounded-full w-12 h-12"><i
+                    class="bi-plus-lg"></i></a>
+        @endcan
 
         <table class="table-auto borderless w-full mt-8">
             <thead>

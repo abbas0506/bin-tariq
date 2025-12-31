@@ -11,11 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('vouchers', function (Blueprint $table) {
+        Schema::create('accounts', function (Blueprint $table) {
             $table->id();
+            $table->string('code')->unique();
             $table->string('name');
-            $table->unsignedTinyInteger('month')->nullable(); //required only if tution fee
-            $table->date('due_date');
+            $table->enum('type', ['asset', 'liability', 'equity', 'income', 'expense']);
+            $table->foreignId('parent_id')->nullable()->constrained('accounts')->nullOnDelete();
             $table->timestamps();
         });
     }
@@ -25,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('vouchers');
+        Schema::dropIfExists('accounts');
     }
 };

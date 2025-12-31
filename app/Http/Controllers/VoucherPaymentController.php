@@ -14,8 +14,10 @@ class VoucherPaymentController extends Controller
     public function index($voucherId, $sectionId)
     {
         //
-        $voucher = Voucher::findOrFail($voucherId);
-        $section = Section::findOrFail($sectionId);
+        $this->authorize('viewAny', Fee::class);
+
+        $voucher = Voucher::find($voucherId);
+        $section = Section::find($sectionId);
         $fees = Fee::where('voucher_id', $voucherId)
             ->whereHas('student', function ($query) use ($sectionId) {
                 $query->where('section_id', $sectionId);
@@ -32,11 +34,6 @@ class VoucherPaymentController extends Controller
     public function create($voucherId, $feeId)
     {
         //
-        // $voucher = Voucher::find($voucherId);
-        // $fee = Fee::find($feeId);
-        // $student = $fee->student;
-
-        // return view('vouchers.payments.create', compact('voucher', 'student', 'fee'));
     }
 
     /**
@@ -53,8 +50,10 @@ class VoucherPaymentController extends Controller
     public function show($voucherId, $sectionId, $studentId)
     {
         //
-        $voucher = Voucher::find($voucherId);
         $section = Section::find($sectionId);
+        $this->authorize('view', $section);
+
+        $voucher = Voucher::find($voucherId);
         $student = Student::find($studentId);
 
         return view('vouchers.payments.show', compact('voucher', 'section', 'student'));
@@ -66,9 +65,11 @@ class VoucherPaymentController extends Controller
     public function edit($voucherId, $sectionId, $feeId)
     {
         //
+        $fee = Fee::find($feeId);
+        $this->authorize('update', $fee);
+
         $voucher = Voucher::find($voucherId);
         $section = Section::find($sectionId);
-        $fee = Fee::find($feeId);
         $student = $fee->student;
 
         return view('vouchers.payments.edit', compact('voucher', 'section', 'student', 'fee'));
@@ -80,9 +81,10 @@ class VoucherPaymentController extends Controller
     public function update(Request $request, $voucherId, $sectionId, $feeId)
     {
         //
+        $fee = Fee::find($feeId);
+        $this->authorize('update', $fee);
 
         try {
-            $fee = Fee::find($feeId);
             $section = Section::find($sectionId);
             $voucher = Voucher::find($voucherId);
             if (!$request->amount)
@@ -112,8 +114,11 @@ class VoucherPaymentController extends Controller
     public function destroy($voucherId, $sectionId, $id)
     {
         //
+        $fee = Fee::find($id);
+        $this->authorize('delete', $fee);
+
         try {
-            $fee = Fee::findOrFail($id);
+
             $fee->delete();
             return redirect()->route('voucher.section.payments.index', [$voucherId, $sectionId])->with('success', 'Successfully deleted');
         } catch (Exception $e) {

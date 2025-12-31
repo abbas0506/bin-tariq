@@ -2,24 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Section;
-use App\Models\Test;
+use App\Models\Salary;
 use Illuminate\Http\Request;
 
-class TestSectionController extends Controller
+class SalaryController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index($id)
+    public function index()
     {
         //
-        $test = Test::findOrFail($id);
-
-        $sectionIds = $test->testAllocations->pluck('section_id')->unique()->toArray();
-        $sections = Section::whereIn('id', $sectionIds)->get();
-
-        return view('test-sections.index', compact('test', 'sections'));
     }
 
     /**
@@ -41,7 +34,7 @@ class TestSectionController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Salary $salary)
     {
         //
     }
@@ -49,7 +42,7 @@ class TestSectionController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Salary $salary)
     {
         //
     }
@@ -57,7 +50,7 @@ class TestSectionController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Salary $salary)
     {
         //
     }
@@ -65,7 +58,7 @@ class TestSectionController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Salary $salary)
     {
         //
     }

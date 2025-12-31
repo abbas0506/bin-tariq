@@ -38,34 +38,35 @@
                         <i class="bx  bx-pencil text-slate-50"></i>
                     </a>
                     {{-- delete button --}}
-                    <form action="{{ route('tests.destroy', $test) }}" method="POST" onsubmit="confirmDel(event)">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit"
-                            class="flex justify-center items-center w-8 h-8 btn-red rounded-full text-xs">
-                            <i class="bi-trash3 text-white"></i>
-                        </button>
-                    </form>
-                    <form action="{{ route('test.lock', $test) }}" method='post'>
-                        @csrf
-                        @method('patch')
-                        <button type="submit"
-                            class="flex justify-center items-center w-8 h-8 btn-cyan rounded-full text-xs">
-                            <i class="bi-unlock text-white font-bold"></i></button>
-                    </form>
+                    @can('delete', $test)
+                        <form action="{{ route('tests.destroy', $test) }}" method="POST" onsubmit="confirmDel(event)">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit"
+                                class="flex justify-center items-center w-8 h-8 btn-red rounded-full text-xs">
+                                <i class="bi-trash3 text-white"></i>
+                            </button>
+                        </form>
+                    @endcan
+                    @can('lock', $test)
+                        <form action="{{ route('test.lock', $test) }}" method='post'>
+                            @csrf
+                            @method('patch')
+                            <button type="submit"
+                                class="flex justify-center items-center w-8 h-8 btn-cyan rounded-full text-xs">
+                                <i class="bi-unlock text-white font-bold"></i></button>
+                        </form>
+                    @endcan
                 @else
-                    {{-- print button --}}
-                    <a href="{{ route('test.sections.index', $test) }}"
-                        class="flex justify-center items-center w-8 h-8 btn-cyan rounded-full text-xs">
-                        <i class="bi-printer text-slate-50"></i>
-                    </a>
-                    <form action="{{ route('test.unlock', $test) }}" method='post'>
-                        @csrf
-                        @method('patch')
-                        <button type="submit"
-                            class="flex justify-center items-center w-8 h-8 btn-red rounded-full text-xs"><i
-                                class="bi-lock text-white font-bold"></i></button>
-                    </form>
+                    @can('unlock', $test)
+                        <form action="{{ route('test.unlock', $test) }}" method='post'>
+                            @csrf
+                            @method('patch')
+                            <button type="submit"
+                                class="flex justify-center items-center w-8 h-8 btn-red rounded-full text-xs"><i
+                                    class="bi-lock text-white font-bold"></i></button>
+                        </form>
+                    @endcan
                 @endif
 
 
