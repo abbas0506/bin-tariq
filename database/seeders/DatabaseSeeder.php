@@ -29,6 +29,8 @@ class DatabaseSeeder extends Seeder
             LectureSeeder::class,
             StudentSeeder::class,
             AccountSeeder::class,
+            FeeTypeSeeder::class,
+            FeeStructureSeeder::class,
         ]);
     }
 }

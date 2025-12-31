@@ -54,7 +54,7 @@
                         <div class="text-base">
                             <input type="checkbox" id='section{{ $section->id }}' name='section_ids_array[]'
                                 class="custom-input w-4 h-4 rounded hidden" value="{{ $section->id }}">
-                            <i class="bx bx-check"></i>
+                            <i class="bi-check"></i>
                         </div>
                     </div>
                 @endforeach

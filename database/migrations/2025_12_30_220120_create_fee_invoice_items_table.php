@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('salaries', function (Blueprint $table) {
+        Schema::create('fee_invoice_items', function (Blueprint $table) {
             $table->id();
-            $table->unsignedMediumInteger('amount')->default(0);
-            $table->unsignedTinyInteger('month');
-            $table->foreignId('transaction_id')->constrained('transactions')->cascadeOnDelete();
+            $table->foreignId('fee_invoice_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('fee_type_id')->constrained();
+            $table->unsignedInteger('amount');
             $table->timestamps();
         });
     }
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('salaries');
+        Schema::dropIfExists('fee_invoice_items');
     }
 };

@@ -5,11 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class FeeType extends Model
+class FeeInvoiceItem extends Model
 {
     use HasFactory;
     protected $fillable = [
         'id',
-        'name',
+        'fee_invoice_id',
+        'fee_type_id',
+        'amount',
     ];
 }
