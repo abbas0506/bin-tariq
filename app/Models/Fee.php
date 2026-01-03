@@ -9,19 +9,17 @@ class Fee extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'id',
         'student_id',
-        'voucher_id',
+        'fee_type_id',
         'amount',
-        'status',
     ];
 
     public function student()
     {
         return $this->belongsTo(Student::class);
     }
-    public function voucher()
+    public function feeType()
     {
-        return $this->belongsTo(Voucher::class);
+        return $this->belongsTo(FeeType::class);
     }
 }

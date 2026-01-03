@@ -1,34 +1,39 @@
 @extends('layouts.app')
 @section('page-content')
     <div class="custom-container">
-        <h1>Payment History</h1>
+        <h1>Fee Invoice</h1>
         <div class="bread-crumb">
-            <a href="{{ url('/') }}">Dashoboard</a>
+            <a href="{{ url('/') }}">Home</a>
             <div>/</div>
-            <a href="{{ route('vouchers.index') }}">Vouchers</a>
+            <a href="{{ route('fee-invoices.index') }}">Fee Invoices</a>
             <div>/</div>
-            <a href="{{ route('voucher.section.payments.index', [$voucher, $section]) }}"> # {{ $voucher->id }}</a>
-            <div>/</div>
-            <div>Payments</div>
+            <div>View</div>
         </div>
 
-        <!-- search -->
-        <div class="flex relative w-full md:w-1/3 mt-5">
-            <input type="text" id='searchby' placeholder="Search ..." class="custom-search w-full" oninput="search(event)">
-            <i class="bx  bx-search absolute top-2 right-2"></i>
-        </div>
-
-        <!-- page message -->
-        @if ($errors->any())
-            <x-message :errors='$errors'></x-message>
-        @else
-            <x-message></x-message>
-        @endif
-
-        <h2 class="mt-8">{{ $student->name }} <br><span
-                class="text-slate-400 font-normal">{{ $student->father_name }}</span></h2>
-        <div class="overflow-x-auto bg-white w-full mt-1">
-            <table class="table-auto borderless w-full">
+        <div class="md:w-4/5 mx-auto overflow-x-auto  bg-white w-full mt-1">
+            <!-- page message -->
+            @if ($errors->any())
+                <x-message :errors='$errors'></x-message>
+            @else
+                <x-message></x-message>
+            @endif
+            <div class="flex flex-wrap md:justify-between items-center text-sm gap-2 border-b py-5">
+                <div class="grid grid-cols-2 gap-2">
+                    <h2>Invoice #:</h2>
+                    <div>{{ $feeInvoice->invoice_no }} </div>
+                    <h2>Student:</h2>
+                    <div>{{ $feeInvoice->student->name }} / <span
+                            class="text-slate-400">{{ $feeInvoice->student->father_name }}</span>
+                    </div>
+                    <h2>Month:</h2>
+                    <div>{{ $feeInvoice->billingMonth() }}</div>
+                    <h2>Due Date:</h2>
+                    <div>{{ $feeInvoice->due_date->format('d-m-y') }}</div>
+                </div>
+                <h2>Rs. {{ $feeInvoice->amount }}</h2>
+            </div>
+            <h3 class="mt-3">Invoice Detail</h3>
+            <table class="table-auto borderless w-full mt-3">
                 <thead>
                     <tr>
                         <th class="w-8">#</th>
@@ -39,35 +44,30 @@
                 </thead>
                 <tbody>
                 <tbody>
-                    @foreach ($student->fees->sortBy('student.rollno') as $fee)
+                    @foreach ($feeInvoice->feeInvoiceItems as $invoiceItem)
                         <tr class="tr">
                             <td>{{ $loop->index + 1 }}</td>
-                            <td class="text-left">{{ $fee->voucher->name }} @ {{ $fee->amount }} <br>
-                                <span class="text-slate-400 text-xs">Due date :
-                                    {{ $fee->voucher->due_date->format('d-m-Y') }}</span>
-                            </td>
-                            <td>
-                                @if (!$fee->status)
-                                    <form action="{{ route('voucher.section.payments.update', [$voucher, 1, $fee]) }}"
-                                        method="POST" onsubmit="return confirmUpdate(event, {{ $fee->amount }})">
-                                        @csrf
-                                        @method('PATCH')
-                                        <button type="submit" class="btn-blue rounded">
-                                            Accept Fee
-                                        </button>
-                                    </form>
-                                @else
-                                    <i class="bi-check text-green-800"></i>
-                                @endif
-                            </td>
+                            <td class="text-left">{{ $invoiceItem->feeType->name }}</td>
+                            <td class="text-right">{{ $invoiceItem->amount }} </td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
+
         </div>
         <div class="text-center mt-8">
-            <a href="{{ route('voucher.section.payments.index', [$voucher, $section]) }}" class="btn-teal rounded">
-                Close </a>
+            @if (!$feeInvoice->status)
+                <form action="{{ route('fee-invoices.update', $feeInvoice) }}" method="POST"
+                    onsubmit="return confirmUpdate(event, {{ $feeInvoice->amount }})">
+                    @csrf
+                    @method('PATCH')
+                    <button type="submit" class="btn-teal px-5 py-2 rounded">
+                        Pay
+                    </button>
+                </form>
+            @else
+                Paid <i class="bi-check text-green-800"></i>
+            @endif
         </div>
     </div>
 

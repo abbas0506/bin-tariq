@@ -14,4 +14,13 @@ class FeeInvoiceItem extends Model
         'fee_type_id',
         'amount',
     ];
+
+    public function feeInvoice()
+    {
+        return $this->belongsTo(FeeInvoice::class);
+    }
+    public function feeType()
+    {
+        return $this->belongsTo(FeeType::class);
+    }
 }

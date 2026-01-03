@@ -17,7 +17,6 @@ class Student extends Model
         'phone',
         'address',
         'photo',
-        'fee',
 
         //academic info
         'section_id',
@@ -37,9 +36,9 @@ class Student extends Model
         return $this->belongsTo(Section::class);
     }
 
-    public function vouchers()
+    public function feeInvoices()
     {
-        return $this->belongsToMany(Voucher::class, 'fees', 'student_id', 'voucher_id');
+        return $this->hasMany(FeeInvoice::class);
     }
 
     public function fees()

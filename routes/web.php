@@ -5,8 +5,10 @@ use App\Http\Controllers\AuthController;
 
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\FeeInvoiceController;
 use App\Http\Controllers\GallaryController;
 use App\Http\Controllers\ImportStudentController;
+use App\Http\Controllers\LedgerController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\SectionAttendanceController;
@@ -115,6 +117,11 @@ Route::group(['middleware' => ['auth']], function () {
 
     // Fee
     Route::resource('vouchers', VoucherController::class);
+    Route::resource('fee-invoices', FeeInvoiceController::class);
+    Route::get('/ledger', [LedgerController::class, 'index'])->name('ledger.index');
+
+
+
     Route::resource('voucher.section.payments', VoucherPaymentController::class);
     Route::get('voucher/{voucher}/section/{section}/missing/import', [VoucherPaymentController::class, 'import'])->name('voucher.section.payments.import');
     Route::post('voucher/{voucher}/section/{section}/missing/import', [VoucherPaymentController::class, 'postImport'])->name('voucher.section.payments.import.post');

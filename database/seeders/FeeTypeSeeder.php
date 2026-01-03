@@ -14,11 +14,10 @@ class FeeTypeSeeder extends Seeder
     public function run(): void
     {
         //
-        FeeType::create(['name' => 'Tution Fee']);
-        FeeType::create(['name' => 'Admission Fee']);
-        FeeType::create(['name' => 'Term Charges']);
-        FeeType::create(['name' => 'Sports Fee']);
-        FeeType::create(['name' => 'Examination Fee ']);
-        FeeType::create(['name' => 'Absence Fine']);
+        FeeType::create(['name' => 'Tution Fee', 'amount' => 500]);
+        FeeType::create(['name' => 'Admission Fee', 'amount' => 200]);
+        FeeType::create(['name' => 'Term Charges', 'amount' => 200]);
+        FeeType::create(['name' => 'Sports Fee', 'amount' => 100]);
+        FeeType::create(['name' => 'Examination Fee ', 'amount' => 100]);
     }
 }

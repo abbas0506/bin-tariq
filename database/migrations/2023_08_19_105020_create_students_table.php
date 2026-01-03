@@ -26,7 +26,6 @@ return new class extends Migration
             $table->string('rollno');
             $table->date('admission_date')->nullable();
             $table->string('admission_no')->nullable()->unique();
-            $table->unsignedSmallInteger('fee')->default(0);
             $table->boolean('status')->default(true);   //active or not
             $table->timestamps();
         });

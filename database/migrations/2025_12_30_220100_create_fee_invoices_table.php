@@ -14,8 +14,10 @@ return new class extends Migration
         Schema::create('fee_invoices', function (Blueprint $table) {
             $table->id();
             $table->foreignId('student_id')->constrained()->cascadeOnDelete();
-            $table->unsignedTinyInteger('month')->nullable(); //required only if tution fee
-            $table->unsignedMediumInteger('amount'); //net amount of invoice
+            $table->string('invoice_no')->unique();
+            $table->unsignedTinyInteger('month'); //required only if tution fee
+            $table->unsignedInteger('year'); //required only if tution fee
+            $table->unsignedInteger('amount'); //net amount of invoice
             $table->date('due_date');
             $table->boolean('status')->default(false);
             $table->date('paid_at')->nullable();

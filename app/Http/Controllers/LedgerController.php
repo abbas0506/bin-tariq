@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\FeeStructure;
+use App\Models\Account;
 use Illuminate\Http\Request;
 
-class FeeStructureController extends Controller
+class LedgerController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,6 +13,11 @@ class FeeStructureController extends Controller
     public function index()
     {
         //
+        $accounts = Account::with(['lines.transaction'])
+            ->orderBy('code')
+            ->get();
+
+        return view('accounts.ledger', compact('accounts'));
     }
 
     /**
@@ -34,7 +39,7 @@ class FeeStructureController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(FeeStructure $feeStructure)
+    public function show(string $id)
     {
         //
     }
@@ -42,7 +47,7 @@ class FeeStructureController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(FeeStructure $feeStructure)
+    public function edit(string $id)
     {
         //
     }
@@ -50,7 +55,7 @@ class FeeStructureController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, FeeStructure $feeStructure)
+    public function update(Request $request, string $id)
     {
         //
     }
@@ -58,7 +63,7 @@ class FeeStructureController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(FeeStructure $feeStructure)
+    public function destroy(string $id)
     {
         //
     }

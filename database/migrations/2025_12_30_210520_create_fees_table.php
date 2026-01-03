@@ -11,12 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('fee_structures', function (Blueprint $table) {
+        Schema::create('fees', function (Blueprint $table) {
             $table->id();
-            $table->unsignedTinyInteger('level');
+            $table->foreignId('student_id')->constrained()->cascadeOnDelete();
             $table->foreignId('fee_type_id')->constrained()->cascadeOnDelete();
-            $table->unsignedSmallInteger('amount')->default(0);
+            $table->unsignedInteger('amount');
             $table->timestamps();
+
+            $table->unique(['student_id', 'fee_type_id'], 'student_fee_unique');
         });
     }
 
@@ -25,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('fee_structures');
+        Schema::dropIfExists('fees');
     }
 };

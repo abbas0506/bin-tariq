@@ -12,6 +12,8 @@ class FeeInvoice extends Model
         'id',
         'student_id',
         'invoice_no',
+        'month',
+        'year',
         'amount',
         'due_date',
         'status',
@@ -22,13 +24,22 @@ class FeeInvoice extends Model
         'due_date' => 'date',
     ];
 
-    public function students()
+    public function feeInvoiceItems()
     {
-        return $this->belongsToMany(Student::class, 'fees', 'voucher_id', 'student_id');
+        return $this->hasMany(FeeInvoiceItem::class);
     }
-    public function fees()
+    public function student()
     {
-        return $this->hasMany(Fee::class);
+        return $this->belongsTo(Student::class);
+    }
+    public function transaction()
+    {
+        return $this->belongsTo(Transaction::class);
+    }
+
+    public function billingMonth()
+    {
+        return config('enums.months')[$this->month] . "-" . $this->year - 2000;
     }
     public function sumOfPaidAmount()
     {

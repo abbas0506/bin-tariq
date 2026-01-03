@@ -44,9 +44,15 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('vouchers.index') }}" class="flex items-center">
+                <a href="{{ route('fee-invoices.index') }}" class="flex items-center">
                     <i class="bi-receipt"></i>
-                    <span class="ml-3">Fee / Dues</span>
+                    <span class="ml-3">Fee Invoices</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('ledger.index') }}" class="flex items-center">
+                    <i class="bi-receipt"></i>
+                    <span class="ml-3">Accounts</span>
                 </a>
             </li>
             <li>

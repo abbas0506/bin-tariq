@@ -6,10 +6,12 @@ namespace App\Providers;
 
 use App\Models\Attendance;
 use App\Models\Fee;
+use App\Models\FeeInvoice;
 use App\Models\Section;
 use App\Models\Test;
 use App\Models\Voucher;
 use App\Policies\AttendancePolicy;
+use App\Policies\FeeInvoicePolicy;
 use App\Policies\FeePolicy;
 use App\Policies\SectionPolicy;
 use App\Policies\TestPolicy;
@@ -27,8 +29,7 @@ class AuthServiceProvider extends ServiceProvider
         //
         Section::class => SectionPolicy::class,
         Attendance::class => AttendancePolicy::class,
-        Fee::class => FeePolicy::class,
-        Voucher::class => VoucherPolicy::class,
+        FeeInvoice::class => FeeInvoicePolicy::class,
         Test::class => TestPolicy::class,
     ];
 

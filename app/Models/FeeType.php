@@ -11,5 +11,11 @@ class FeeType extends Model
     protected $fillable = [
         'id',
         'name',
+        'amount',
     ];
+
+    public function  fees()
+    {
+        return $this->hasMany(Fee::class);
+    }
 }

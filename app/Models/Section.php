@@ -54,9 +54,9 @@ class Section extends Model
     {
         return $this->hasManyThrough(Attendance::class, Student::class);
     }
-    public function fees()
+    public function feeInvoices()
     {
-        return $this->hasManyThrough(Fee::class, Student::class);
+        return $this->hasManyThrough(FeeInvoice::class, Student::class);
     }
     public function attendanceMarked()
     {

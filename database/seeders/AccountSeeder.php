@@ -9,66 +9,43 @@ class AccountSeeder extends Seeder
 {
     public function run(): void
     {
-        // ===== ASSETS =====
-        $assets = Account::create([
+        // Assets
+        $asset = Account::create([
             'code' => '1000',
-            'name' => 'Assets',
+            'name' => 'Asset',
             'type' => 'asset',
             'parent_id' => null,
         ]);
 
-        $currentAssets = Account::create([
-            'code' => '1100',
-            'name' => 'Current Assets',
-            'type' => 'asset',
-            'parent_id' => $assets->id,
-        ]);
-
         Account::insert([
             [
-                'code' => '1101',
+                'code' => '1001',
                 'name' => 'Cash',
                 'type' => 'asset',
-                'parent_id' => $currentAssets->id,
+                'parent_id' => $asset->id,
             ],
             [
-                'code' => '1102',
+                'code' => '1002',
                 'name' => 'Bank',
                 'type' => 'asset',
-                'parent_id' => $currentAssets->id,
+                'parent_id' => $asset->id,
             ],
             [
-                'code' => '1103',
-                'name' => 'Student Receivable',
+                'code' => '1003',
+                'name' => 'Fee Receivable',
                 'type' => 'asset',
-                'parent_id' => $currentAssets->id,
+                'parent_id' => $asset->id,
             ],
-        ]);
-
-        $fixedAssets = Account::create([
-            'code' => '1200',
-            'name' => 'Fixed Assets',
-            'type' => 'asset',
-            'parent_id' => $assets->id,
-        ]);
-
-        Account::insert([
             [
-                'code' => '1201',
+                'code' => '1004',
                 'name' => 'Furniture',
                 'type' => 'asset',
-                'parent_id' => $fixedAssets->id,
-            ],
-            [
-                'code' => '1202',
-                'name' => 'Computers',
-                'type' => 'asset',
-                'parent_id' => $fixedAssets->id,
+                'parent_id' => $asset->id,
             ],
         ]);
 
         // ===== LIABILITIES =====
-        $liabilities = Account::create([
+        $liability = Account::create([
             'code' => '2000',
             'name' => 'Liabilities',
             'type' => 'liability',
@@ -77,16 +54,16 @@ class AccountSeeder extends Seeder
 
         Account::insert([
             [
-                'code' => '2101',
+                'code' => '2001',
                 'name' => 'Salary Payable',
                 'type' => 'liability',
-                'parent_id' => $liabilities->id,
+                'parent_id' => $liability->id,
             ],
             [
-                'code' => '2102',
+                'code' => '2002',
                 'name' => 'Accounts Payable',
                 'type' => 'liability',
-                'parent_id' => $liabilities->id,
+                'parent_id' => $liability->id,
             ],
         ]);
 
@@ -100,19 +77,19 @@ class AccountSeeder extends Seeder
 
         Account::insert([
             [
-                'code' => '3101',
+                'code' => '3001',
                 'name' => 'Capital',
                 'type' => 'equity',
                 'parent_id' => $equity->id,
             ],
             [
-                'code' => '3102',
+                'code' => '3002',
                 'name' => 'Drawings',
                 'type' => 'equity',
                 'parent_id' => $equity->id,
             ],
             [
-                'code' => '3103',
+                'code' => '3003',
                 'name' => 'Retained Earnings',
                 'type' => 'equity',
                 'parent_id' => $equity->id,
@@ -129,23 +106,12 @@ class AccountSeeder extends Seeder
 
         Account::insert([
             [
-                'code' => '4101',
-                'name' => 'Tuition Fee Income',
+                'code' => '4001',
+                'name' => 'Fee Income',
                 'type' => 'income',
                 'parent_id' => $income->id,
             ],
-            [
-                'code' => '4102',
-                'name' => 'Admission Fee',
-                'type' => 'income',
-                'parent_id' => $income->id,
-            ],
-            [
-                'code' => '4103',
-                'name' => 'Fine Income',
-                'type' => 'income',
-                'parent_id' => $income->id,
-            ],
+
         ]);
 
         // ===== EXPENSES =====
@@ -156,43 +122,33 @@ class AccountSeeder extends Seeder
             'parent_id' => null,
         ]);
 
-        $academicExpenses = Account::create([
-            'code' => '5100',
-            'name' => 'Academic Expenses',
-            'type' => 'expense',
-            'parent_id' => $expenses->id,
-        ]);
-
         Account::insert([
             [
-                'code' => '5101',
+                'code' => '5001',
                 'name' => 'Teacher Salary',
                 'type' => 'expense',
-                'parent_id' => $academicExpenses->id,
+                'parent_id' => $expenses->id,
             ],
             [
-                'code' => '5102',
+                'code' => '5002',
                 'name' => 'Exam Expenses',
                 'type' => 'expense',
-                'parent_id' => $academicExpenses->id,
+                'parent_id' => $expenses->id,
             ],
-        ]);
-
-        Account::insert([
             [
-                'code' => '5201',
+                'code' => '5003',
                 'name' => 'Office Rent',
                 'type' => 'expense',
                 'parent_id' => $expenses->id,
             ],
             [
-                'code' => '5202',
+                'code' => '5004',
                 'name' => 'Electricity',
                 'type' => 'expense',
                 'parent_id' => $expenses->id,
             ],
             [
-                'code' => '5203',
+                'code' => '5005',
                 'name' => 'Internet',
                 'type' => 'expense',
                 'parent_id' => $expenses->id,

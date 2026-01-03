@@ -1,10 +1,10 @@
 @extends('layouts.app')
 @section('page-content')
-    <h2>New Test</h2>
+    <h2>New Fee Invoice</h2>
     <div class="bread-crumb">
         <a href="/">Home</a>
         <div>/</div>
-        <a href="{{ route('vouchers.index') }}">Vouchers</a>
+        <a href="{{ route('fee-invoices.index') }}">Fee Invoices</a>
         <div>/</div>
         <div>New</div>
     </div>
@@ -16,26 +16,47 @@
         @else
             <x-message></x-message>
         @endif
-        <form action="{{ route('vouchers.store') }}" method='post' class="w-full grid gap-6" onsubmit="return validate(event)">
+        <form action="{{ route('fee-invoices.store') }}" method='post' class="w-full grid gap-6"
+            onsubmit="return validate(event)">
             @csrf
-            <div>
-                <input type="checkbox" id='is_tutionfee' name="is_tutionfee" class="mr-2" checked> <label
-                    for="is_tutionfee">Tution
-                    Fee?</label>
+            <label for="">What to Include?</label>
+            <div class="grid border rounded md:w-1/2">
+                @foreach ($fee_types as $fee_type)
+                    <div class="flex items-center odd:bg-slate-100 checkable-row px-4">
+                        <!-- <div class="flex flex-1 items-center justify-between space-x-2 pr-3"> -->
+                        <label for='fee{{ $fee_type->id }}'
+                            class="flex-1 text-sm text-slate-800 hover:cursor-pointer py-2">{{ $fee_type->name }}
+                        </label>
+                        <!-- </div> -->
+                        <div class="text-base">
+                            <input type="checkbox" id='fee{{ $fee_type->id }}' name='fee_type_ids_array[]'
+                                class="custom-input w-4 h-4 rounded hidden" value="{{ $fee_type->id }}">
+                            <i class="bi-check"></i>
+                        </div>
+                    </div>
+                @endforeach
             </div>
-            <div class="grid md:grid-cols-2 gap-3">
+            <div class="grid grid-cols-4 gap-3">
+                <div class="">
+                    <label>Month</label>
+                    <select name="month" id="" class="custom-input">
+                        @foreach (range(1, 12) as $month_no)
+                            <option value="{{ $month_no }}">{{ $months[$month_no] }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="">
+                    @php
+                        $current_year = now()->format('Y');
+                    @endphp
+                    <label>Year</label>
+                    <select name="year" id="" class="custom-input">
+                        @foreach (range($current_year, $current_year - 1) as $year)
+                            <option value="{{ $year }}">{{ $year }}</option>
+                        @endforeach
+                    </select>
+                </div>
                 <div class="md:col-span-2">
-                    <label>Voucher Title</label>
-                    <input type="text" name='name' class="custom-input" placeholder="For example: December Fee"
-                        value="" required>
-                </div>
-                <div class="hidden" id="amount_wrapper">
-                    <label>Amount</label>
-                    <input type="number" name='amount' id='amount' class="custom-input text-center"
-                        placeholder="Amount" value="0">
-
-                </div>
-                <div>
                     <label>Due Date</label>
                     <input type="date" name='due_date' class="custom-input text-center" placeholder="Due date" required>
 

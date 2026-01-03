@@ -19,4 +19,8 @@ class Transaction extends Model
     {
         return $this->hasMany(TransactionLine::class);
     }
+    public function feeInvoices()
+    {
+        return $this->hasMany(FeeInvoice::class);
+    }
 }

@@ -27,10 +27,9 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             SectionSeeder::class,
             LectureSeeder::class,
+            FeeTypeSeeder::class,
             StudentSeeder::class,
             AccountSeeder::class,
-            FeeTypeSeeder::class,
-            FeeStructureSeeder::class,
         ]);
     }
 }
