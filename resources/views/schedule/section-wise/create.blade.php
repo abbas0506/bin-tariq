@@ -28,7 +28,7 @@
             </div>
             <div class="grid gap-5 p-8 md:px-12 place-items-center border rounded-lg">
                 <div class="h-12 w-12 rounded-full border flex justify-center items-center">
-                    <i class="bx  bx-book"></i>
+                    <i class="bx bx-book"></i>
                 </div>
                 <select name="subject_id" id="" class="custom-input-borderless">
                     @foreach ($subjects->sortBy('name') as $subject)
@@ -38,7 +38,7 @@
             </div>
             <div class="grid gap-5 p-8 md:px-12 place-items-center border rounded-lg">
                 <div class="h-12 w-12 rounded-full border flex justify-center items-center">
-                    <i class="bx  bx-user"></i>
+                    <i class="bx bx-user"></i>
                 </div>
                 <select name="user_id" id="" class="custom-input-borderless">
                     @foreach ($users->sortBy('name') as $user)

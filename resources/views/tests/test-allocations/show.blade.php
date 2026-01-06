@@ -32,7 +32,7 @@
             @if ($testAllocation->hasBeenSubmitted())
                 <a href="{{ route('test.test-allocations.edit', [$test, $testAllocation]) }}"
                     class="flex justify-center items-center w-8 h-8 btn-blue rounded-full text-xs"><i
-                        class="bx  bx-pencil"></i></a>
+                        class="bx bx-pencil"></i></a>
             @else
                 <form action="{{ route('test.test-allocations.destroy', [$test, $testAllocation]) }}" method="POST"
                     onsubmit="confirmDel(event)" class="w-full">
@@ -53,7 +53,7 @@
             <div class="flex relative w-full md:w-1/3">
                 <input type="text" id='searchby' placeholder="Search ..." class="custom-search w-full"
                     oninput="search(event)">
-                <i class="bx  bx-search absolute top-2 right-2"></i>
+                <i class="bx bx-search absolute top-2 right-2"></i>
             </div>
             @if ($testAllocation->hasBeenSubmitted())
                 <form action="{{ route('test-allocation.unlock', $testAllocation) }}" method="post">

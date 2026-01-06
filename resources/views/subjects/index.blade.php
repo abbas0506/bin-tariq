@@ -10,15 +10,15 @@
     </div>
 
 
-    <div class="content-section">
+    <div class="md:w-4/5 mx-auto mt-8">
         <div class="flex items-center flex-wrap justify-between">
             <!-- search -->
             <div class="flex relative w-full md:w-1/3">
                 <input type="text" id='searchby' placeholder="Search ..." class="custom-search w-full"
                     oninput="search(event)">
-                <i class="bx  bx-search absolute top-2 right-2"></i>
+                <i class="bx bx-search absolute top-2 right-2"></i>
             </div>
-            <a href="{{ route('subjects.create') }}" class="btn-teal rounded px-4 py-2">New</a>
+            <a href="{{ route('subjects.create') }}" class="btn-teal rounded">New</a>
         </div>
 
         <!-- page message -->
@@ -47,7 +47,7 @@
                         <td>
                             <div class="flex justify-center items-center space-x-3">
                                 <a href="{{ route('subjects.edit', $subject) }}">
-                                    <i class="bx  bx-pencil text-green-600"></i>
+                                    <i class="bx bx-pencil text-green-600"></i>
                                 </a>
                                 <span class="text-slate-400">|</span>
                                 <form action="{{ route('subjects.destroy', $subject) }}" method="POST"
@@ -56,7 +56,7 @@
                                     @method('DELETE')
                                     <button type="submit" class="bg-transparent p-0 border-0"
                                         onclick="delme('{{ $subject->id }}')">
-                                        <i class="bx  bx-trash text-red-600"></i>
+                                        <i class="bx bx-trash text-red-600"></i>
                                     </button>
                                 </form>
                             </div>

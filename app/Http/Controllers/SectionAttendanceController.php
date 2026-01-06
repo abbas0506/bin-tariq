@@ -109,13 +109,13 @@ class SectionAttendanceController extends Controller
         }
     }
 
-    public function show($id, $studentId)
+    public function show($id, $attendanceId)
     {
-        $this->authorize('view', Attendance::class);
+        $attendance = Attendance::find($id);
+        $this->authorize('view', $attendance);
 
         $section = Section::find($id);
-        $student = Student::find($studentId);
-
+        $student = $attendance->student;
         $date = session('date') ?? now()->toDateString();
         // get all absences of the student before selected date
         $attendances = $student->attendances()->where('status', 0)->whereDate('date', '<', $date)->get();

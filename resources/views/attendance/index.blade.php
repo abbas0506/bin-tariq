@@ -14,7 +14,7 @@
         <!-- <div class="flex justify-between items-center flex-wrap gap-6 mt-12"> -->
         <div class="flex relative w-full md:w-1/3">
             <input type="text" id='searchby' placeholder="Search ..." class="custom-search w-full" oninput="search(event)">
-            <i class="bx  bx-search absolute top-2 right-2"></i>
+            <i class="bx bx-search absolute top-2 right-2"></i>
         </div>
 
         <!-- page message -->
@@ -29,7 +29,7 @@
 
             @if (\Carbon\Carbon::parse($date)->isToday())
                 <a href="{{ route('section.attendance.edit', [$section, 1]) }}" class="btn-blue rounded"><i
-                        class="bx  bx-pencil"></i></a>
+                        class="bx bx-pencil"></i></a>
             @endif
         </div>
 
@@ -48,7 +48,7 @@
                         <tr class="tr">
                             <td>{{ $attendance->student->rollno }}</td>
                             <td class="text-left text-xs md:text-sm ">
-                                <a href="{{ route('section.attendance.show', [$section, $attendance->student]) }}"
+                                <a href="{{ route('section.attendance.show', [$section, $attendance]) }}"
                                     class="link">{{ $attendance->student->name }}</a>
                                 <br>
                                 <span class="text-slate-400 text-xs">{{ $attendance->student->father_name }}</span>

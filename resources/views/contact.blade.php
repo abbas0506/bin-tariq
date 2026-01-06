@@ -36,9 +36,9 @@
     <section class="mt-16">
         <div class="overflow-x-hidden">
             <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6858.6632086990285!2d73.52574868837141!3d30.73718562002131!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39180624c19cb001%3A0x4eb6e3a38a104dbe!2sGovt%20Boys%20High%20School!5e0!3m2!1sen!2s!4v1761409543502!5m2!1sen!2s"
-                width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade" class="w-full" height="320" style="border:0;"></iframe>
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7675.500046900273!2d73.76636784597382!3d30.61402571808166!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39181e1197ea978f%3A0xbd36214b35709acc!2sChorasta%20Mian%20Khan%2C%20Pakistan!5e0!3m2!1sen!2s!4v1767631104007!5m2!1sen!2s"
+                allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" class="w-full" height="320"
+                style="border:0;"></iframe>
         </div>
     </section>
 

@@ -35,7 +35,7 @@
                     {{-- test edit button --}}
                     <a href="{{ route('tests.edit', $test) }}"
                         class="flex justify-center items-center w-8 h-8 btn-teal rounded-full text-xs">
-                        <i class="bx  bx-pencil text-slate-50"></i>
+                        <i class="bx bx-pencil text-slate-50"></i>
                     </a>
                     {{-- delete button --}}
                     @can('delete', $test)
@@ -89,7 +89,7 @@
                 <div class="flex relative w-full md:w-1/3">
                     <input type="text" id='searchby' placeholder="Search ..." class="custom-search w-full"
                         oninput="search(event)">
-                    <i class="bx  bx-search absolute top-2 right-2"></i>
+                    <i class="bx bx-search absolute top-2 right-2"></i>
                 </div>
                 <div class="flex items-center space-x-3">
                     <span class="text-slate-600 hover:cursor-pointer" onclick="filterBy('all')"><i

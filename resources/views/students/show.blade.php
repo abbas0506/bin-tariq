@@ -28,14 +28,14 @@
                             onsubmit="return confirmDel(event)">
                             @csrf
                             @method('DELETE')
-                            <button><i class="bx-trash text-red-600"></i></button>
+                            <button><i class="bx bx-trash text-red-600"></i></button>
                         </form>
                     </div>
                 @endcan
                 @can('update', $student)
                     <div class="flex w-8 h-8 rounded-full border justify-center items-center">
                         <a href="{{ route('section.students.edit', [$section, $student]) }}">
-                            <i class="bx-pencil text-green-600"></i></a>
+                            <i class="bx bx-pencil text-green-600"></i></a>
                     </div>
                 @endcan
 

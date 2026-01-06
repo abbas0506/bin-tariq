@@ -10,12 +10,9 @@
             <div>New</div>
         </div>
 
-        <div class="md:w-4/5 border rounded mx-auto mt-12 p-5 md:p-8 relative">
-            <!-- close button -->
-            <a href="{{ route('users.index') }}" class="absolute top-2 right-2 p-2 hover:bg-slate-200 rounded"><i
-                    class="bi-x-lg"></i></a>
+        <div class="md:w-4/5 mx-auto mt-8">
 
-            <div class="w-full mt-8">
+            <div class="w-full">
                 <!-- page message -->
                 @if ($errors->any())
                     <x-message :errors='$errors'></x-message>
@@ -25,7 +22,7 @@
 
                 <form action="{{ route('users.store') }}" method='post' class="mt-4" onsubmit="return validate(event)">
                     @csrf
-                    <div class="grid grid-cols-2 gap-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
                             <label>Name *</label>
                             <input type="text" name='name' class="custom-input" placeholder="Type here">
@@ -47,12 +44,15 @@
                             <input type="email" name='email' class="custom-input" placeholder="Type here">
                         </div>
                         <div class="">
-                            <label>Salary</label>
+                            <label>Salary*</label>
                             <input type="number" name='salary' class="custom-input" placeholder="Type here">
                         </div>
                     </div>
-                    <div class="text-right mt-8">
-                        <button type="submit" class="btn-teal rounded p-2">Create Now</button>
+                    <div class="flex justify-center items-center space-x-2 mt-8">
+                        <!-- close button -->
+                        <a href="{{ route('users.index') }}" class="btn-gray rounded">Cancel</a>
+
+                        <button type="submit" class="btn-teal rounded">Create Now</button>
                     </div>
                 </form>
 

@@ -1,18 +1,18 @@
 @extends('layouts.app')
 @section('page-content')
     <div class="custom-container">
-        <h1>{{ $section->name }} / New Student </h1>
+        <h1>{{ $section->name }} </h1>
         <div class="bread-crumb">
-            <a href="{{ url('/') }}">Dashoboard</a>
-            <div>/</div>
-            <a href="{{ route('sections.index') }}">Sections</a>
+            <a href="{{ url('/') }}">Home</a>
             <div>/</div>
             <a href="{{ route('sections.show', $section) }}">{{ $section->name }}</a>
             <div>/</div>
-            <div>Students / New</div>
+            <div>New Student</div>
         </div>
 
-        <div class="md:w-4/5 mx-auto rounded border p-5 md:p-8 mt-12 relative">
+        <a href="{{ route('sections.show', $section) }}" class="mt-5"><i class="bi-arrow-left text-slate-400"></i></a>
+
+        <div class="md:w-4/5 mx-auto">
             <!-- close button -->
             <a href="{{ route('sections.show', $section) }}" class="absolute top-2 right-2 p-2 rounded"><i
                     class="bi-x text-slate-400"></i></a>
@@ -28,8 +28,9 @@
                 <form action="{{ route('section.students.store', $section) }}" method='post' class="mt-4"
                     onsubmit="return validate(event)">
                     @csrf
-                    <div class="grid grid-cols-2 gap-4">
-                        <div>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <h2 class="text-teal-500 col-span-full">Student Info</h2>
+                        <div class="col-span-full">
                             <label>Name *</label>
                             <input type="text" name='name' class="custom-input" placeholder="Type here">
                         </div>
@@ -47,15 +48,19 @@
                         </div>
                         <div class="">
                             <label>Roll No *</label>
-                            <input type="text" name='rollno' class="custom-input" placeholder="Type here">
+                            <input type="number" name='rollno' class="custom-input" placeholder="Type here">
                         </div>
-                        <div class="">
-                            <label>Fee *</label>
-                            <input type="number" name='fee' class="custom-input" placeholder="Type here">
-                        </div>
+                        <h2 class="col-span-full text-teal-500 mt-6">Fee Package</h2>
+                        @foreach ($feeTypes as $feeType)
+                            <div>
+                                <label for="">{{ $feeType->name }}</label>
+                                <input type="hidden" name="fee_type_ids[]" value="{{ $feeType->id }}">
+                                <input type="number" name="amounts[]" value="{{ $feeType->amount }}" class="custom-input">
+                            </div>
+                        @endforeach
                     </div>
-                    <div class="text-right mt-8">
-                        <button type="submit" class="btn-teal rounded p-2">Create Now</button>
+                    <div class="text-center md:text-right mt-8">
+                        <button type="submit" class="btn-teal rounded">Submit</button>
                     </div>
                 </form>
 

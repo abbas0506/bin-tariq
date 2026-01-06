@@ -21,7 +21,7 @@ use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TestAllocationController;
 use App\Http\Controllers\TestAllocationResultController;
-use App\Http\Controllers\userController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserRoleController;
 use App\Http\Controllers\UserScheduleController;
 use App\Http\Controllers\VoucherController;

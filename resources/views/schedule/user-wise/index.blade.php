@@ -17,7 +17,7 @@
     <div class="flex items-center justify-between mt-12">
         <div class="flex relative w-full md:w-1/3">
             <input type="text" id='searchby' placeholder="Search ..." class="custom-search w-full" oninput="search(event)">
-            <i class="bx  bx-search absolute top-2 right-2"></i>
+            <i class="bx bx-search absolute top-2 right-2"></i>
         </div>
         <div class="flex gap-3">
             <a href="{{ url('class-schedule') }}"><i class="bi-repeat text-green-700"></i></a>

@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
-class userController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -43,24 +43,26 @@ class userController extends Controller
     {
         //
         $request->validate([
-            'email' => 'required|email',
             'name' => 'required',
             'father_name' => 'nullable|string',
-            'cnic' => 'required|string',
-            'phone' => 'required|string',
+            'cnic' => 'nullable|string',
+            'email' => 'required|email',
+            'phone' => 'nullable|string',
             'salary' => 'required|numeric',
         ]);
-
+        DB::beginTransaction();
         try {
 
             $user = User::create([
                 'email' => $request->email,
                 'password' => Hash::make('password'),
             ]);
-            $user->assignRole(['user']);
+            $user->assignRole(['teacher']);
             $user->profile()->create($request->all());
+            DB::commit();
             return redirect()->route('users.index')->with('success', 'Successfully created');
         } catch (Exception $e) {
+            DB::rollBack();
             return redirect()->back()->withErrors($e->getMessage());
             // something went wrong
         }

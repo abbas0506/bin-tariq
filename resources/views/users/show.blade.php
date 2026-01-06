@@ -4,7 +4,7 @@
     <div class="flex items-center">
         <div class="flex-1">
             <div class="bread-crumb">
-                <a href="{{ url('/') }}">Dashboard</a>
+                <a href="{{ url('/') }}">Home</a>
                 <div>/</div>
                 <a href="{{ route('users.index') }}">users</a>
                 <div>/</div>
@@ -15,7 +15,7 @@
 
 
     <div class="mt-8">
-        <img src="{{ asset('storage/' . $user->profile->photo) }}" alt="Student Photo" width="100" height="100"
+        <img src="{{ asset('storage/' . $user->profile->photo) }}" alt="User" width="100" height="100"
             class="mx-auto rounded-lg">
         <h2 class="text-center mt-3">{{ $user->profile->name }} </h2>
         <div class="text-center text-slate-400 text-xs">{{ $user->designation }}</div>
@@ -30,22 +30,19 @@
             <x-message></x-message>
         @endif
 
-
         {{-- action buttons --}}
-        <div class="flex items-center justify-center space-x-2 absolute top-3 md:top-5 right-5">
-            <div class="flex w-8 h-8 rounded-full border justify-center items-center">
+        <div class="flex items-center justify-center space-x-2 absolute top-2 right-2">
+            <div class="">
                 <form action="{{ route('users.destroy', $user) }}" method="post" onsubmit="return confirmDel(event)">
                     @csrf
                     @method('DELETE')
-                    <button><i class="bx  bx-trash text-red-600"></i></button>
+                    <button><i class="bx bx-trash text-red-600"></i></button>
                 </form>
             </div>
-            <div class="flex w-8 h-8 rounded-full border justify-center items-center">
-                <a href="{{ route('users.edit', $user) }}"><i class="bx  bx-pencil text-green-600"></i></a>
+            <div class="">
+                <a href="{{ route('users.edit', $user) }}"><i class="bx bx-pencil text-green-600"></i></a>
             </div>
-            <div class="flex w-8 h-8 rounded-full border justify-center items-center">
-                <a href="{{ route('users.index') }}"><i class="bi-x-lg"></i></a>
-            </div>
+
         </div>
         <div class="grid md:grid-cols-2 gap-3 mt-8">
             <!-- display info -->
@@ -80,7 +77,7 @@
             <div class="md:col-span-full">
                 <div class="flex items-center">
                     <label>Roles</label><a href="{{ route('user.roles.edit', [$user, 1]) }}"><i
-                            class="bx-pencil text-green-600 ml-2 pt-2"></i></a>
+                            class="bx bx-pencil text-green-600 ml-2 pt-2"></i></a>
                 </div>
 
                 @foreach ($user->roles as $role)
@@ -88,6 +85,10 @@
                 @endforeach
             </div>
         </div>
+    </div>
+    {{-- close button --}}
+    <div class="btn btn-blue rounded mt-5 mx-auto text-center w-24">
+        <a href="{{ route('users.index') }}">Close</a>
     </div>
 @endsection
 @section('script')

@@ -13,7 +13,7 @@
                 <div class="flex relative w-full md:w-1/3">
                     <input type="text" id='searchby' placeholder="Search ..." class="custom-search w-full"
                         oninput="search(event)">
-                    <i class="bx  bx-search absolute top-2 right-2"></i>
+                    <i class="bx bx-search absolute top-2 right-2"></i>
                 </div>
                 <div>
 
@@ -41,7 +41,7 @@
                             <th class="w-48 text-left">Name</th>
                             <th class="w-12">Month</th>
                             <th class="w-12">Amount</th>
-                            <th class="w-16"></th>
+                            <th class="w-12">Status</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -63,17 +63,10 @@
                                 </td>
                                 <td>{{ $feeInvoice->amount }}</td>
                                 <td>
-                                    @if (!$feeInvoice->status)
-                                        <form action="{{ route('fee-invoices.update', $feeInvoice) }}" method="POST"
-                                            onsubmit="return confirmUpdate(event, {{ $feeInvoice->amount }})">
-                                            @csrf
-                                            @method('PATCH')
-                                            <button type="submit" class="btn-blue rounded">
-                                                Pay
-                                            </button>
-                                        </form>
-                                    @else
+                                    @if ($feeInvoice->status)
                                         <i class="bi-check text-green-800"></i>
+                                    @else
+                                        <i class="bi-question"></i>
                                     @endif
                                 </td>
                             </tr>

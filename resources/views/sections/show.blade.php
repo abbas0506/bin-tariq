@@ -1,6 +1,7 @@
 @extends('layouts.app')
 @section('page-content')
     <div class="custom-container">
+        <h2>View Class</h2>
         <div class="bread-crumb">
             <a href="{{ url('/') }}">Dashoboard</a>
             <div>/</div>
@@ -10,24 +11,24 @@
         </div>
 
 
-        <div class="flex p-5 justify-between items-center border rounded md:w-4/5 mx-auto">
+        <div class="flex p-5 justify-between items-center border rounded md:w-4/5 mt-8 mx-auto">
             <h1>{{ $section->name }}</h1>
             <div class="flex space-x-2 items-center">
                 @can('update', $section)
-                    <a href="{{ route('sections.edit', $section) }}"><i class="bx-pencil text-green-600"></i></a>
+                    <a href="{{ route('sections.edit', $section) }}"><i class="bx bx-pencil text-green-600"></i></a>
                 @endcan
                 @can('delete', $section)
                     <form action="{{ route('sections.destroy', $section) }}" method="POST" onsubmit="return confirmDel(event)">
                         @csrf @method('DELETE')
-                        <button type="submit"><i class="bx-trash text-red-600"></i></button>
+                        <button type="submit"><i class="bx bx-trash text-red-600"></i></button>
                     </form>
                 @endcan
             </div>
         </div>
         <!-- search -->
 
-        <div class="md:w-4/5 mx-auto p-5 md:p-8 rounded border mt-5">
-            <div class="flex justify-center items-center gap-3 flex-wrap mt-5">
+        <div class="md:w-4/5 mx-auto p-5 md:p-8 rounded text-sm border mt-5">
+            <div class="flex justify-center items-center gap-3 flex-wrap">
                 <a href="{{ route('section.students.create', $section) }}"><i
                         class="bi bi-person-add text-teal-600"></i></a>
                 <a href="{{ route('sections.export', $section) }}" class=""><i
@@ -52,10 +53,10 @@
                 <x-message></x-message>
             @endif
 
-            <div class="flex relative w-full md:w-1/3">
+            <div class="flex relative w-full md:w-1/3 mt-3">
                 <input type="text" id='searchby' placeholder="Search ..." class="custom-search w-full"
                     oninput="search(event)">
-                <i class="bx  bx-search absolute top-2 right-2"></i>
+                <i class="bx bx-search absolute top-2 right-2"></i>
             </div>
 
             <div class="overflow-x-auto bg-white w-full mt-8">
@@ -65,7 +66,7 @@
                         <tr>
                             <th class="w-10">#</th>
                             <th class="w-48 text-left">Name</th>
-                            <th class="w-16">Photo</th>
+                            {{-- <th class="w-16">Photo</th> --}}
 
                         </tr>
                     </thead>
@@ -78,8 +79,8 @@
                                         class="link">{{ $student->name }}</a>
                                     <br><span class="text-slate-400 text-xs">{{ $student->father_name }}</span>
                                 </td>
-                                <td><img src="{{ asset('storage/' . $student->photo) }}" alt="photo"
-                                        class="rounded mx-auto w-8 h-8"></td>
+                                {{-- <td><img src="{{ asset('storage/' . $student->photo) }}" alt="photo"
+                                        class="rounded mx-auto w-8 h-8"></td> --}}
                             </tr>
                         @endforeach
                     </tbody>

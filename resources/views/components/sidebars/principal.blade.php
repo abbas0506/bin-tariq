@@ -21,7 +21,7 @@
             </li>
             <li>
                 <a href="{{ route('subjects.index') }}" class="flex items-center">
-                    <i class="bx-book"></i>
+                    <i class="bx bx-book"></i>
                     <span class="ml-3">Subjects</span>
                 </a>
             </li>

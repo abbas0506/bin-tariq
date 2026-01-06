@@ -88,7 +88,7 @@
                 <input type="file" id="photo" name="photo" accept="image/*" onchange="previewSelectedPhoto(event)">
                 <label id="photo-error" class="text-red-500 mt-1 hidden">File size exceeds 1MB.</label>
             </div>
-            <div class="w-full md:w-4/5 mx-auto p-8 mt-8 border rounded">
+            <div class="w-full md:w-4/5 mx-auto p-0 md:p-8 mt-8">
                 <!-- page error message -->
                 @if ($errors->any())
                     <x-message :errors='$errors'></x-message>
@@ -147,10 +147,9 @@
                         <input type="number" name="seniority" class="custom-input fancy-focus" placeholder="type here"
                             value="{{ $user->profile->seniority }}">
                     </div>
-                    <div class="flex justify-end space-x-3 text-center mt-8 md:col-span-2">
-                        <a href="{{ url('/') }}" class="btn-gray rounded py-3 px-5">Cancel <i
-                                class="bi-x text-white"></i></a>
-                        <button class="btn-blue rounded py-3 px-5">Submit <i class="bi-check"></i></button>
+                    <div class="flex justify-center space-x-3 text-center mt-8 md:col-span-2">
+                        <a href="{{ url('/') }}" class="btn-gray rounded py-2 px-5">Cancel </a>
+                        <button class="btn-blue rounded py-2 px-5">Submit </button>
                     </div>
                 </div>
         </form>

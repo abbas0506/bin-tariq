@@ -86,42 +86,7 @@
 
 @section('body')
     <!-- Bootstrap Icons CDN -->
-    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet"> -->
-
-    <!-- Bootstrap Icons CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
-
-
-    <!-- page message -->
-    @if ($errors->any())
-        <x-message :errors='$errors'></x-message>
-    @else
-        <x-message></x-message>
-    @endif
-    <!-- <section class="w-screen h-screen">
-                                                                                                                                                                    <div class="flex flex-col md:flex-row-reverse justify-between items-center px-5 md:px-24 h-full py-16">
-                                                                                                                                                                        <div class="flex flex-1 justify-end items-center">
-                                                                                                                                                                            <img src="{{ url(asset('images/small/admission-2.png')) }}" alt="student" class="w-64 h-64 md:w-96 md:h-96">
-
-                                                                                                                                                                        </div>
-
-                                                                                                                                                                        <div class="flex flex-col flex-1 gap-y-2 justify-center">
-                                                                                                                                                                            <p>2025</p>
-                                                                                                                                                                            <h2 class="text-2xl md:text-4xl font-bold">Admission <span class="text-teal-700"> Open</span></h2>
-                                                                                                                                                                            <p class="text-slate-600 text-sm md:text-lg leading-relaxed mt-4">We are thrilled to welcome ambitious students to our dynamic academic journey, proudly offering FA, Pre-Engineering, and ICS programs.</p>
-                                                                                                                                                                            <a href="{{ url('admission-25') }}">
-                                                                                                                                                                                <div class="button-container">
-                                                                                                                                                                                    <button class="px-5 py-2 text-lg font-semibold mt-5 bg-teal-400 hover:bg-teal-600 rounded-full">
-                                                                                                                                                                                        Apply Now
-                                                                                                                                                                                    </button>
-                                                                                                                                                                                    <i class="bi bi-cursor-fill pointer-icon"></i>
-
-                                                                                                                                                                                </div>
-                                                                                                                                                                            </a>
-                                                                                                                                                                        </div>
-
-                                                                                                                                                                    </div>
-                                                                                                                                                                </section> -->
     <section class="w-screen h-screen">
         <div class="flex flex-col md:flex-row-reverse justify-between items-center px-5 md:px-24 h-full pt-16">
             <div class="flex flex-1 justify-end items-center">
@@ -130,8 +95,8 @@
             </div>
 
             <div class="flex flex-col flex-1 gap-y-2 justify-center">
-                <p>Care</p>
-                <h2 class="text-2xl md:text-4xl font-bold">Modern Education</h2>
+                <p>Discover</p>
+                <h2 class="text-2xl md:text-4xl font-bold">Quality Education</h2>
                 <p class="text-slate-600 text-sm md:text-lg leading-relaxed mt-4"> We have highly skilled teaching staff who
                     focus on activity based teaching.
                     Our institution provides a state of the art environment where your kids' dreams become reality.
@@ -168,7 +133,7 @@
             </div>
             <div class="feature-box hover:border-rose-200 hover:bg-rose-50">
                 <div class="flex items-center justify-center bg-rose-100 rounded-full w-16 h-16">
-                    <i class="bx-run text-2xl text-rose-400"></i>
+                    <i class="bx bx-run text-2xl text-rose-400"></i>
                 </div>
                 <h3 class="mt-3 text-lg">Social Development</h3>
                 <p class="text-sm text-center">We build healthy social habits to make your kid a socially responsible
@@ -218,21 +183,11 @@
     <section class="mt-12 md:px-24 p-5">
         <div class="overflow-x-hidden">
             <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6858.6632086990285!2d73.52574868837141!3d30.73718562002131!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39180624c19cb001%3A0x4eb6e3a38a104dbe!2sGovt%20Boys%20High%20School!5e0!3m2!1sen!2s!4v1761409543502!5m2!1sen!2s"
-                width="100%" height="324" style="border:0;" allowfullscreen="" loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade" class="w-full" height="320" style="border:0;"></iframe>
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7675.500046900273!2d73.76636784597382!3d30.61402571808166!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39181e1197ea978f%3A0xbd36214b35709acc!2sChorasta%20Mian%20Khan%2C%20Pakistan!5e0!3m2!1sen!2s!4v1767631104007!5m2!1sen!2s"
+                allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" class="w-full" height="320"
+                style="border:0;"></iframe>
         </div>
 
-
-        {{-- <div class="flex items-center gap-5 mt-16">
-            <div class="relative flex-1">
-                <input type="text" placeholder="Enter your mailing address" class="custom-input pl-10">
-                <i class="bi-envelope absolute top-3 left-3"></i>
-            </div>
-
-            <button class="btn-teal rounded-md py-2 px-4">Submit</button>
-
-        </div> --}}
     </section>
 
     <!-- footer -->
