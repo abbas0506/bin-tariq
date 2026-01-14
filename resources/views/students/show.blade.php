@@ -44,12 +44,17 @@
                 </div>
             </div>
         </div>
-
-        <h2>{{ $student->section->name }} ({{ $student->rollno }})</h2>
+        <h2 class="text-teal-500">Student Info</h2><a href="{{ route('students.edit', $student) }}"><i
+                class="bx bx-pencil"></i></a>
         <div>
             <label for="">Name</label>
             <p>{{ $student->name }}</p>
             <p class="text-slate-500 text-xs">{{ $student->father_name }}</p>
+        </div>
+        <div>
+            <label for="">Class</label>
+            <p>{{ $student->section->name }}</p>
+            <p class="text-slate-500 text-xs">{{ $student->rollno }}</p>
         </div>
         <div>
             <label for=""><i class="bi-telephone"></i></label>
@@ -62,13 +67,16 @@
                 <h2>{{ $student->rollno }}</h2>
             </div>
         </div>
-        <div>
-            <label for="">Fee </label>
-            <div class="flex flex-wrap items-center gap-x-4">
-                <h2>{{ $student->fee }}</h2>
-            </div>
+        <hr class="my-2">
+        <h2 class="mt-3 text-teal-500">Fee Package</h2>
+        <div class="grid gap-3 grid-cols-2">
+            @foreach ($student->fees as $fee)
+                <div>
+                    <label for="">{{ $fee->feeType->name }}</label>
+                    <div>{{ $fee->amount }}</div>
+                </div>
+            @endforeach
         </div>
-
     </div>
 @endsection
 @section('script')

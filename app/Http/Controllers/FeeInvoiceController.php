@@ -63,7 +63,13 @@ class FeeInvoiceController extends Controller
         $feeTypeIdsArray = array();
         $feeTypeIdsArray = $request->fee_type_ids_array;
 
-        $year = $request->year;
+        $month = $request->month;
+        $year  = $request->year;
+
+
+        $feeReceivable = Account::where('code', '1005')->first(); // Fee Receivable
+        $feeIncome     = Account::where('code', '4001')->first(); // Fee Income
+
         DB::beginTransaction();
         try {
 
@@ -74,9 +80,7 @@ class FeeInvoiceController extends Controller
                     // start transaction
                     $transaction = Transaction::create([
                         'date' => now()->format('Y-m-d'),
-                        'reference' => 'Student Fee',
-                        'description' => null,
-                        'created_by' => Auth::user()->id,
+                        'description' => "Fee: {$month}/{$year} - {$student->name}",
                     ]);
 
                     $lastInvoice = FeeInvoice::where('year', $year)
@@ -111,14 +115,14 @@ class FeeInvoiceController extends Controller
                     // transaction lines
                     // Dr to fee receivable
                     $transaction->lines()->create([
-                        'account_id' => Account::where('code', '1003')->value('id'),
+                        'account_id' => $feeReceivable->id,
                         'debit'      => $invoiceAmount,
                         'credit'     => 0,
                     ]);
 
                     //Cr to fee Income
                     $transaction->lines()->create([
-                        'account_id' => Account::where('code', '4001')->value('id'),
+                        'account_id' => $feeIncome->id,
                         'debit'     => 0,
                         'credit'      => $invoiceAmount,
                     ]);
@@ -142,8 +146,8 @@ class FeeInvoiceController extends Controller
         //
         $feeInvoice = FeeInvoice::findOrFail($id);
         $this->authorize('view', $feeInvoice);
-
-        return view('fee.invoices.show', compact('feeInvoice'));
+        $paymentMethods = Account::where('is_payment_method', true)->get();
+        return view('fee.invoices.show', compact('feeInvoice', 'paymentMethods'));
     }
 
     /**
@@ -152,12 +156,7 @@ class FeeInvoiceController extends Controller
     public function edit($id)
     {
         //
-        $feeInvoice = FeeInvoice::findOrFail($id);
-        $this->authorize('update', $feeInvoice);
 
-
-        $sections = Section::all();
-        return view('fee.invoices.edit', compact('feeInvoice'));
     }
 
     /**
@@ -177,16 +176,18 @@ class FeeInvoiceController extends Controller
             ]);
 
             // transaction lines
-            // Dr to cash
+            // Debit → Cash / Bank / JazzCash / Easypaisa
             $feeInvoice->transaction->lines()->create([
-                'account_id' => Account::where('code', '1001')->value('id'),
+                'account_id' => $request->payment_account_id,
                 'debit'      => $feeInvoice->amount,
                 'credit'     => 0,
             ]);
 
-            //Cr to fee Income
+            $feeReceivable = Account::where('code', '1005')->first(); // Fee Receivable
+
+            //Cr to fee recievable
             $feeInvoice->transaction->lines()->create([
-                'account_id' => Account::where('code', '1003')->value('id'),
+                'account_id' => $feeReceivable->id,
                 'debit'     => 0,
                 'credit'      => $feeInvoice->amount,
             ]);

@@ -50,6 +50,18 @@
                 </a>
             </li>
             <li>
+                <a href="{{ route('salaries.index') }}" class="flex items-center">
+                    <i class="bi-receipt"></i>
+                    <span class="ml-3">Salaries</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('expenses.index') }}" class="flex items-center">
+                    <i class="bi-coin"></i>
+                    <span class="ml-3">Expenses</span>
+                </a>
+            </li>
+            <li>
                 <a href="{{ route('ledger.index') }}" class="flex items-center">
                     <i class="bi-receipt"></i>
                     <span class="ml-3">Accounts</span>

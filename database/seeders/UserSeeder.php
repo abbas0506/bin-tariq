@@ -27,6 +27,7 @@ class UserSeeder extends Seeder
             'user_id' => $user->id,
             'name' => 'Amina Akhtar',
             'short_name' => 'Amina',
+            'salary' => 25000,
             'seniority' => 1,
 
         ]);
@@ -43,6 +44,7 @@ class UserSeeder extends Seeder
             'user_id' => $user->id,
             'name' => 'Mr Admin',
             'short_name' => 'Admin',
+            'salary' => 15000,
             'seniority' => 2,
         ]);
 
@@ -59,6 +61,7 @@ class UserSeeder extends Seeder
             'user_id' => $user->id,
             'name' => 'Akhtar Ali',
             'short_name' => 'Akhtar',
+            'salary' => 10000,
             'seniority' => 3,
         ]);
 

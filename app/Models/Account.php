@@ -12,7 +12,8 @@ class Account extends Model
         'code',
         'name',
         'type',
-        'parent_id'
+        'parent_id',
+        'is_payment_method',
     ];
 
     public function lines()

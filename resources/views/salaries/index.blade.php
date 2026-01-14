@@ -1,11 +1,11 @@
 @extends('layouts.app')
 @section('page-content')
     <div class="custom-container">
-        <h1>Fee Invoices</h1>
+        <h1>Salaries</h1>
         <div class="bread-crumb">
             <a href="{{ url('/') }}">Home</a>
             <div>/</div>
-            <div>Fee Invoices</div>
+            <div>salaries</div>
         </div>
         <!-- search -->
         <div class="grid md:w-4/5 mx-auto mt-6 bg-white md:p-8 p-4 rounded border">
@@ -21,7 +21,7 @@
             </div>
 
             {{-- create new invoice --}}
-            <a href="{{ route('fee-invoices.create') }}"
+            <a href="{{ route('salaries.create') }}"
                 class="flex w-12 h-12 justify-center items-center btn-teal rounded-full fixed right-5 bottom-5"><i
                     class="bi-plus"></i></a>
 
@@ -37,28 +37,24 @@
                 <table class="table-auto borderless w-full">
                     <thead>
                         <tr>
-                            <th class="w-8">Invoice #</th>
-                            <th class="w-48 text-left">Name</th>
+                            <th class="w-8">#</th>
+                            <th class="w-48 text-left">Reference</th>
                             <th class="w-12">Month</th>
                             <th class="w-12">Amount</th>
                             <th class="w-12">Status</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($feeInvoices->sortBy('student.rollno') as $feeInvoice)
+                        @foreach ($salaries as $salary)
                             <tr class="tr">
-                                <td><a href="{{ route('fee-invoices.show', $feeInvoice) }}"
-                                        class="link">{{ $feeInvoice->invoice_no }}</a>
+                                <td>{{ $loop->index + 1 }}</td>
+                                <td class="text-left"><a href="{{ route('salaries.show', $salary) }}"
+                                        class="link">{{ $salary->user->profile->name }}</a>
                                 </td>
-                                <td class="text-left">{{ $feeInvoice->student->name }}
-                                    <br>
-                                    <span class="text-slate-400 text-xs">{{ $feeInvoice->student->father_name }}</span>
-                                </td>
-
-                                <td>{{ $feeInvoice->billingMonth() }}</td>
-                                <td>{{ $feeInvoice->amount }}</td>
+                                <td>{{ $salary->billingMonth() }}</td>
+                                <td>{{ $salary->amount }}</td>
                                 <td>
-                                    @if ($feeInvoice->status)
+                                    @if ($salary->status)
                                         <i class="bi-check text-green-800"></i>
                                     @else
                                         <i class="bi-question"></i>
@@ -72,7 +68,7 @@
             </div>
             {{-- Pagination --}}
             <div class="px-4 py-3 border-t mt-4">
-                {{ $feeInvoices->withQueryString()->links() }}
+                {{ $salaries->withQueryString()->links() }}
             </div>
         </div>
 

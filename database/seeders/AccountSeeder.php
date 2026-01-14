@@ -22,24 +22,42 @@ class AccountSeeder extends Seeder
                 'code' => '1001',
                 'name' => 'Cash',
                 'type' => 'asset',
+                'is_payment_method' => 1,
                 'parent_id' => $asset->id,
             ],
             [
                 'code' => '1002',
                 'name' => 'Bank',
                 'type' => 'asset',
+                'is_payment_method' => 1,
                 'parent_id' => $asset->id,
             ],
             [
                 'code' => '1003',
-                'name' => 'Fee Receivable',
+                'name' => 'Jazz Cash',
                 'type' => 'asset',
+                'is_payment_method' => 1,
                 'parent_id' => $asset->id,
             ],
             [
                 'code' => '1004',
+                'name' => 'Easypaisa',
+                'type' => 'asset',
+                'is_payment_method' => 1,
+                'parent_id' => $asset->id,
+            ],
+            [
+                'code' => '1005',
+                'name' => 'Fee Receivable',
+                'type' => 'asset',
+                'is_payment_method' => 0,
+                'parent_id' => $asset->id,
+            ],
+            [
+                'code' => '1006',
                 'name' => 'Furniture',
                 'type' => 'asset',
+                'is_payment_method' => 0,
                 'parent_id' => $asset->id,
             ],
         ]);
@@ -125,7 +143,7 @@ class AccountSeeder extends Seeder
         Account::insert([
             [
                 'code' => '5001',
-                'name' => 'Teacher Salary',
+                'name' => 'Salary Enxpenses',
                 'type' => 'expense',
                 'parent_id' => $expenses->id,
             ],

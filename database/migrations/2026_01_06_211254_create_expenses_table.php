@@ -11,16 +11,21 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('fee_invoices', function (Blueprint $table) {
+        Schema::create('expenses', function (Blueprint $table) {
             $table->id();
-            $table->string('invoice_no')->unique();
-            $table->foreignId('student_id')->constrained()->cascadeOnDelete();
-            $table->unsignedInteger('year');
-            $table->unsignedTinyInteger('month');
-            $table->unsignedInteger('amount'); //net amount of invoice
-            $table->date('due_date');
+
+            // Expense type (Electricity, Rent, etc.)
+            $table->foreignId('expense_account_id')
+                ->constrained('accounts');
+
+            // Always Cash (asset account)
+            $table->foreignId('payment_account_id')
+                ->constrained('accounts');
+
+            $table->unsignedInteger('amount');
             $table->boolean('status')->default(false);
             $table->foreignId('transaction_id')->constrained()->cascadeOnDelete();
+
             $table->timestamps();
         });
     }
@@ -30,6 +35,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('fee_invoices');
+        Schema::dropIfExists('expenses');
     }
 };

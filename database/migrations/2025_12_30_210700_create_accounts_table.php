@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('code')->unique();
             $table->string('name');
             $table->enum('type', ['asset', 'liability', 'equity', 'income', 'expense']);
+            $table->boolean('is_payment_method')->default(0);
             $table->foreignId('parent_id')->nullable()->constrained('accounts')->nullOnDelete();
             $table->timestamps();
         });

@@ -10,9 +10,7 @@ class Transaction extends Model
     use HasFactory;
     protected $fillable = [
         'date',
-        'reference',
         'description',
-        'created_by'
     ];
 
     public function lines()

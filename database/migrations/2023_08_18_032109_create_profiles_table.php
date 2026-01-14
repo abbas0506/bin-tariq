@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('phone')->nullable();
             $table->date('joined_at')->nullable();
             $table->string('qualification')->nullable();
-            $table->unsignedMediumInteger('salary')->default(0);
+            $table->unsignedMediumInteger('salary')->default(10000);
             $table->string('photo')->nullable(); // photo field
             $table->boolean('status')->default(true);
             $table->unsignedTinyInteger('seniority')->nullable();

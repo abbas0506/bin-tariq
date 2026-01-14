@@ -5,18 +5,18 @@
         <h1 class="text-2xl font-bold mb-6">General Ledger</h1>
 
         @foreach ($accounts as $account)
-            <div class="mb-8 rounded-xl border border-gray-200 shadow-sm">
+            <div class="mb-8 border">
                 <!-- Account Header -->
-                <div class="px-4 py-3 bg-gray-100 rounded-t-xl">
+                <div class="px-4 py-3">
                     <h2 class="text-lg font-semibold">
-                        {{ $account->code }} — {{ $account->name }}
+                        {{ $account->name }}
                     </h2>
                 </div>
 
                 <!-- Ledger Table -->
                 <div class="overflow-x-auto">
-                    <table class="min-w-full divide-y divide-gray-200 text-sm">
-                        <thead class="bg-gray-50">
+                    <table class="min-w-full  text-sm">
+                        <thead class="">
                             <tr>
                                 <th class="px-4 py-2 text-left font-medium text-gray-700">Date</th>
                                 <th class="px-4 py-2 text-left font-medium text-gray-700">Txn #</th>

@@ -5,11 +5,13 @@ use App\Http\Controllers\AuthController;
 
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\FeeInvoiceController;
 use App\Http\Controllers\GallaryController;
 use App\Http\Controllers\ImportStudentController;
 use App\Http\Controllers\LedgerController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\SalaryController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\SectionAttendanceController;
 use App\Http\Controllers\SectionCardController;
@@ -45,8 +47,9 @@ Route::get('/', function () {
     if (Auth::check()) {
         return redirect('dashboard');
     } else {
-        $events = Event::latest()->take(3)->get();
-        return view('index', compact('events'));
+        // $events = Event::latest()->take(3)->get();
+        // return view('index', compact('events'));
+        return view('login');
     }
 });
 
@@ -116,11 +119,15 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('section.attendance', SectionAttendanceController::class);
 
     // Fee
-    Route::resource('vouchers', VoucherController::class);
+    // Route::resource('vouchers', VoucherController::class);
     Route::resource('fee-invoices', FeeInvoiceController::class);
     Route::get('/ledger', [LedgerController::class, 'index'])->name('ledger.index');
 
+    // salaries
+    Route::resource('salaries', SalaryController::class);
 
+    // Expenses
+    Route::resource('expenses', ExpenseController::class);
 
     Route::resource('voucher.section.payments', VoucherPaymentController::class);
     Route::get('voucher/{voucher}/section/{section}/missing/import', [VoucherPaymentController::class, 'import'])->name('voucher.section.payments.import');

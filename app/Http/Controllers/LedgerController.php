@@ -13,9 +13,15 @@ class LedgerController extends Controller
     public function index()
     {
         //
-        $accounts = Account::with(['lines.transaction'])
+        // $accounts = Account::with(['lines.transaction'])
+        //     ->orderBy('code')
+        //     ->get();
+
+        $accounts = Account::whereHas('lines')
+            ->with(['lines.transaction'])
             ->orderBy('code')
             ->get();
+
 
         return view('accounts.ledger', compact('accounts'));
     }

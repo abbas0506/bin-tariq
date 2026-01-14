@@ -9,9 +9,24 @@ class Salary extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'teacher_id',
+        'user_id',
         'month',
+        'year',
         'amount',
+        'status',
         'transaction_id'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+    public function transaction()
+    {
+        return $this->belongsTo(Transaction::class);
+    }
+    public function billingMonth()
+    {
+        return config('enums.months')[$this->month] . "-" . $this->year - 2000;
+    }
 }
