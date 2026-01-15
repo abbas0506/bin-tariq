@@ -18,7 +18,7 @@
         @endif
         <form action="{{ route('expenses.store') }}" method='post' class="w-full grid gap-3" onsubmit="return validate(event)">
             @csrf
-            <h2>Select Expense Type(s)</h2>
+            <h2>Expense Detail</h2>
             <div class="grid gap-3">
                 <div class="md:w-1/2">
                     <label for="">Amount (Rs.)</label>

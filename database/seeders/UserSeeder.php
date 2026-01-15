@@ -49,35 +49,35 @@ class UserSeeder extends Seeder
         ]);
 
         //    teachers
-        $user = User::create([
-            'email' => 'akhtar@gmail.com',
-            'password' => Hash::make('password'),
-        ]);
+        // $user = User::create([
+        //     'email' => 'akhtar@gmail.com',
+        //     'password' => Hash::make('password'),
+        // ]);
 
-        $user->assignRole(['teacher']);
+        // $user->assignRole(['teacher']);
 
-        Profile::create([
+        // Profile::create([
 
-            'user_id' => $user->id,
-            'name' => 'Akhtar Ali',
-            'short_name' => 'Akhtar',
-            'salary' => 10000,
-            'seniority' => 3,
-        ]);
+        //     'user_id' => $user->id,
+        //     'name' => 'Akhtar Ali',
+        //     'short_name' => 'Akhtar',
+        //     'salary' => 10000,
+        //     'seniority' => 3,
+        // ]);
 
-        $user = User::create([
-            'email' => 'umair@gmail.com',
-            'password' => Hash::make('password'),
-        ]);
+        // $user = User::create([
+        //     'email' => 'umair@gmail.com',
+        //     'password' => Hash::make('password'),
+        // ]);
 
-        $user->assignRole(['teacher']);
+        // $user->assignRole(['teacher']);
 
-        Profile::create([
+        // Profile::create([
 
-            'user_id' => $user->id,
-            'name' => 'Umair Abbas',
-            'short_name' => 'umair',
-            'seniority' => 4,
-        ]);
+        //     'user_id' => $user->id,
+        //     'name' => 'Umair Abbas',
+        //     'short_name' => 'umair',
+        //     'seniority' => 4,
+        // ]);
     }
 }
