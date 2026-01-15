@@ -7,6 +7,7 @@ use App\Http\Controllers\TestController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\FeeInvoiceController;
+use App\Http\Controllers\FeeInvoicePrintController;
 use App\Http\Controllers\GallaryController;
 use App\Http\Controllers\ImportStudentController;
 use App\Http\Controllers\LedgerController;
@@ -119,9 +120,13 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('section.attendance', SectionAttendanceController::class);
 
     // Fee
-    // Route::resource('vouchers', VoucherController::class);
     Route::resource('fee-invoices', FeeInvoiceController::class);
     Route::get('/ledger', [LedgerController::class, 'index'])->name('ledger.index');
+
+    Route::post('fee-invoices/search/id', [FeeInvoiceController::class, 'searchById'])->name('fee-invoices.search.id');
+    Route::post('fee-invoices/search/name', [FeeInvoiceController::class, 'searchByName'])->name('fee-invoices.search.name');
+    Route::post('fee-invoices/search/class', [FeeInvoiceController::class, 'searchByClass'])->name('fee-invoices.search.class');
+    Route::post('fee-invoices/print/checked', [FeeInvoiceController::class, 'print'])->name('fee-invoices.print');
 
     // salaries
     Route::resource('salaries', SalaryController::class);

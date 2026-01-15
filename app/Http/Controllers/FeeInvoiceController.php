@@ -12,6 +12,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Barryvdh\DomPDF\Facade\Pdf as PDF;
 
 class FeeInvoiceController extends Controller
 {
@@ -22,11 +23,18 @@ class FeeInvoiceController extends Controller
     {
         $this->authorize('viewAny', FeeInvoice::class);
 
+        $sections = Section::all();
         // $feeInvoices = FeeInvoice::all();
-        $feeInvoices = FeeInvoice::with(['student.section'])
-            ->latest()
-            ->paginate(5);
-        return view('fee.invoices.index', compact('feeInvoices'));
+        if (session('feeInvoices'))
+            $feeInvoices = session('feeInvoices');
+        else
+            $feeInvoices = FeeInvoice::with(['student.section'])
+                ->where('status', 0)
+                ->latest()
+                ->paginate(5);
+
+        // $feeInvoices = $feeInvoices->where('status', 0);
+        return view('fee.invoices.index', compact('feeInvoices', 'sections'));
     }
 
     /**
@@ -217,5 +225,61 @@ class FeeInvoiceController extends Controller
             return redirect()->back()->withErrors($e->getMessage());
             // something went wrong
         }
+    }
+    public function searchById(Request $request)
+    {
+        $request->validate([
+            'invoice_no' => 'required|string',
+        ]);
+        $feeInvoices = FeeInvoice::with(['student.section'])
+            ->where('invoice_no', $request->invoice_no)
+            ->latest()
+            ->paginate(5);
+        return redirect()->route('fee-invoices.index')->with('feeInvoices', $feeInvoices);
+    }
+    public function searchByName(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string',
+        ]);
+        $name = $request->name;
+        $feeInvoices = FeeInvoice::with(['student.section'])
+            ->whereHas('student', function ($q) use ($name) {
+                $q->where('name', 'like', "%{$name}%");
+            })
+            ->latest()
+            ->paginate(5);
+        return redirect()->route('fee-invoices.index')->with('feeInvoices', $feeInvoices);
+    }
+
+    public function searchByClass(Request $request)
+    {
+        $request->validate([
+            'section_id' => 'required|numeric',
+        ]);
+        $name = $request->name;
+        $sectionId = $request->section_id;
+
+        $feeInvoices = FeeInvoice::with(['student.section'])
+            ->whereHas('student', function ($q) use ($sectionId) {
+                $q->where('section_id', $sectionId);
+            })
+            ->latest()
+            ->paginate(5);
+        return redirect()->route('fee-invoices.index')->with('feeInvoices', $feeInvoices);
+    }
+    public function  print(Request $request)
+    {
+        $request->validate([
+            'invoice_ids' => 'required|array|min:1',
+        ]);
+        $invoiceIds = array();
+        $invoiceIds = $request->invoice_ids;
+
+        $feeInvoices = FeeInvoice::whereIn('id', $invoiceIds)->get();
+        $pdf = PDF::loadview('reports.fee-invoice', compact('feeInvoices'))->setPaper('a4', 'portrait');
+        $pdf->set_option("isPhpEnabled", true);
+        $file = "FeeInvoice - " . rand(10, 99) . ".pdf";
+        return $pdf->stream($file);
     }
 }
