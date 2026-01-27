@@ -13,16 +13,17 @@ class SectionSeeder extends Seeder
     public function run(): void
     {
         //
-        Section::create(['level' => 0, 'name' => 'Play Group']);
-        Section::create(['level' => 1, 'name' => 'Nursery']);
-        Section::create(['level' => 2, 'name' => 'Prep']);
-        Section::create(['level' => 3, 'name' => 'One']);
-        Section::create(['level' => 4, 'name' => 'Two']);
-        Section::create(['level' => 5, 'name' => 'Three']);
-        Section::create(['level' => 6, 'name' => 'Four']);
-        Section::create(['level' => 7, 'name' => 'Five']);
-        Section::create(['level' => 8, 'name' => 'Six']);
-        Section::create(['level' => 9, 'name' => 'Seven']);
-        Section::create(['level' => 10, 'name' => 'Eight']);
+        // Section::create(['grade_id'=> 0, 'name' => 'Play Group']);
+        Section::create(['grade_id' => 1, 'name' => 'Nursery']);
+        Section::create(['grade_id' => 2, 'name' => 'One']);
+        Section::create(['grade_id' => 3, 'name' => 'Two']);
+        Section::create(['grade_id' => 4, 'name' => 'Three']);
+        Section::create(['grade_id' => 5, 'name' => 'Four']);
+        Section::create(['grade_id' => 6, 'name' => 'Five']);
+        Section::create(['grade_id' => 7, 'name' => 'Six']);
+        Section::create(['grade_id' => 8, 'name' => 'Seven']);
+        Section::create(['grade_id' => 9, 'name' => 'Eight']);
+        Section::create(['grade_id' => 10, 'name' => 'Nine']);
+        Section::create(['grade_id' => 11, 'name' => 'Ten']);
     }
 }

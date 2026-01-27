@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('sections', function (Blueprint $table) {
             $table->id();
             $table->string('name', 20)->nullable();
-            $table->unsignedInteger('level');  //
+            $table->foreignId('grade_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }

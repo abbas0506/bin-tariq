@@ -31,11 +31,11 @@
                 <h2 class="text-3xl font-semibold text-teal-800 mb-12">At a Glance</h2>
                 <div class="grid grid-cols-2 md:grid-cols-3 gap-5 md:gap-10">
                     <div class="bg-white rounded-lg p-6 shadow-[0_0_30px_rgba(0,0,0,0.2)]">
-                        <h3 class="text-2xl md:text-4xl font-bold text-teal-600">300+</h3>
+                        <h3 class="text-2xl md:text-4xl font-bold text-teal-600">500+</h3>
                         <p class="mt-2 text-gray-600">Students</p>
                     </div>
                     <div class="bg-white p-6 shadow-[0_0_30px_rgba(0,0,0,0.2)]">
-                        <h3 class="text-2xl md:text-4xl font-bold text-teal-600">10+</h3>
+                        <h3 class="text-2xl md:text-4xl font-bold text-teal-600">20+</h3>
                         <p class="mt-2 text-gray-600">Teachers</p>
                     </div>
                     <div class="bg-white p-6 shadow-[0_0_30px_rgba(0,0,0,0.2)]">

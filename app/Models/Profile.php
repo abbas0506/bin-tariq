@@ -13,18 +13,26 @@ class Profile extends Model
         'name',
         'short_name',
         'father_name',
-        'phone',
-        'address',
         'cnic',
+        'dob',
+        'blood_group',
+        'address',
+        'phone',
+        'joined_at',
+        'designation',
         'qualification',
+        'bps',
+        'personal_no',
+        'seniority',
         'photo',
         'status',
-        'seniority',
-        'gender',
-        'salary',
-        'joined_at',
 
         //bise tag will be in separate model
+    ];
+
+    protected $casts = [
+        'dob' => 'date',   // Cast as Carbon date
+        'joined_at' => 'date',   // Cast as Carbon date
     ];
 
     public function user()

@@ -3,39 +3,33 @@
 namespace App\Http\Controllers;
 
 use App\Models\Account;
+use App\Models\BulkInvoice;
 use App\Models\Fee;
-use App\Models\FeeInvoice;
-use App\Models\FeeStructure;
-use App\Models\FeeType;
 use App\Models\Section;
-use App\Models\Transaction;
 use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Barryvdh\DomPDF\Facade\Pdf as PDF;
+use Illuminate\Support\Facades\Auth;
 
-class FeeInvoiceController extends Controller
+class BulkInvoiceController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $this->authorize('viewAny', FeeInvoice::class);
+        $this->authorize('viewAny', BulkInvoice::class);
 
         $sections = Section::all();
-        // $feeInvoices = FeeInvoice::all();
-        if (session('feeInvoices'))
-            $feeInvoices = session('feeInvoices');
+        if (session('bulkInvoices'))
+            $bulkInvoices = session('bulkInvoices');
         else
-            $feeInvoices = FeeInvoice::with(['student.section'])
-                ->where('status', 0)
+            $bulkInvoices = BulkInvoice::with(['student.section'])
                 ->latest()
                 ->paginate(5);
 
-        // $feeInvoices = $feeInvoices->where('status', 0);
-        return view('fee.invoices.index', compact('feeInvoices', 'sections'));
+        return view('bulk-invoices.index', compact('bulkInvoices', 'sections'));
     }
 
     /**
@@ -44,11 +38,10 @@ class FeeInvoiceController extends Controller
     public function create()
     {
         //
-        $this->authorize('create', FeeInvoice::class);
+        $this->authorize('create', BulkInvoice::class);
         $sections = Section::whereHas('students')->get();
         $months = config('enums.months');
-        $fee_types = FeeType::all();
-        return view('fee.invoices.create', compact('sections', 'fee_types', 'months'));
+        return view('bulk-invoices.create', compact('sections', 'months'));
     }
 
     /**
@@ -56,55 +49,56 @@ class FeeInvoiceController extends Controller
      */
     public function store(Request $request)
     {
-        $this->authorize('create', FeeInvoice::class);
+        $this->authorize('create', BulkInvoice::class);
 
         $request->validate([
+            'title' => 'required|string',
             'month' => 'numeric',
             'year' => 'numeric',
+            'amount' => 'required|numeric',
             'due_date' => 'required|date',
-            'fee_type_ids_array' => 'required|array|min:1', // must be an array with at least 1 item
 
         ]);
 
         $sectionIdsArray = array();
         $sectionIdsArray = $request->section_ids_array;
 
-        $feeTypeIdsArray = array();
-        $feeTypeIdsArray = $request->fee_type_ids_array;
-
         $month = $request->month;
         $year  = $request->year;
 
-
-        // $feeReceivable = Account::where('code', '1005')->first(); // Fee Receivable
-        // $feeIncome     = Account::where('code', '4001')->first(); // Fee Income
 
         DB::beginTransaction();
         try {
 
             $sections = Section::whereIn('id', $sectionIdsArray)->get();
+            $lastInvoice = BulkInvoice::where('year', $year)
+                ->lockForUpdate()
+                ->latest('id')
+                ->first();
 
+            $nextNumber = $lastInvoice
+                ? intval(substr($lastInvoice->invoice_no, -4)) + 1
+                : 1;
+
+            $invoiceNo = sprintf('F%02d%d-%02d', $month, $year - 2000, $nextNumber);
+
+            $bulkInvoice = BulkInvoice::create([
+                'title' => $request->title,
+                'month' => $request->month,
+                'year' => $request->year,
+                'amount' => $request->amount,
+                'due_date' => $request->due_date,
+                'invoice_no' => $invoiceNo,
+            ]);
+
+            // generate bulk invoices
             foreach ($sections as $section) {
                 foreach ($section->students as $student) {
-                    $lastInvoice = FeeInvoice::where('year', $year)
-                        ->lockForUpdate()
-                        ->latest('id')
-                        ->first();
 
-                    $nextNumber = $lastInvoice
-                        ? intval(substr($lastInvoice->invoice_no, -4)) + 1
-                        : 1;
-
-                    $invoiceNo = sprintf('F%02d%d-%05d', $month, $year - 2000, $nextNumber);
-                    $invoiceAmount = $student->fees()->whereIn('fee_type_id', $feeTypeIdsArray)->sum('amount');
-
-                    $feeInvoice = FeeInvoice::create([
-                        'student_id' => $student->id,
-                        'month' => $request->month,
-                        'year' => $request->year,
-                        'due_date' => $request->due_date,
-                        'invoice_no' => $invoiceNo,
-                        'amount' => 20,
+                    $student->fees()->create([
+                        'bulk_invoice_id' => $bulkInvoice->id,
+                        'amount' => $request->amount,
+                        'status' => 0,
                     ]);
                 }
             }
@@ -124,10 +118,10 @@ class FeeInvoiceController extends Controller
     public function show($id)
     {
         //
-        $feeInvoice = FeeInvoice::findOrFail($id);
-        // $this->authorize('view', $feeInvoice);
-        // $paymentMethods = Account::where('is_payment_method', true)->get();
-        // return view('fee.invoices.show', compact('feeInvoice', 'paymentMethods'));
+        $sections = Section::all();
+
+        $bulkInvoice = BulkInvoice::findOrFail($id);
+        $this->authorize('view', $bulkInvoice);
         $user = Auth::user();
         if ($user->isIncharge()) {
             $section = $user->sectionAsIncharge();
@@ -143,7 +137,7 @@ class FeeInvoiceController extends Controller
                 ->latest()
                 ->paginate(5);
         }
-        return view('fee.invoices.show', compact('feeInvoice', 'fees'));
+        return view('bulk-invoices.show', compact('bulkInvoice', 'fees'));
     }
 
     /**
@@ -164,32 +158,32 @@ class FeeInvoiceController extends Controller
         DB::beginTransaction();
         try {
 
-            $feeInvoice = FeeInvoice::find($id);
-            $this->authorize('update', $feeInvoice);
+            $bulkInvoice = BulkInvoice::find($id);
+            $this->authorize('update', $bulkInvoice);
 
-            $feeInvoice->update([
+            $bulkInvoice->update([
                 'status' => 1,
             ]);
 
             // transaction lines
             // Debit → Cash / Bank / JazzCash / Easypaisa
-            $feeInvoice->transaction->lines()->create([
+            $bulkInvoice->transaction->lines()->create([
                 'account_id' => $request->payment_account_id,
-                'debit'      => $feeInvoice->amount,
+                'debit'      => $bulkInvoice->amount,
                 'credit'     => 0,
             ]);
 
             $feeReceivable = Account::where('code', '1005')->first(); // Fee Receivable
 
             //Cr to fee recievable
-            $feeInvoice->transaction->lines()->create([
+            $bulkInvoice->transaction->lines()->create([
                 'account_id' => $feeReceivable->id,
                 'debit'     => 0,
-                'credit'      => $feeInvoice->amount,
+                'credit'      => $bulkInvoice->amount,
             ]);
 
             DB::commit();
-            return redirect()->route('bulk-invoices.show', $feeInvoice)->with('success', 'Successfully updated');
+            return redirect()->route('bulk-invoices.show', $bulkInvoice)->with('success', 'Successfully updated');
         } catch (Exception $e) {
             DB::rollBack();
             return redirect()->back()->withErrors($e->getMessage());
@@ -203,12 +197,12 @@ class FeeInvoiceController extends Controller
     public function destroy($id)
     {
         //
-        $feeInvoice = FeeInvoice::findOrFail($id);
-        $this->authorize('delete', $feeInvoice);
+        $bulkInvoice = BulkInvoice::findOrFail($id);
+        $this->authorize('delete', $bulkInvoice);
 
         try {
-            $feeInvoice->delete();
-            return redirect()->route('fee.invoices.index')->with('success', 'Successfully deleted');
+            $bulkInvoice->delete();
+            return redirect()->route('bulk-invoices.index')->with('success', 'Successfully deleted');
         } catch (Exception $e) {
             return redirect()->back()->withErrors($e->getMessage());
             // something went wrong
@@ -219,11 +213,11 @@ class FeeInvoiceController extends Controller
         $request->validate([
             'invoice_no' => 'required|string',
         ]);
-        $feeInvoices = FeeInvoice::with(['student.section'])
+        $bulkInvoices = BulkInvoice::with(['student.section'])
             ->where('invoice_no', $request->invoice_no)
             ->latest()
             ->paginate(5);
-        return redirect()->route('bulk-invoices.index')->with('feeInvoices', $feeInvoices);
+        return redirect()->route('bulk-invoices.index')->with('bulkInvoices', $bulkInvoices);
     }
     public function searchByName(Request $request)
     {
@@ -231,13 +225,13 @@ class FeeInvoiceController extends Controller
             'name' => 'required|string',
         ]);
         $name = $request->name;
-        $feeInvoices = FeeInvoice::with(['student.section'])
+        $bulkInvoices = BulkInvoice::with(['student.section'])
             ->whereHas('student', function ($q) use ($name) {
                 $q->where('name', 'like', "%{$name}%");
             })
             ->latest()
             ->paginate(5);
-        return redirect()->route('bulk-invoices.index')->with('feeInvoices', $feeInvoices);
+        return redirect()->route('bulk-invoices.index')->with('bulkInvoices', $bulkInvoices);
     }
 
     public function searchByClass(Request $request)
@@ -248,13 +242,13 @@ class FeeInvoiceController extends Controller
         $name = $request->name;
         $sectionId = $request->section_id;
 
-        $feeInvoices = FeeInvoice::with(['student.section'])
+        $bulkInvoices = BulkInvoice::with(['student.section'])
             ->whereHas('student', function ($q) use ($sectionId) {
                 $q->where('section_id', $sectionId);
             })
             ->latest()
             ->paginate(5);
-        return redirect()->route('bulk-invoices.index')->with('feeInvoices', $feeInvoices);
+        return redirect()->route('bulk-invoices.index')->with('bulkInvoices', $bulkInvoices);
     }
     public function  print(Request $request)
     {
@@ -264,10 +258,10 @@ class FeeInvoiceController extends Controller
         $invoiceIds = array();
         $invoiceIds = $request->invoice_ids;
 
-        $feeInvoices = FeeInvoice::whereIn('id', $invoiceIds)->get();
-        $pdf = PDF::loadview('reports.fee-invoice', compact('feeInvoices'))->setPaper('a4', 'portrait');
+        $bulkInvoices = BulkInvoice::whereIn('id', $invoiceIds)->get();
+        $pdf = PDF::loadview('reports.fee-invoice', compact('bulkInvoices'))->setPaper('a4', 'portrait');
         $pdf->set_option("isPhpEnabled", true);
-        $file = "FeeInvoice - " . rand(10, 99) . ".pdf";
+        $file = "bulkInvoice - " . rand(10, 99) . ".pdf";
         return $pdf->stream($file);
     }
 }

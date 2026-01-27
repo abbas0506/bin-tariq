@@ -5,8 +5,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Bin Tariq</title>
-    <link rel="icon" href="{{ asset('/images/logo/bin_tariq.png') }}">
+    <title>GHS 32/2L</title>
+    <link rel="icon" href="{{ asset('/images/logo/ghs-32.png') }}">
     <!-- Fonts -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Styles -->

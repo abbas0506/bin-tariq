@@ -17,13 +17,16 @@ class Student extends Model
         'phone',
         'address',
         'photo',
+        'id_mark',
+        'caste',
+        'distinction',
+        'is_orphan',
 
         //academic info
         'section_id',
         'rollno',
         'admission_no',
         'admission_date',
-
 
     ];
 

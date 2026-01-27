@@ -10,10 +10,15 @@ class Fee extends Model
     use HasFactory;
     protected $fillable = [
         'student_id',
-        'fee_type_id',
         'amount',
+        'bulk_invoice_id',
+        'status', //paid, unpaid
     ];
 
+    public function bulkInvoice()
+    {
+        return $this->belongsTo(BulkInvoice::class);
+    }
     public function student()
     {
         return $this->belongsTo(Student::class);

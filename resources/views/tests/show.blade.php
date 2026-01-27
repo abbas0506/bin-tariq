@@ -151,11 +151,12 @@
                 </tbody>
             </table>
         @else
-            <div class="grid md:grid-cols-2 gap-3">
+            {{-- test closed --}}
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
                 @foreach ($sections as $section)
                     <div class="p-5 rounded bg-slate-100">
-                        <h2>{{ $section->name }}</h2>
-                        <div class="grid gap-[2px] mt-2 text-sm">
+                        <h3>{{ $section->name }}</h3>
+                        <div class="grid gap-[2px] mt-2 text-xs md:text-sm">
                             <a href="{{ route('section-result', [$test, $section]) }}" class="link"
                                 target="_blank">Section Result</a>
                             <a href="{{ route('section-positions', [$test, $section]) }}" class="link"

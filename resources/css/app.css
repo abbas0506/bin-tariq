@@ -24,6 +24,10 @@
         @apply border-0;
     }
 
+    table.sm thead tr th,
+    table.sm tbody tr td {
+        @apply text-sm;
+    }
     table.xs thead tr th,
     table.xs tbody tr td {
         @apply text-xs;
@@ -60,7 +64,7 @@
     }
 
     .sticky-header.scrolled-down {
-        @apply bg-slate-300 shadow-sm;
+        @apply bg-slate-100 shadow-sm;
     }
 
     .sticky-header .nav-item {

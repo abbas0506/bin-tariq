@@ -72,7 +72,7 @@ class TestAllocationController extends Controller
                 'max_marks' => $test->max_marks,
                 'test_date' => $test->test_date,
             ]);
-            return redirect()->route('test.allocations.index', $test)->with('success', 'Successfully created');
+            return redirect()->route('test.test-allocations.index', $test)->with('success', 'Successfully created');
         } catch (Exception $e) {
             return redirect()->back()->withErrors($e->getMessage());
             // something went wrong

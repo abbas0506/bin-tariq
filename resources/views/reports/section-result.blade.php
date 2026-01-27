@@ -45,7 +45,7 @@
 
             <div class="w-1/2 mx-auto">
                 <div class="relative">
-                    <div class="absolute"><img alt="logo" src="{{ public_path('/images/logo/bin_tariq.png') }}"
+                    <div class="absolute"><img alt="logo" src="{{ public_path('/images/logo/ghs-32.png') }}"
                             class="w-16"></div>
                 </div>
                 <table class="w-full">

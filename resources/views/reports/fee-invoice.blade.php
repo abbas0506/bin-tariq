@@ -98,7 +98,7 @@
                                 </tr>
                                 <tr>
                                     <td style="text-align: right; padding-right:8px;"><img
-                                            src="{{ public_path('images/logo/bin_tariq.png') }}" alt=""
+                                            src="{{ public_path('images/logo/ghs-32.png') }}" alt=""
                                             width="40px" height="40px"></td>
                                     <td>
                                         <h3 class="m-0 p-0 text-left">Bin Tariq Campus</h3>

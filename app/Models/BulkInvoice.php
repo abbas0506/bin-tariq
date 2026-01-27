@@ -5,32 +5,34 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class FeeInvoice extends Model
+class BulkInvoice extends Model
 {
     use HasFactory;
     protected $fillable = [
         'id',
-        'student_id',
+        'title',
         'invoice_no',
         'month',
         'year',
         'amount',
         'due_date',
-        'status',
-        // 'transaction_id',
     ];
 
     protected $casts = [
         'due_date' => 'date',
     ];
 
-    public function feeInvoiceItems()
-    {
-        return $this->hasMany(FeeInvoiceItem::class);
-    }
     public function student()
     {
         return $this->belongsTo(Student::class);
+    }
+    public function fees()
+    {
+        return $this->hasMany(Fee::class);
+    }
+    public function students()
+    {
+        return $this->belongsToMany(Student::class, 'fees', 'bulk_invoice_id', 'student_id');
     }
     public function transaction()
     {
@@ -62,7 +64,7 @@ class FeeInvoice extends Model
     {
         return Student::where('section_id', $sectionId)
             ->whereHas('fees', function ($query) {
-                $query->where('voucher_id', $this->id)
+                $query->where('bulk_invoice_id', $this->id)
                     ->where('status', 1);
             })
             ->get();
@@ -71,7 +73,7 @@ class FeeInvoice extends Model
     {
         return Student::where('section_id', $sectionId)
             ->whereHas('fees', function ($query) {
-                $query->where('voucher_id', $this->id)
+                $query->where('bulk_invoice_id', $this->id)
                     ->where('status', 1)
                     ->whereDate('updated_at', today());
             })
@@ -83,7 +85,7 @@ class FeeInvoice extends Model
     {
         return Student::where('section_id', $sectionId)
             ->whereDoesntHave('fees', function ($query) {
-                $query->where('voucher_id', $this->id)
+                $query->where('bulk_invoice_id', $this->id)
                     ->where('status', 1);
             })
             ->get();
@@ -93,7 +95,7 @@ class FeeInvoice extends Model
     {
         return Student::where('section_id', $sectionId)
             ->whereHas('fees', function ($query) {
-                $query->where('voucher_id', $this->id);
+                $query->where('bulk_invoice_id', $this->id);
             })
             ->get();
     }

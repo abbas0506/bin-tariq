@@ -11,11 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('fee_invoice_items', function (Blueprint $table) {
+        Schema::create('fees', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('fee_invoice_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('fee_type_id')->constrained();
+            $table->foreignId('student_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('bulk_invoice_id')->constrained()->cascadeOnDelete();
             $table->unsignedInteger('amount');
+            $table->boolean('status')->default(0);
             $table->timestamps();
         });
     }
@@ -25,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('fee_invoice_items');
+        Schema::dropIfExists('fees');
     }
 };

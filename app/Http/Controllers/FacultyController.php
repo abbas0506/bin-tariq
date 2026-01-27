@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Fee;
-use Exception;
+use App\Models\User;
 use Illuminate\Http\Request;
 
-class FeeController extends Controller
+class FacultyController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,6 +13,9 @@ class FeeController extends Controller
     public function index()
     {
         //
+
+        $users = User::role('teacher')->get();
+        return view('faculty', compact('users'));
     }
 
     /**
@@ -35,16 +37,15 @@ class FeeController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Fee $fee)
+    public function show(string $id)
     {
         //
-        return view('bulk-invoices.fee.show', compact('fee'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Fee $fee)
+    public function edit(string $id)
     {
         //
     }
@@ -52,26 +53,15 @@ class FeeController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Fee $fee)
+    public function update(Request $request, string $id)
     {
         //
-        // $this->authorize('update', $fee);
-        try {
-            $fee->update([
-                'status' => 1,
-            ]);
-
-            return redirect()->route('bulk-invoices.show', $fee->bulkInvoice)->with('success', 'Successfully updated');
-        } catch (Exception $e) {
-            return redirect()->back()->withErrors($e->getMessage());
-            // something went wrong
-        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Fee $fee)
+    public function destroy(string $id)
     {
         //
     }

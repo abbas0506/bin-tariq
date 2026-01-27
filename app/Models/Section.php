@@ -11,7 +11,7 @@ class Section extends Model
 
     protected $fillable = [
         'name',    //section label A, B, C
-        'level',
+        'grade_id',
     ];
 
     public function incharge()

@@ -2,12 +2,12 @@
 
 use App\Http\Controllers\AssignmentController;
 use App\Http\Controllers\AuthController;
-
+use App\Http\Controllers\BulkInvoiceController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ExpenseController;
-use App\Http\Controllers\FeeInvoiceController;
-use App\Http\Controllers\FeeInvoicePrintController;
+use App\Http\Controllers\FacultyController;
+use App\Http\Controllers\FeeController;
 use App\Http\Controllers\GallaryController;
 use App\Http\Controllers\ImportStudentController;
 use App\Http\Controllers\LedgerController;
@@ -48,9 +48,9 @@ Route::get('/', function () {
     if (Auth::check()) {
         return redirect('dashboard');
     } else {
-        // $events = Event::latest()->take(3)->get();
-        // return view('index', compact('events'));
-        return view('login');
+        $events = Event::latest()->take(3)->get();
+        return view('index', compact('events'));
+        // return view('login');
     }
 });
 
@@ -58,7 +58,7 @@ Route::get('/', function () {
 // Route::view('/', '');
 Route::view('about', 'about');
 Route::view('contact', 'contact');
-Route::view('faculty', 'faculty');
+Route::get('faculty', [FacultyController::class, 'index']);
 Route::get('gallary', [GallaryController::class, 'index']);
 
 Route::view('login', 'login');
@@ -120,14 +120,14 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('section.attendance', SectionAttendanceController::class);
 
     // Fee
-    Route::resource('fee-invoices', FeeInvoiceController::class);
+    Route::resource('bulk-invoices', BulkInvoiceController::class);
     Route::get('/ledger', [LedgerController::class, 'index'])->name('ledger.index');
 
-    Route::post('fee-invoices/search/id', [FeeInvoiceController::class, 'searchById'])->name('fee-invoices.search.id');
-    Route::post('fee-invoices/search/name', [FeeInvoiceController::class, 'searchByName'])->name('fee-invoices.search.name');
-    Route::post('fee-invoices/search/class', [FeeInvoiceController::class, 'searchByClass'])->name('fee-invoices.search.class');
-    Route::post('fee-invoices/print/checked', [FeeInvoiceController::class, 'print'])->name('fee-invoices.print');
-
+    Route::post('bulk-invoices/search/id', [BulkInvoiceController::class, 'searchById'])->name('bulk-invoices.search.id');
+    Route::post('bulk-invoices/search/name', [BulkInvoiceController::class, 'searchByName'])->name('bulk-invoices.search.name');
+    Route::post('bulk-invoices/search/class', [BulkInvoiceController::class, 'searchByClass'])->name('bulk-invoices.search.class');
+    Route::post('bulk-invoices/print/checked', [BulkInvoiceController::class, 'print'])->name('bulk-invoices.print');
+    Route::resource('fees', FeeController::class);
     // salaries
     Route::resource('salaries', SalaryController::class);
 

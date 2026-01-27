@@ -90,7 +90,7 @@
     <section class="w-screen h-screen">
         <div class="flex flex-col md:flex-row-reverse justify-between items-center px-5 md:px-24 h-full pt-16">
             <div class="flex flex-1 justify-end items-center">
-                <img src="{{ url(asset('images/small/world.png')) }}" alt="student" class="w-48 h-48 md:w-96 md:h-96">
+                <img src="{{ url(asset('images/small/education.png')) }}" alt="student" class="w-32 h-32 md:w-96 md:h-96">
 
             </div>
 
@@ -108,10 +108,11 @@
 
         </div>
     </section>
+
     <!-- features section -->
     <section id='features' class="md:mt-24 px-4 md:px-24 mt-12">
         <h2 class="text-2xl md:text-4xl text-center">WELCOME TO</h2>
-        <p class="text-center text-sm md:text-lg mt-3">Bin-Tariq School System, Chorasta Mian Khan Depalpur<br> District
+        <p class="text-center text-sm md:text-lg mt-3">Government High School 32/2L, District
             Okara</p>
         <div class="h-1 w-24 bg-teal-800 mx-auto mt-6"></div>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
@@ -120,20 +121,20 @@
                     <i class="bi-book text-2xl text-pink-400"></i>
                 </div>
                 <h3 class="mt-3 text-lg">Quality Education</h3>
-                <p class="text-sm text-center">We provide quality education from nursery to 8<sup>th</sup>
+                <p class="text-sm text-center">We provide quality education from nursery to 10<sup>th</sup>
                     class.</p>
             </div>
 
-            <div class="feature-box hover:border-orange-300 hover:bg-orange-50">
-                <div class="flex items-center justify-center bg-orange-100 rounded-full w-16 h-16">
-                    <i class="bi-laptop text-2xl text-orange-400"></i>
+            <div class="feature-box hover:border-teal-300 hover:bg-teal-50">
+                <div class="flex items-center justify-center bg-teal-100 rounded-full w-16 h-16">
+                    <i class="bx bx-run text-2xl text-teal-400"></i>
                 </div>
                 <h3 class="mt-3 text-lg">Activity Based</h3>
                 <p class="text-sm text-center">We focus on activity based teaching and interactive teaching </p>
             </div>
-            <div class="feature-box hover:border-rose-200 hover:bg-rose-50">
-                <div class="flex items-center justify-center bg-rose-100 rounded-full w-16 h-16">
-                    <i class="bx bx-run text-2xl text-rose-400"></i>
+            <div class="feature-box hover:border-blue-200 hover:bg-blue-50">
+                <div class="flex items-center justify-center bg-blue-100 rounded-full w-16 h-16">
+                    <i class="bx bx-run text-2xl text-blue-400"></i>
                 </div>
                 <h3 class="mt-3 text-lg">Social Development</h3>
                 <p class="text-sm text-center">We build healthy social habits to make your kid a socially responsible
@@ -163,13 +164,13 @@
         <div class="w-full md:w-3/4 mx-auto mt-12">
             <div class="flex justify-center items-center flex-col">
                 <img src="{{ asset('images/default.png') }}" class="w-48 h-48 rounded-full" alt="">
-                <h2 class="mt-3 font-bold text-lg">Amina Iqbal</h2>
-                <h2>Principal</h2>
+                <h2 class="mt-3 font-bold text-lg">Muhammad Abbas</h2>
+                <h2>Senior Headmaster</h2>
                 <p class="mt-3 text-sm md:text-lg text-center p-5">
                     <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                    "We are committed to achieve academic excellence, character education, and inclusive community
+                    We are committed to achieve academic excellence, character education, and inclusive community
                     engagement. we empower our students to become lifelong learners, compassionate leaders, and contributors
-                    to a globally connected society."
+                    to a globally connected society.
                     <i class="bx bxs-quote-alt-right quote-icon-right"></i>
                 </p>
             </div>
@@ -183,9 +184,9 @@
     <section class="mt-12 md:px-24 p-5">
         <div class="overflow-x-hidden">
             <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7675.500046900273!2d73.76636784597382!3d30.61402571808166!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39181e1197ea978f%3A0xbd36214b35709acc!2sChorasta%20Mian%20Khan%2C%20Pakistan!5e0!3m2!1sen!2s!4v1767631104007!5m2!1sen!2s"
-                allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" class="w-full" height="320"
-                style="border:0;"></iframe>
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3148.1450523610893!2d73.52741423705822!3d30.73508993913517!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39180624c19cb001%3A0x4eb6e3a38a104dbe!2sGovt%20Boys%20High%20School!5e0!3m2!1sen!2s!4v1768930968653!5m2!1sen!2s"
+                class="w-full" height="320" style="border:0;" allowfullscreen="" loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
 
     </section>

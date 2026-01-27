@@ -18,12 +18,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
-        $users = User::whereHas('roles', function ($q) {
-            $q->where('name', 'user');
+        $users = User::whereHas('profile', function ($q) {
+            $q->where('status', 1);
         })->get();
-
-        $users = User::all();
         return view('users.index', compact('users'));
     }
 
@@ -42,14 +39,20 @@ class UserController extends Controller
     public function store(Request $request)
     {
         //
-        $request->validate([
+        $validated = $request->validate([
             'name' => 'required',
             'father_name' => 'nullable|string',
             'cnic' => 'nullable|string',
             'email' => 'required|email',
             'phone' => 'nullable|string',
             'salary' => 'required|numeric',
+            'photo' => 'nullable|image|mimes:jpg,jpeg,png|max:1024', // 1MB limit
         ]);
+
+        if ($request->hasFile('photo')) {
+            $validated['photo'] = $request->file('photo')->store('teachers', 'public');
+        }
+
         DB::beginTransaction();
         try {
 
@@ -58,7 +61,8 @@ class UserController extends Controller
                 'password' => Hash::make('password'),
             ]);
             $user->assignRole(['teacher']);
-            $user->profile()->create($request->all());
+            $user->profile()->create($validated);
+
             DB::commit();
             return redirect()->route('users.index')->with('success', 'Successfully created');
         } catch (Exception $e) {

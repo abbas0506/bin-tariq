@@ -79,12 +79,12 @@
             <form action="{{ route('user.roles.update', [Auth::user()->id, 1]) }}" method='post' class="">
                 @csrf
                 @method('PATCH')
-                <h2 class="text-decoration">Assigned Roles</h2>
-                <div class="grid gap-2 mt-5">
+                <h2 class="text-decoration text-green-600">Assigned Roles</h2>
+                <div class="grid gap-1 mt-4">
                     @foreach ($roles as $role)
-                        <div class="flex item checkable-row">
+                        <div class="flex item checkable-row text-sm">
                             <label for="role{{ $role->id }}"
-                                class="text-base hover:cursor-pointer text-slate-800 text-left py-1 flex-1">{{ ucfirst($role->name) }}</label>
+                                class="text-sm hover:cursor-pointer text-slate-800 text-left py-1 flex-1">{{ ucfirst($role->name) }}</label>
                             <input type="checkbox" id='role{{ $role->id }}' name='role_names_array[]'
                                 class="custom-input w-4 h-4 rounded" value="{{ $role->name }}"
                                 @checked($user->hasRole($role->name))>

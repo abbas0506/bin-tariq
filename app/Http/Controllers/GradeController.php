@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Fee;
-use Exception;
+use App\Models\Grade;
 use Illuminate\Http\Request;
 
-class FeeController extends Controller
+class GradeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -35,16 +34,15 @@ class FeeController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Fee $fee)
+    public function show(Grade $grade)
     {
         //
-        return view('bulk-invoices.fee.show', compact('fee'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Fee $fee)
+    public function edit(Grade $grade)
     {
         //
     }
@@ -52,26 +50,15 @@ class FeeController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Fee $fee)
+    public function update(Request $request, Grade $grade)
     {
         //
-        // $this->authorize('update', $fee);
-        try {
-            $fee->update([
-                'status' => 1,
-            ]);
-
-            return redirect()->route('bulk-invoices.show', $fee->bulkInvoice)->with('success', 'Successfully updated');
-        } catch (Exception $e) {
-            return redirect()->back()->withErrors($e->getMessage());
-            // something went wrong
-        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Fee $fee)
+    public function destroy(Grade $grade)
     {
         //
     }
