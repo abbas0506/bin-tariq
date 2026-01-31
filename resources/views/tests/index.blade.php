@@ -41,7 +41,8 @@
                 @foreach ($tests->sortByDesc('created_at') as $test)
                     @php
                         $percent = round(
-                            ($test->testAllocations()->resultSubmitted()->count() / $test->testAllocations->count()) *
+                            ($test->testAllocations()->mine()->resultSubmitted()->count() /
+                                $test->testAllocations()->mine()->count()) *
                                 100,
                             0,
                         );

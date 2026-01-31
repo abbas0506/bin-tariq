@@ -17,7 +17,9 @@
                         oninput="search(event)">
                     <i class="bx bx-search absolute top-2 right-2"></i>
                 </div>
-                <a href="{{ route('subjects.create') }}" class="btn-teal rounded">New</a>
+                @can('create', App\Models\Section::class)
+                    <a href="{{ route('sections.create') }}" class="btn-teal rounded">New</a>
+                @endcan
             </div>
 
             <table class="table-fixed borderless w-full mt-5">

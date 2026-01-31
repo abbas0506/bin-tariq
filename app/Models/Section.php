@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Section extends Model
 {
@@ -61,5 +62,15 @@ class Section extends Model
     public function attendanceMarked()
     {
         return $this->attendances()->whereDate('date', today())->count();
+    }
+    public function scopeAccessible($query)
+    {
+        if (Auth::user()->hasAnyRole(['head', 'admin'])) {
+            return $query;
+        }
+
+        return  $query->whereHas('testAllocations', function ($q) {
+            $q->where('user_id', Auth::user()->id);
+        });
     }
 }

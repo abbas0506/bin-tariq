@@ -130,7 +130,7 @@ class FeeInvoiceController extends Controller
         // return view('fee.invoices.show', compact('feeInvoice', 'paymentMethods'));
         $user = Auth::user();
         if ($user->isIncharge()) {
-            $section = $user->sectionAsIncharge();
+            $section = $user->accessibleSections();
             $fees = Fee::where('bulk_invoice_id', $id)
                 ->whereHas('student', function ($query) use ($section) {
                     $query->where('section_id', $section->id);

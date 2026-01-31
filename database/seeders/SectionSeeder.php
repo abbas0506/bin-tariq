@@ -23,7 +23,8 @@ class SectionSeeder extends Seeder
         Section::create(['grade_id' => 7, 'name' => 'Six']);
         Section::create(['grade_id' => 8, 'name' => 'Seven']);
         Section::create(['grade_id' => 9, 'name' => 'Eight']);
-        Section::create(['grade_id' => 10, 'name' => 'Nine']);
-        Section::create(['grade_id' => 11, 'name' => 'Ten']);
+        Section::create(['grade_id' => 10, 'name' => '9th A']);
+        Section::create(['grade_id' => 10, 'name' => '9th B']);
+        Section::create(['grade_id' => 11, 'name' => '10th']);
     }
 }

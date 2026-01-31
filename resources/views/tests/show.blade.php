@@ -14,9 +14,9 @@
     <div class="grid md:grid-cols-2 md:w-4/5 mx-auto mt-6 bg-white md:p-8 p-4 rounded border gap-3">
         <div class="flex items-center gap-3 flex-wrap">
             <h2>Result</h2>
-            @if ($test->testAllocations()->count())
-                <p>{{ $test->testAllocations()->resultSubmitted()->count() }}/{{ $test->testAllocations->count() }}
-                    ({{ round(($test->testAllocations()->resultSubmitted()->count() / $test->testAllocations->count()) * 100, 0) }}%)
+            @if ($test->testAllocations()->mine()->count())
+                <p>{{ $test->testAllocations()->mine()->resultSubmitted()->count() }}/{{ $test->testAllocations()->mine()->count() }}
+                    ({{ round($test->testAllocations()->mine()->resultSubmitted()->count() * 100, 0) }}%)
                 </p>
                 <p class="text-xs text-green-600"><i
                         class="bi-arrow-up"></i>{{ $test->testAllocations()->resultSubmitted()->today()->count() }}
@@ -102,7 +102,6 @@
 
                 </div>
             </div>
-
             <table class="table-fixed borderless w-full mt-8">
                 <thead>
                     <tr>
@@ -114,9 +113,9 @@
                 </thead>
                 <tbody>
 
-                    @foreach ($test->testAllocations->sortBy(['section_id', 'lecture_no']) as $testAllocation)
+                    @foreach ($test->testAllocations()->mine()->get()->sortBy(['section_id', 'lecture_no']) as $testAllocation)
                         <tr class="tr">
-                            <td>{{ $loop->index + 1 }}</td>
+                            <td>{{ $loop->index + 1 }} </td>
                             <td class="text-left">
                                 <a href="{{ route('test.test-allocations.show', [$test, $testAllocation]) }}"
                                     class="link">

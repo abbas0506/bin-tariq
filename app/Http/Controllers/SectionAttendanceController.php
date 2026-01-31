@@ -15,11 +15,12 @@ class SectionAttendanceController extends Controller
 {
 
     // Oerview all sections attendance
-    public function summary(GetAccessibleSections $getSections)
+    public function summary()
     {
         $this->authorize('viewSummary', Attendance::class);
 
-        $sections = $getSections->execute(auth()->user());
+        $sections = Auth::user()->accessibleSections();
+
         $sectionIds = $sections->pluck('id');
         // load data from current date initially
         $date = session('date') ?? now()->toDateString();

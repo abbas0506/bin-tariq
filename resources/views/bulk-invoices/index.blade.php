@@ -25,10 +25,11 @@
 
 
         {{-- create new invoice --}}
-        <a href="{{ route('bulk-invoices.create') }}"
-            class="flex w-12 h-12 justify-center items-center btn-teal rounded-full fixed right-5 bottom-5"><i
-                class="bi-plus"></i></a>
-
+        @role('head')
+            <a href="{{ route('bulk-invoices.create') }}"
+                class="flex w-12 h-12 justify-center items-center btn-teal rounded-full fixed right-5 bottom-5"><i
+                    class="bi-plus"></i></a>
+        @endrole
         <div class="md:w-4/5 overflow-x-auto mx-auto bg-white md:p-8 p-4 rounded border mt-3">
             @if ($bulkInvoices->count())
                 <div class="flex relative w-full md:w-1/3">

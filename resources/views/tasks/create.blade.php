@@ -40,7 +40,7 @@
                     <div class="flex items-center odd:bg-slate-100 checkable-row px-4">
                         <!-- <div class="flex flex-1 items-center justify-between space-x-2 pr-3"> -->
                         <label for='user{{ $user->id }}'
-                            class="flex-1 text-sm text-slate-800 hover:cursor-pointer py-2">{{ $user->profile->name }}
+                            class="flex-1 text-sm text-slate-800 hover:cursor-pointer py-2">{{ $user->profile?->name }}
                         </label>
                         <!-- </div> -->
                         <div class="text-base">

@@ -151,7 +151,7 @@ class UserController extends Controller
             session([
                 'role' => $roleName,
             ]);
-            return redirect($roleName);
+            return redirect('/');
         } else {
             echo "Invalid role selected!";
         }

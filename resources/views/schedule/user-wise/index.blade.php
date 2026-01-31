@@ -61,7 +61,8 @@
                             <td class="chk hidden"><input type="checkbox" class="w-4 h-4 rounded" name="user_ids_array[]"
                                     value="{{ $user->id }}" checked></td>
                             <td>{{ $loop->index + 1 }}</td>
-                            <td class="font-semibold">{{ $user->short_name }} <br> ({{ $user->allocations->count() }})
+                            <td class="font-semibold">{{ $user->profile->short_name }} <br>
+                                ({{ $user->allocations->count() }})
                             </td>
                             @foreach (range(1, 8) as $lecture_no)
                                 <td class="p-1">

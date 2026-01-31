@@ -29,18 +29,19 @@
             <h2><i class="bi-clock mr-3"></i> {{ \Carbon\Carbon::parse($date)->format('d-m-Y') }}</h2>
             <div class="grid mt-8 ">
                 @foreach ($sections as $section)
-                    <div class="flex justify-between rounded p-5 odd:bg-slate-100">
+                    <div class="flex justify-between rounded p-5 odd:bg-slate-100 text-xs md:text-sm">
 
                         @if ($section->total)
                             <h3>{{ $section->name }} <br>
-                                <span class="text-slate-400 font-normal">{{ $section->present }}/{{ $section->total }} --
+                                <span class="text-slate-400 font-normal">{{ $section->present }}/{{ $section->total }}
+                                    —
                                     {{ round(($section->present / $section->total) * 100, 1) }}%</span>
                             </h3>
                             <a href="{{ route('section.attendance.index', $section) }}"
                                 class="flex justify-center items-center btn-blue rounded"><i class="bi-eye"></i></a>
                         @else
                             <h3>{{ $section->name }} <br>
-                                <span class="text-slate-400 font-normal">0 -- 0%</span>
+                                <span class="text-slate-400 font-normal">0 — 0%</span>
                             </h3>
                             @if (\Carbon\Carbon::parse($date)->isToday())
                                 <a href="{{ route('section.attendance.create', $section) }}"
@@ -52,7 +53,7 @@
                 @if ($sections->count() > 1 && $overall_total)
                     <div class="p-5">
                         <h3>Overall <br>
-                            <span class="text-slate-400 font-normal">{{ $overall_present }}/{{ $overall_total }} --
+                            <span class="text-slate-400 font-normal">{{ $overall_present }}/{{ $overall_total }} —
                                 {{ round(($overall_present / $overall_total) * 100, 1) }} %</span>
                         </h3>
                     </div>

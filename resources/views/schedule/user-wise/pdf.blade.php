@@ -88,7 +88,7 @@
                     @foreach ($users as $user)
                         <tr>
                             <td>{{ $loop->index + 1 }}</td>
-                            <td class="font-bold">{{ $user->short_name }}
+                            <td class="font-bold">{{ $user->profile->short_name }}
                                 <br><span class="font-normal">({{ $user->allocations->count() }})</span>
                             </td>
                             @foreach ($lectures as $lecture)

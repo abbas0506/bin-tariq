@@ -14,7 +14,7 @@ class SectionPolicy
     public function viewAny(User $user): bool
     {
         //
-        return $user->hasAnyRole('principal', 'admin', 'teacher');
+        return $user->hasAnyRole('head', 'admin', 'teacher');
     }
 
     /**
@@ -23,7 +23,7 @@ class SectionPolicy
     public function view(User $user, Section $section): bool
     {
         //
-        return $user->hasAnyRole('principal', 'admin', 'teacher');
+        return $user->hasAnyRole('head', 'admin', 'teacher');
     }
 
     /**
@@ -32,7 +32,7 @@ class SectionPolicy
     public function create(User $user): bool
     {
         //
-        return $user->hasAnyRole('principal');
+        return $user->hasAnyRole('head');
     }
 
     /**
@@ -41,7 +41,7 @@ class SectionPolicy
     public function update(User $user, Section $section): bool
     {
         //
-        return $user->hasAnyRole('principal');
+        return $user->hasAnyRole('head');
     }
 
     /**
@@ -50,7 +50,7 @@ class SectionPolicy
     public function delete(User $user, Section $section): bool
     {
         //
-        return $user->hasAnyRole('principal');
+        return $user->hasAnyRole('head');
     }
 
     /**
@@ -59,7 +59,7 @@ class SectionPolicy
     public function restore(User $user, Section $section): bool
     {
         //
-        return $user->hasAnyRole('principal');
+        return $user->hasAnyRole('head');
     }
 
     /**
@@ -68,11 +68,11 @@ class SectionPolicy
     public function forceDelete(User $user, Section $section): bool
     {
         //
-        return $user->hasAnyRole('principal');
+        return $user->hasAnyRole('head');
     }
     public function clean(User $user, Section $section): bool
     {
         //
-        return $user->hasAnyRole('principal');
+        return $user->hasAnyRole('head');
     }
 }

@@ -14,7 +14,7 @@ class SalaryPolicy
     public function viewAny(User $user): bool
     {
         //
-        return $user->hasAnyRole(['principal', 'admin', 'teacher']);
+        return $user->hasAnyRole(['head', 'admin', 'teacher']);
     }
 
     /**
@@ -23,7 +23,7 @@ class SalaryPolicy
     public function view(User $user, Salary $salary): bool
     {
         //
-        return $user->hasAnyRole(['principal', 'admin', 'teacher']);
+        return $user->hasAnyRole(['head', 'admin', 'teacher']);
     }
 
     /**
@@ -32,7 +32,7 @@ class SalaryPolicy
     public function create(User $user): bool
     {
         //
-        return $user->hasAnyRole(['principal']);
+        return $user->hasAnyRole(['head']);
     }
 
     /**
@@ -41,7 +41,7 @@ class SalaryPolicy
     public function update(User $user, Salary $salary): bool
     {
         //
-        return $user->hasAnyRole(['principal']);
+        return $user->hasAnyRole(['head']);
     }
 
     /**
@@ -50,7 +50,7 @@ class SalaryPolicy
     public function delete(User $user, Salary $salary): bool
     {
         //
-        return $user->hasAnyRole(['principal']);
+        return $user->hasAnyRole(['head']);
     }
 
     /**
@@ -59,7 +59,7 @@ class SalaryPolicy
     public function restore(User $user, Salary $salary): bool
     {
         //
-        return $user->hasAnyRole(['principal']);
+        return $user->hasAnyRole(['head']);
     }
 
     /**
@@ -68,6 +68,6 @@ class SalaryPolicy
     public function forceDelete(User $user, Salary $salary): bool
     {
         //
-        return $user->hasAnyRole(['principal']);
+        return $user->hasAnyRole(['head']);
     }
 }

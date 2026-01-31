@@ -14,13 +14,13 @@ class GetAccessibleSections
     public function execute(User $user): Collection
     {
         // Principal & Admin → all sections
-        if ($user->hasAnyRole(['principal', 'admin'])) {
+        if ($user->hasAnyRole(['head', 'admin'])) {
             return Section::all();
         }
 
         // Teacher → only assigned sections
         if ($user->hasRole('teacher')) {
-            return $user->sectionAsIncharge();
+            return $user->accessibleSections();
         }
 
         // Fallback → none

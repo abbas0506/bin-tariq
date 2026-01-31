@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Test extends Model
 {
@@ -39,5 +40,15 @@ class Test extends Model
     public function scopeIndividual($query)
     {
         return $query->whereNotNull('user_id');
+    }
+    public function scopeAccessible($query)
+    {
+
+        if (Auth::user()->hasRole('teacher')) {
+            return  $query->whereHas('testAllocations', function ($q) {
+                $q->where('user_id', Auth::user()->id);
+            });
+        }
+        return $query;
     }
 }
