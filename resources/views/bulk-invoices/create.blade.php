@@ -57,7 +57,7 @@
             <div class="p-5 border rounded-lg">
                 <h2 class="mb-4">Select Class(es)</h2>
                 @foreach ($sections as $section)
-                    <div class="flex items-center odd:bg-slate-100 checkable-row">
+                    <div class="flex items-center odd:bg-slate-100 checkable-row active">
                         <!-- <div class="flex flex-1 items-center justify-between space-x-2 pr-3"> -->
                         <label for='section{{ $section->id }}'
                             class="flex-1 text-sm text-slate-800 hover:cursor-pointer py-2">{{ $section->name }}
@@ -65,7 +65,7 @@
                         <!-- </div> -->
                         <div class="text-base">
                             <input type="checkbox" id='section{{ $section->id }}' name='section_ids_array[]'
-                                class="custom-input w-4 h-4 rounded hidden" value="{{ $section->id }}">
+                                class="custom-input w-4 h-4 rounded hidden" value="{{ $section->id }}" checked>
                             <i class="bi-check"></i>
                         </div>
                     </div>

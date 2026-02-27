@@ -87,7 +87,7 @@ class BulkInvoiceController extends Controller
                 'month' => $request->month,
                 'year' => $request->year,
                 'amount' => $request->amount,
-                'due_date' => $request->due_date,
+                'due_date' => new \Carbon\Carbon($year, $month, 10),
                 'invoice_no' => $invoiceNo,
             ]);
 
@@ -123,11 +123,13 @@ class BulkInvoiceController extends Controller
         $bulkInvoice = BulkInvoice::findOrFail($id);
         $this->authorize('view', $bulkInvoice);
         $user = Auth::user();
+
+
         if ($user->isIncharge()) {
             $section = $user->accessibleSections();
             $fees = Fee::where('bulk_invoice_id', $id)
                 ->whereHas('student', function ($query) use ($section) {
-                    $query->where('section_id', $section->id);
+                    $query->whereIn('section_id', $section->pluck('id'));
                 })
                 ->with('student') // optional: eager load student
                 ->get();

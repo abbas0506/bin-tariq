@@ -70,11 +70,11 @@ class User extends Authenticatable
     }
     public function accessibleSections()
     {
-        if ($this->hasAnyRole(['head', 'admin'])) {
-            return  Section::all();
-        }
-        if ($this->hasRole('teacher')) {
-            return  Section::whereIn('id', function ($query) {
+
+        if (session('role') == 'admin' || session('role') == 'head') {
+            return Section::all();
+        } else if (session('role') == 'teacher') {
+            return Section::whereIn('id', function ($query) {
                 $query->select('section_id')
                     ->from('allocations')
                     ->where('user_id', $this->id)

@@ -25,9 +25,12 @@
                 class="flex justify-center items-center w-8 h-8 btn-teal rounded-full text-xs text-white">
                 <i class="bi-printer"></i>
             </a>
-            <a href="{{ route('test-allocation.import.index', $testAllocation) }}"
-                class="flex justify-center items-center btn-green w-8 h-8 btn-teal rounded-full text-xs text-white"><i
-                    class="bi-person-add"></i></a>
+            @if (!$testAllocation->hasBeenSubmitted())
+                <a href="{{ route('test-allocation.import.index', $testAllocation) }}"
+                    class="flex justify-center items-center btn-green w-8 h-8 btn-teal rounded-full text-xs text-white"><i
+                        class="bi-person-add"></i></a>
+            @endif
+
 
             @if ($testAllocation->hasBeenSubmitted())
                 <a href="{{ route('test.test-allocations.edit', [$test, $testAllocation]) }}"
@@ -56,18 +59,24 @@
                 <i class="bx bx-search absolute top-2 right-2"></i>
             </div>
             @if ($testAllocation->hasBeenSubmitted())
-                <form action="{{ route('test-allocation.unlock', $testAllocation) }}" method="post">
-                    @csrf
-                    @method('patch')
-                    <button type="submit"
+                @can('unlock', $testAllocation)
+                    <form action="{{ route('test-allocation.unlock', $testAllocation) }}" method="post">
+                        @csrf
+                        @method('patch')
+                        <button type="submit"
+                            class="flex justify-center items-center w-8 h-8 btn-red rounded-full text-sm text-white"><i
+                                class="bi-lock"></i></button>
+                    </form>
+                @else
+                    <button type="button" disabled
                         class="flex justify-center items-center w-8 h-8 btn-red rounded-full text-sm text-white"><i
                             class="bi-lock"></i></button>
-                </form>
+                @endcan
             @else
                 @if ($testAllocation->appearingStudents->count())
                     <a href="{{ route('test-allocation.results.edit', [$testAllocation, 0]) }}"
                         class="flex justify-center items-center w-8 h-8 btn-sky rounded-full text-sm text-white"><i
-                            class="bx-pencil"></i></a>
+                            class="bx bx-pencil"></i></a>
                 @endif
             @endif
         </div>

@@ -22,10 +22,6 @@ class BulkInvoice extends Model
         'due_date' => 'date',
     ];
 
-    public function student()
-    {
-        return $this->belongsTo(Student::class);
-    }
     public function fees()
     {
         return $this->hasMany(Fee::class);

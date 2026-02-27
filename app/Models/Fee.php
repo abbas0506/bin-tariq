@@ -10,8 +10,8 @@ class Fee extends Model
     use HasFactory;
     protected $fillable = [
         'student_id',
-        'amount',
         'bulk_invoice_id',
+        'amount',
         'status', //paid, unpaid
     ];
 

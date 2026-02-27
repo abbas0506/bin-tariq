@@ -33,7 +33,7 @@
     </div>
 
     <div class="md:w-4/5 overflow-x-auto mx-auto bg-white md:p-8 p-4 rounded border mt-3">
-        <table class="table-auto xs borderless w-full">
+        <table class="table-auto xs md:sm borderless w-full">
             <thead>
                 <tr>
                     <th class="w-1/3 text-left">Student</th>

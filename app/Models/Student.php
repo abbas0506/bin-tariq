@@ -21,6 +21,7 @@ class Student extends Model
         'caste',
         'distinction',
         'is_orphan',
+        'fee',
 
         //academic info
         'section_id',

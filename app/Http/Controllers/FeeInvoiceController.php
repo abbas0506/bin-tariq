@@ -8,6 +8,7 @@ use App\Models\FeeInvoice;
 use App\Models\FeeStructure;
 use App\Models\FeeType;
 use App\Models\Section;
+use App\Models\Student;
 use App\Models\Transaction;
 use Exception;
 use Illuminate\Http\Request;
@@ -69,46 +70,37 @@ class FeeInvoiceController extends Controller
         $sectionIdsArray = array();
         $sectionIdsArray = $request->section_ids_array;
 
-        $feeTypeIdsArray = array();
-        $feeTypeIdsArray = $request->fee_type_ids_array;
-
         $month = $request->month;
         $year  = $request->year;
-
-
-        // $feeReceivable = Account::where('code', '1005')->first(); // Fee Receivable
-        // $feeIncome     = Account::where('code', '4001')->first(); // Fee Income
 
         DB::beginTransaction();
         try {
 
-            $sections = Section::whereIn('id', $sectionIdsArray)->get();
+            $students = Student::whereIn('section_id', $sectionIdsArray)
+                ->where('fee', '>', 0)
+                ->get();
 
-            foreach ($sections as $section) {
-                foreach ($section->students as $student) {
-                    $lastInvoice = FeeInvoice::where('year', $year)
-                        ->lockForUpdate()
-                        ->latest('id')
-                        ->first();
+            foreach ($students as $student) {
+                $lastInvoice = FeeInvoice::where('year', $year)
+                    ->lockForUpdate()
+                    ->latest('id')
+                    ->first();
 
-                    $nextNumber = $lastInvoice
-                        ? intval(substr($lastInvoice->invoice_no, -4)) + 1
-                        : 1;
+                $nextNumber = $lastInvoice
+                    ? intval(substr($lastInvoice->invoice_no, -4)) + 1
+                    : 1;
 
-                    $invoiceNo = sprintf('F%02d%d-%05d', $month, $year - 2000, $nextNumber);
-                    $invoiceAmount = $student->fees()->whereIn('fee_type_id', $feeTypeIdsArray)->sum('amount');
+                $invoiceNo = sprintf('F%02d%d-%05d', $month, $year - 2000, $nextNumber);
 
-                    $feeInvoice = FeeInvoice::create([
-                        'student_id' => $student->id,
-                        'month' => $request->month,
-                        'year' => $request->year,
-                        'due_date' => $request->due_date,
-                        'invoice_no' => $invoiceNo,
-                        'amount' => 20,
-                    ]);
-                }
+                FeeInvoice::create([
+                    'student_id' => $student->id,
+                    'month' => $request->month,
+                    'year' => $request->year,
+                    'due_date' => $request->due_date,
+                    'invoice_no' => $invoiceNo,
+                    'amount' => $student->fee,
+                ]);
             }
-
             DB::commit();
             return redirect()->route('bulk-invoices.index')->with('success', 'Successfully created');
         } catch (Exception $e) {

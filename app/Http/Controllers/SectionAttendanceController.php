@@ -103,7 +103,7 @@ class SectionAttendanceController extends Controller
                 ]);
             });
             DB::commit();
-            return redirect()->route('section.attendance.index', $section);
+            return redirect('attendance/summary');
         } catch (Exception $ex) {
             DB::rollBack();
             return back()->with('warning', $ex->getMessage());
@@ -119,8 +119,67 @@ class SectionAttendanceController extends Controller
         $student = $attendance->student;
         $date = session('date') ?? now()->toDateString();
         // get all absences of the student before selected date
-        $attendances = $student->attendances()->where('status', 0)->whereDate('date', '<', $date)->get();
-        return view('attendance.show', compact('section', 'student', 'attendances'));
+        $attendances = $student->attendances()->where('status', 0)->whereDate('date', '<=', $date)->get();
+
+        // Get current date
+        $currentDate = \Carbon\Carbon::parse($date);
+
+        // Define session start (April 01)
+        $sessionStart = $currentDate->month >= 4
+            ? \Carbon\Carbon::create($currentDate->year, 4, 1)
+            : \Carbon\Carbon::create($currentDate->year - 1, 4, 1);
+
+        // Current month range
+        $monthStart = $currentDate->copy()->startOfMonth();
+        $monthEnd = $currentDate->copy()->endOfMonth();
+
+        // Absences in current month
+        $currentMonthAbsences = $student->attendances()
+            ->where('status', 0)
+            ->whereDate('date', '>=', $monthStart)
+            ->whereDate('date', '<=', $monthEnd)
+            ->count();
+
+        // Total working days in current month
+        $currentMonthTotal = $student->attendances()
+            ->whereDate('date', '>=', $monthStart)
+            ->whereDate('date', '<=', $monthEnd)
+            ->count();
+
+        // Absences from session start to current date
+        $totalAbsencesInPeriod = $student->attendances()
+            ->where('status', 0)
+            ->whereDate('date', '>=', $sessionStart)
+            ->whereDate('date', '<=', $currentDate)
+            ->count();
+
+        // Total working days from session start to current date
+        $totalDaysInPeriod = $student->attendances()
+            ->whereDate('date', '>=', $sessionStart)
+            ->whereDate('date', '<=', $currentDate)
+            ->count();
+
+        // Calculate rates
+        $absenceRateOverall = $totalDaysInPeriod > 0 ? round(($totalAbsencesInPeriod / $totalDaysInPeriod) * 100, 2) : 0;
+        $currentMonthRate = $currentMonthTotal > 0 ? round(($currentMonthAbsences / $currentMonthTotal) * 100, 2) : 0;
+
+        // Determine current month trend (rising = up, decreasing = down)
+        $currentMonthTrend = $currentMonthRate >= $absenceRateOverall ? 'up' : 'down';
+
+        return view('attendance.show', compact(
+            'section',
+            'student',
+            'attendances',
+            'currentMonthAbsences',
+            'currentMonthTotal',
+            'currentMonthRate',
+            'currentMonthTrend',
+            'totalAbsencesInPeriod',
+            'totalDaysInPeriod',
+            'absenceRateOverall',
+            'sessionStart',
+            'currentDate'
+        ));
     }
     /**
      * Display the specified resource.
