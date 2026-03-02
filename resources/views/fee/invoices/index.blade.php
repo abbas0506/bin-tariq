@@ -65,6 +65,12 @@
                 </form>
 
             </div>
+
+            {{-- create new invoice --}}
+            <a href="{{ route('fee-invoices.create') }}"
+                class="flex w-12 h-12 justify-center items-center btn-teal rounded-full fixed right-5 bottom-5"><i
+                    class="bi-plus"></i></a>
+
             @if ($feeInvoices->count())
                 <form action="{{ route('fee-invoices.print') }}" method="post">
                     @csrf
@@ -80,13 +86,6 @@
                                     class="bi-printer"></i></button>
                         </div>
                     </div>
-
-
-
-                    {{-- create new invoice --}}
-                    <a href="{{ route('fee-invoices.create') }}"
-                        class="flex w-12 h-12 justify-center items-center btn-teal rounded-full fixed right-5 bottom-5"><i
-                            class="bi-plus"></i></a>
 
                     <!-- page message -->
                     @if ($errors->any())

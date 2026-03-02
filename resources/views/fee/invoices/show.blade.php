@@ -62,7 +62,7 @@
             </div>
             @if (!$feeInvoice->status)
                 <div class="mt-8">
-                    <h2>Selecct Payment Method</h2>
+                    <h2>Select Payment Method</h2>
                     <form action="{{ route('fee-invoices.update', $feeInvoice) }}" method="POST"
                         onsubmit="return confirmUpdate(event, {{ $feeInvoice->amount }})">
                         @csrf
