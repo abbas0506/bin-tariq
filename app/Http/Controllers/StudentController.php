@@ -27,31 +27,22 @@ class StudentController extends Controller
     public function store(Request $request, $sectionId)
     {
         //
-        $request->validate([
+        $validated = $request->validate([
             'name' => 'required',
             'father_name' => 'nullable|string',
             'bform' => 'nullable|string',
             'phone' => 'nullable|string',
             'rollno' => 'required|numeric',
-            'fee_type_ids' => 'required|array|min:1',
 
         ]);
 
-        $feeTypeIds = $request->fee_type_ids;
-        $amounts    = $request->amounts;
         DB::beginTransaction();
         try {
-
             $section = Section::findOrFail($sectionId);
-            $student = $section->students()->create($request->all());
+            $validated['fee'] = ($section->grade == 0) ? 0 : 20;
+            $student = $section->students()->create($validated);
 
-            // Make sure it's an array
-            foreach ($feeTypeIds as $index => $feeTypeId) {
-                $student->fees()->create([
-                    'fee_type_id' => $feeTypeId,
-                    'amount' => $amounts[$index],
-                ]);
-            }
+
             DB::commit();
             return redirect()->route('sections.show', $section)->with('success', 'Successfully created');
         } catch (Exception $e) {

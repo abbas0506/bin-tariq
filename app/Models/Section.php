@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Section extends Model
 {
@@ -11,7 +12,7 @@ class Section extends Model
 
     protected $fillable = [
         'name',    //section label A, B, C
-        'level',
+        'grade_id',
     ];
 
     public function incharge()
@@ -58,8 +59,18 @@ class Section extends Model
     {
         return $this->hasManyThrough(FeeInvoice::class, Student::class);
     }
-    public function attendanceMarked()
+    public function attendance_marked()
     {
         return $this->attendances()->whereDate('date', today())->count();
+    }
+    public function scopeAccessible($query)
+    {
+        if (Auth::user()->hasAnyRole(['head', 'admin'])) {
+            return $query;
+        }
+
+        return  $query->whereHas('testAllocations', function ($q) {
+            $q->where('user_id', Auth::user()->id);
+        });
     }
 }

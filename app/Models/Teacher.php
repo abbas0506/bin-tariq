@@ -54,7 +54,7 @@ class Teacher extends Model
     {
         return $this->allocations->where('lecture_no', 1)->count();
     }
-    public function sectionAsIncharge()
+    public function accessibleSections()
     {
         $sectionId = $this->allocations->where('lecture_no', 1)->value('section_id');
         $section = Section::find($sectionId);

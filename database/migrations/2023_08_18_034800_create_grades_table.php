@@ -11,14 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('fees', function (Blueprint $table) {
+        Schema::create('grades', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('student_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('fee_type_id')->constrained()->cascadeOnDelete();
-            $table->unsignedInteger('amount');
+            $table->unsignedTinyInteger('grade_no');
+            $table->string('name', 20)->nullable();
             $table->timestamps();
-
-            $table->unique(['student_id', 'fee_type_id'], 'student_fee_unique');
         });
     }
 
@@ -27,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('fees');
+        Schema::dropIfExists('grades');
     }
 };

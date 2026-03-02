@@ -74,17 +74,20 @@
                 <label for="">Address</label>
                 <h3>{{ $user->profile->address }}</h3>
             </div>
-            <div class="md:col-span-full">
-                <div class="flex items-center">
-                    <label>Roles</label><a href="{{ route('user.roles.edit', [$user, 1]) }}"><i
-                            class="bx bx-pencil text-green-600 ml-2 pt-2"></i></a>
-                </div>
-
-                @foreach ($user->roles as $role)
-                    <div class="">{{ ucfirst($role->name) }}</div>
-                @endforeach
-            </div>
         </div>
+
+    </div>
+    <div class="md:w-4/5 mx-auto mt-6 bg-white md:p-8 p-4 gap-3 rounded border relative">
+        <div class="flex items-center">
+            <label>Roles</label>
+            <a href="{{ route('user.roles.edit', [$user, 1]) }}"><i
+                    class="bx bx-pencil text-green-600 ml-2 pt-2 absolute top-2 right-2"></i></a>
+        </div>
+
+        @foreach ($user->roles as $role)
+            <div class="">{{ ucfirst($role->name) }}</div>
+        @endforeach
+
     </div>
     {{-- close button --}}
     <div class="btn btn-blue rounded mt-5 mx-auto text-center w-24">

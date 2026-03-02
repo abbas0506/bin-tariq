@@ -41,7 +41,7 @@ class SectionScheduleController extends Controller
         try {
             foreach ($allocations as $allocation)
                 $allocation->delete();
-            return redirect('principal/class-schedule')->with('success', 'Successfuly removed all entries!');
+            return redirect('head/class-schedule')->with('success', 'Successfuly removed all entries!');
         } catch (Exception $ex) {
             return back()->with('error', $ex->getMessage());
         }

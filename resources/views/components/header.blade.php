@@ -1,10 +1,10 @@
 <header class="sticky-header no-auth" id='header'>
-    <div class="flex flex-wrap w-full h-16 items-center justify-between px-5">
+    <div class="flex flex-wrap w-full h-16 items-center justify-between md:px-5">
 
         <a href="{{ url('/') }}" class="flex text-xl font-bold items-center">
-            <img src="{{ asset('images/logo/bin_tariq.png') }}" alt="" class="w-8 md:w-12">
+            <img src="{{ asset('images/logo/ghs-32.png') }}" alt="" class="w-6 md:w-12">
             <div class="px-2">
-                <div class="app-title text-lg font-medium">Bin Tariq</div>
+                <div class="app-title text-sm md:text-lg font-medium">GHS 32/2L</div>
                 <div class="app-subtitle text-xs font-thin hidden md:block">Believe in Excellence</div>
             </div>
         </a>

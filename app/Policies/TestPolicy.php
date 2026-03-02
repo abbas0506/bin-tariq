@@ -14,7 +14,7 @@ class TestPolicy
     public function viewAny(User $user): bool
     {
         //
-        return $user->hasAnyRole(['principal', 'admin', 'teacher']);
+        return $user->hasAnyRole(['head', 'admin', 'teacher']);
     }
 
     /**
@@ -23,7 +23,7 @@ class TestPolicy
     public function view(User $user, Test $test): bool
     {
         //
-        return $user->hasAnyRole(['principal', 'admin', 'teacher']);
+        return $user->hasAnyRole(['head', 'admin', 'teacher']);
     }
 
     /**
@@ -32,7 +32,7 @@ class TestPolicy
     public function create(User $user): bool
     {
         //
-        return $user->hasAnyRole(['principal']);
+        return $user->hasAnyRole(['head']);
     }
 
     /**
@@ -41,7 +41,7 @@ class TestPolicy
     public function update(User $user, Test $test): bool
     {
         //
-        return $user->hasAnyRole(['principal']);
+        return $user->hasAnyRole(['head']);
     }
 
     /**
@@ -50,7 +50,7 @@ class TestPolicy
     public function delete(User $user, Test $test): bool
     {
         //
-        return $user->hasAnyRole(['principal']);
+        return $user->hasAnyRole(['head']);
     }
 
     /**
@@ -59,7 +59,7 @@ class TestPolicy
     public function restore(User $user, Test $test): bool
     {
         //
-        return $user->hasAnyRole(['principal']);
+        return $user->hasAnyRole(['head']);
     }
 
     /**
@@ -68,18 +68,18 @@ class TestPolicy
     public function forceDelete(User $user, Test $test): bool
     {
         //
-        return $user->hasAnyRole(['principal']);
+        return $user->hasAnyRole(['head']);
     }
     // lock
     public function lock(User $user, Test $test): bool
     {
         //
-        return $user->hasAnyRole(['principal']);
+        return $user->hasAnyRole(['head']);
     }
     // unlock
     public function unlock(User $user, Test $test): bool
     {
         //
-        return $user->hasAnyRole(['principal']);
+        return $user->hasAnyRole(['head']);
     }
 }

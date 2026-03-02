@@ -5,13 +5,7 @@
 @endsection
 
 @section('sidebar')
-    @role('principal')
-        <x-sidebars.principal></x-sidebars.principal>
-        @elserole('admin')
-        <x-sidebars.admin></x-sidebars.admin>
-        @elserole('teacher')
-        <x-sidebars.teacher></x-sidebars.teacher>
-    @endrole
+    <x-sidebar></x-sidebar>
 @endsection
 
 @section('body')

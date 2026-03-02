@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Fee;
+use Exception;
 use Illuminate\Http\Request;
 
 class FeeController extends Controller
@@ -37,6 +38,7 @@ class FeeController extends Controller
     public function show(Fee $fee)
     {
         //
+        return view('bulk-invoices.fee.show', compact('fee'));
     }
 
     /**
@@ -53,6 +55,17 @@ class FeeController extends Controller
     public function update(Request $request, Fee $fee)
     {
         //
+        // $this->authorize('update', $fee);
+        try {
+            $fee->update([
+                'status' => 1,
+            ]);
+
+            return redirect()->route('bulk-invoices.show', $fee->bulkInvoice)->with('success', 'Successfully updated');
+        } catch (Exception $e) {
+            return redirect()->back()->withErrors($e->getMessage());
+            // something went wrong
+        }
     }
 
     /**

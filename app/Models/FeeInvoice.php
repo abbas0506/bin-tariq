@@ -17,7 +17,7 @@ class FeeInvoice extends Model
         'amount',
         'due_date',
         'status',
-        'transaction_id',
+        // 'transaction_id',
     ];
 
     protected $casts = [

@@ -43,7 +43,7 @@
         <div class="custom-container">
             <div class="w-1/2 mx-auto">
                 <div class="relative">
-                    <div class="absolute"><img alt="logo" src="{{ public_path('/images/logo/bin_tariq.png') }}"
+                    <div class="absolute"><img alt="logo" src="{{ public_path('/images/logo/ghs-32.png') }}"
                             class="w-16"></div>
                 </div>
                 <table class="w-full">
@@ -88,7 +88,7 @@
                     @foreach ($users as $user)
                         <tr>
                             <td>{{ $loop->index + 1 }}</td>
-                            <td class="font-bold">{{ $user->short_name }}
+                            <td class="font-bold">{{ $user->profile->short_name }}
                                 <br><span class="font-normal">({{ $user->allocations->count() }})</span>
                             </td>
                             @foreach ($lectures as $lecture)

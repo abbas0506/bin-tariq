@@ -13,7 +13,7 @@ class FeeInvoicePolicy
     public function viewAny(User $user): bool
     {
         //
-        return $user->hasAnyRole(['principal', 'admin', 'teacher']);
+        return $user->hasAnyRole(['head', 'admin', 'teacher']);
     }
 
     /**
@@ -22,7 +22,7 @@ class FeeInvoicePolicy
     public function view(User $user, FeeInvoice $feeInvoice): bool
     {
         //
-        return $user->hasAnyRole(['principal', 'admin', 'teacher']);
+        return $user->hasAnyRole(['head', 'admin', 'teacher']);
     }
 
     /**
@@ -31,7 +31,7 @@ class FeeInvoicePolicy
     public function create(User $user): bool
     {
         //
-        return $user->hasAnyRole(['principal']);
+        return $user->hasAnyRole(['head']);
     }
 
     /**
@@ -40,7 +40,7 @@ class FeeInvoicePolicy
     public function update(User $user, FeeInvoice $feeInvoice): bool
     {
         //
-        return $user->hasAnyRole(['principal']);
+        return $user->hasAnyRole(['head']);
     }
 
     /**
@@ -49,7 +49,7 @@ class FeeInvoicePolicy
     public function delete(User $user, FeeInvoice $feeInvoice): bool
     {
         //
-        return $user->hasAnyRole(['principal']);
+        return $user->hasAnyRole(['head']);
     }
 
     /**
@@ -58,7 +58,7 @@ class FeeInvoicePolicy
     public function restore(User $user, FeeInvoice $feeInvoice): bool
     {
         //
-        return $user->hasAnyRole(['principal']);
+        return $user->hasAnyRole(['head']);
     }
 
     /**
@@ -67,6 +67,6 @@ class FeeInvoicePolicy
     public function forceDelete(User $user, FeeInvoice $feeInvoice): bool
     {
         //
-        return $user->hasAnyRole(['principal']);
+        return $user->hasAnyRole(['head']);
     }
 }

@@ -20,10 +20,10 @@ class SectionController extends Controller
     {
         //
         $this->authorize('viewAny', Section::class);
-        if (Auth::user()->hasAnyRole(['principal', 'admin']))
+        if (Auth::user()->hasAnyRole(['head', 'admin']))
             $sections = Section::all();
         elseif (Auth::user()->hasRole('user')) {
-            $sections = Auth::user()->sectionAsIncharge();
+            $sections = Auth::user()->accessibleSections();
         } else
             $sections = collect(); // empty collection
 

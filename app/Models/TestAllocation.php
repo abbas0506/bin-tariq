@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class TestAllocation extends Model
 {
@@ -78,5 +79,14 @@ class TestAllocation extends Model
             return true;
         else
             return false;
+    }
+    public function scopeMine($query)
+    {
+
+        if (Auth::user()->hasAnyRole(['head', 'admin'])) {
+            return $query;
+        }
+
+        return $query->where('user_id', auth()->id());
     }
 }

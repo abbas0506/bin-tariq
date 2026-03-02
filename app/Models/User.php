@@ -68,13 +68,36 @@ class User extends Authenticatable
     {
         return $this->allocations->where('lecture_no', 1)->count();
     }
-    public function sectionAsIncharge()
+    public function accessibleSections()
     {
-        $sectionIds = $this->allocations->where('lecture_no', 1)->pluck('section_id');
-        $sections = Section::whereIn('id', $sectionIds)->get();
-        if ($sections) return $sections;
+
+        if (session('role') == 'admin' || session('role') == 'head') {
+            return Section::all();
+        } else if (session('role') == 'teacher') {
+            return Section::whereIn('id', function ($query) {
+                $query->select('section_id')
+                    ->from('allocations')
+                    ->where('user_id', $this->id)
+                    ->where('lecture_no', 1);
+            })->get();
+        }
+
         return collect();
     }
+    public function accessibleTests()
+    {
+        if ($this->hasAnyRole(['head', 'admin'])) {
+            return  Test::all();
+        }
+        if ($this->hasRole('teacher')) {
+            return  Test::whereHas('testAllocations', function ($query) {
+                $query->where('user_id', $this->id);
+            })->get();
+        }
+
+        return collect();
+    }
+
     public function tasks()
     {
         return $this->belongsToMany(Task::class)

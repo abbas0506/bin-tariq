@@ -19,11 +19,15 @@ return new class extends Migration
             $table->string('father_name')->nullable();
             $table->string('gender')->default('F');
             $table->string('cnic')->nullable();
+            $table->date('dob')->nullable();
+            $table->string('blood_group')->nullable();
             $table->text('address')->nullable();
             $table->string('phone')->nullable();
-            $table->date('joined_at')->nullable();
             $table->string('qualification')->nullable();
-            $table->unsignedMediumInteger('salary')->default(10000);
+            $table->string('designation')->nullable();
+            $table->date('joined_at')->nullable();
+            $table->string('personal_no')->nullable();
+            $table->string('bps')->nullable();
             $table->string('photo')->nullable(); // photo field
             $table->boolean('status')->default(true);
             $table->unsignedTinyInteger('seniority')->nullable();

@@ -14,9 +14,9 @@
     <div class="grid md:grid-cols-2 md:w-4/5 mx-auto mt-6 bg-white md:p-8 p-4 rounded border gap-3">
         <div class="flex items-center gap-3 flex-wrap">
             <h2>Result</h2>
-            @if ($test->testAllocations()->count())
-                <p>{{ $test->testAllocations()->resultSubmitted()->count() }}/{{ $test->testAllocations->count() }}
-                    ({{ round(($test->testAllocations()->resultSubmitted()->count() / $test->testAllocations->count()) * 100, 0) }}%)
+            @if ($test->testAllocations()->mine()->count())
+                <p>{{ $test->testAllocations()->mine()->resultSubmitted()->count() }}/{{ $test->testAllocations()->mine()->count() }}
+                    ({{ round($test->testAllocations()->mine()->resultSubmitted()->count() * 100, 0) }}%)
                 </p>
                 <p class="text-xs text-green-600"><i
                         class="bi-arrow-up"></i>{{ $test->testAllocations()->resultSubmitted()->today()->count() }}
@@ -102,7 +102,6 @@
 
                 </div>
             </div>
-
             <table class="table-fixed borderless w-full mt-8">
                 <thead>
                     <tr>
@@ -114,9 +113,9 @@
                 </thead>
                 <tbody>
 
-                    @foreach ($test->testAllocations->sortBy(['section_id', 'lecture_no']) as $testAllocation)
+                    @foreach ($test->testAllocations()->mine()->get()->sortBy(['section_id', 'lecture_no']) as $testAllocation)
                         <tr class="tr">
-                            <td>{{ $loop->index + 1 }}</td>
+                            <td>{{ $loop->index + 1 }} </td>
                             <td class="text-left">
                                 <a href="{{ route('test.test-allocations.show', [$test, $testAllocation]) }}"
                                     class="link">
@@ -151,11 +150,12 @@
                 </tbody>
             </table>
         @else
-            <div class="grid md:grid-cols-2 gap-3">
+            {{-- test closed --}}
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
                 @foreach ($sections as $section)
                     <div class="p-5 rounded bg-slate-100">
-                        <h2>{{ $section->name }}</h2>
-                        <div class="grid gap-[2px] mt-2 text-sm">
+                        <h3>{{ $section->name }}</h3>
+                        <div class="grid gap-[2px] mt-2 text-xs md:text-sm">
                             <a href="{{ route('section-result', [$test, $section]) }}" class="link"
                                 target="_blank">Section Result</a>
                             <a href="{{ route('section-positions', [$test, $section]) }}" class="link"

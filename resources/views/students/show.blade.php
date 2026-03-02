@@ -44,7 +44,7 @@
                 </div>
             </div>
         </div>
-        <h2 class="text-teal-500">Student Info</h2><a href="{{ route('students.edit', $student) }}"><i
+        <h2 class="text-teal-500">Student Info</h2><a href="{{ route('section.students.edit', [$section, $student]) }}"><i
                 class="bx bx-pencil"></i></a>
         <div>
             <label for="">Name</label>

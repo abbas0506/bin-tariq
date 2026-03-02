@@ -21,12 +21,20 @@ return new class extends Migration
             $table->string('address', 100)->nullable();
             $table->date('dob')->nullable();
             $table->string('photo', 50)->nullable();
+            $table->string('id_mark', 100)->nullable();
+            $table->string('caste', 50)->nullable();
+            $table->string('distinction')->nullable();
+            $table->boolean('is_orphan')->default(false);
 
+            // admission info
             $table->foreignId('section_id')->constrained()->cascadeOnDelete();
             $table->string('rollno');
             $table->date('admission_date')->nullable();
             $table->string('admission_no')->nullable()->unique();
-            $table->boolean('status')->default(true);   //active or not
+
+            $table->unsignedInteger('fee')->default(20);   //concession granted?
+            $table->boolean('status')->default(true);   //active?
+
             $table->timestamps();
         });
     }

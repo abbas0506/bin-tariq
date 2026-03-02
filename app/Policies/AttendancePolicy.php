@@ -14,13 +14,13 @@ class AttendancePolicy
     public function viewSummary(User $user): bool
     {
         //
-        return $user->hasAnyRole(['principal', 'admin', 'teacher']);
+        return $user->hasAnyRole(['head', 'admin', 'teacher']);
     }
 
     public function viewAny(User $user): bool
     {
         //
-        return $user->hasAnyRole(['principal', 'admin', 'teacher']);
+        return $user->hasAnyRole(['head', 'admin', 'teacher']);
     }
 
     /**
@@ -29,7 +29,7 @@ class AttendancePolicy
     public function view(User $user, Attendance $attendance): bool
     {
         //
-        return $user->hasAnyRole(['principal', 'admin', 'teacher']);
+        return $user->hasAnyRole(['head', 'admin', 'teacher']);
     }
 
     /**
@@ -38,7 +38,7 @@ class AttendancePolicy
     public function create(User $user): bool
     {
         //
-        return $user->hasAnyRole(['principal', 'admin', 'teacher']);
+        return $user->hasAnyRole(['head', 'admin', 'teacher']);
     }
 
     /**
@@ -47,7 +47,7 @@ class AttendancePolicy
     public function update(User $user, Attendance $attendance): bool
     {
         //
-        return $user->hasAnyRole(['principal', 'admin', 'teacher']);
+        return $user->hasAnyRole(['head', 'admin', 'teacher']);
     }
 
     /**
@@ -56,7 +56,7 @@ class AttendancePolicy
     public function delete(User $user, Attendance $attendance): bool
     {
         //
-        return $user->hasAnyRole(['principal']);
+        return $user->hasAnyRole(['head']);
     }
 
     /**
@@ -65,7 +65,7 @@ class AttendancePolicy
     public function restore(User $user, Attendance $attendance): bool
     {
         //
-        return $user->hasAnyRole(['principal']);
+        return $user->hasAnyRole(['head']);
     }
 
     /**
@@ -74,6 +74,6 @@ class AttendancePolicy
     public function forceDelete(User $user, Attendance $attendance): bool
     {
         //
-        return $user->hasAnyRole(['principal']);
+        return $user->hasAnyRole(['head']);
     }
 }

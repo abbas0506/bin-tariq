@@ -6,6 +6,7 @@ use App\Models\Section;
 use App\Models\Test;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class TestController extends Controller
@@ -17,8 +18,8 @@ class TestController extends Controller
     {
         //
         $this->authorize('viewAny', Test::class);
-        $tests = Test::has('testAllocations')
-            ->get();
+        $tests = Test::accessible()->get();
+
         return view('tests.index', compact('tests'));
     }
 
@@ -90,9 +91,14 @@ class TestController extends Controller
         $this->authorize('view', $test);
 
         $sectionIds = $test->testAllocations->pluck('section_id')->unique()->toArray();
-        $sections = Section::whereIn('id', $sectionIds)->get();
+        // $sections = Section::whereIn('id', $sectionIds)->get();
 
-        return view('tests.show', compact('test', 'sections'));
+        $sections = Auth::user()->accessibleSections()->whereIn('id', $sectionIds);
+        // echo $sections->get();
+        $testAllocations = $test->testAllocations()->mine()->get();
+
+        // echo $testAllocations;
+        return view('tests.show', compact('test', 'sections', 'testAllocations'));
     }
 
     /**

@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Account;
+use App\Models\Fee;
 use App\Models\FeeInvoice;
 use App\Models\FeeStructure;
 use App\Models\FeeType;
 use App\Models\Section;
+use App\Models\Student;
 use App\Models\Transaction;
 use Exception;
 use Illuminate\Http\Request;
@@ -68,77 +70,39 @@ class FeeInvoiceController extends Controller
         $sectionIdsArray = array();
         $sectionIdsArray = $request->section_ids_array;
 
-        $feeTypeIdsArray = array();
-        $feeTypeIdsArray = $request->fee_type_ids_array;
-
         $month = $request->month;
         $year  = $request->year;
-
-
-        $feeReceivable = Account::where('code', '1005')->first(); // Fee Receivable
-        $feeIncome     = Account::where('code', '4001')->first(); // Fee Income
 
         DB::beginTransaction();
         try {
 
-            $sections = Section::whereIn('id', $sectionIdsArray)->get();
+            $students = Student::whereIn('section_id', $sectionIdsArray)
+                ->where('fee', '>', 0)
+                ->get();
 
-            foreach ($sections as $section) {
-                foreach ($section->students as $student) {
-                    // start transaction
-                    $transaction = Transaction::create([
-                        'date' => now()->format('Y-m-d'),
-                        'description' => "Fee: {$month}/{$year} - {$student->name}",
-                    ]);
+            foreach ($students as $student) {
+                $lastInvoice = FeeInvoice::where('year', $year)
+                    ->lockForUpdate()
+                    ->latest('id')
+                    ->first();
 
-                    $lastInvoice = FeeInvoice::where('year', $year)
-                        ->lockForUpdate()
-                        ->latest('id')
-                        ->first();
+                $nextNumber = $lastInvoice
+                    ? intval(substr($lastInvoice->invoice_no, -4)) + 1
+                    : 1;
 
-                    $nextNumber = $lastInvoice
-                        ? intval(substr($lastInvoice->invoice_no, -4)) + 1
-                        : 1;
+                $invoiceNo = sprintf('F%02d%d-%05d', $month, $year - 2000, $nextNumber);
 
-                    $invoiceNo = sprintf('F%d-%05d', $year - 2000, $nextNumber);
-                    $invoiceAmount = $student->fees()->whereIn('fee_type_id', $feeTypeIdsArray)->sum('amount');
-
-
-                    $feeInvoice = $transaction->feeInvoices()->create([
-                        'student_id' => $student->id,
-                        'month' => $request->month,
-                        'year' => $request->year,
-                        'due_date' => $request->due_date,
-                        'invoice_no' => $invoiceNo,
-                        'amount' => $invoiceAmount,
-                    ]);
-                    // Make sure it's an array
-                    foreach ($feeTypeIdsArray as $feeTypeId) {
-                        $feeInvoice->feeInvoiceItems()->create([
-                            'fee_type_id' => $feeTypeId,
-                            'amount' => $student->fees()->where('fee_type_id', $feeTypeId)->first()->amount,
-                        ]);
-                    }
-
-                    // transaction lines
-                    // Dr to fee receivable
-                    $transaction->lines()->create([
-                        'account_id' => $feeReceivable->id,
-                        'debit'      => $invoiceAmount,
-                        'credit'     => 0,
-                    ]);
-
-                    //Cr to fee Income
-                    $transaction->lines()->create([
-                        'account_id' => $feeIncome->id,
-                        'debit'     => 0,
-                        'credit'      => $invoiceAmount,
-                    ]);
-                }
+                FeeInvoice::create([
+                    'student_id' => $student->id,
+                    'month' => $request->month,
+                    'year' => $request->year,
+                    'due_date' => $request->due_date,
+                    'invoice_no' => $invoiceNo,
+                    'amount' => $student->fee,
+                ]);
             }
-
             DB::commit();
-            return redirect()->route('fee-invoices.index')->with('success', 'Successfully created');
+            return redirect()->route('bulk-invoices.index')->with('success', 'Successfully created');
         } catch (Exception $e) {
             DB::rollBack();
             return redirect()->back()->withErrors($e->getMessage());
@@ -153,9 +117,25 @@ class FeeInvoiceController extends Controller
     {
         //
         $feeInvoice = FeeInvoice::findOrFail($id);
-        $this->authorize('view', $feeInvoice);
-        $paymentMethods = Account::where('is_payment_method', true)->get();
-        return view('fee.invoices.show', compact('feeInvoice', 'paymentMethods'));
+        // $this->authorize('view', $feeInvoice);
+        // $paymentMethods = Account::where('is_payment_method', true)->get();
+        // return view('fee.invoices.show', compact('feeInvoice', 'paymentMethods'));
+        $user = Auth::user();
+        if ($user->isIncharge()) {
+            $section = $user->accessibleSections();
+            $fees = Fee::where('bulk_invoice_id', $id)
+                ->whereHas('student', function ($query) use ($section) {
+                    $query->where('section_id', $section->id);
+                })
+                ->with('student') // optional: eager load student
+                ->get();
+        } else {
+            $fees = Fee::with('student')
+                ->where('bulk_invoice_id', $id)
+                ->latest()
+                ->paginate(5);
+        }
+        return view('fee.invoices.show', compact('feeInvoice', 'fees'));
     }
 
     /**
@@ -201,7 +181,7 @@ class FeeInvoiceController extends Controller
             ]);
 
             DB::commit();
-            return redirect()->route('fee-invoices.show', $feeInvoice)->with('success', 'Successfully updated');
+            return redirect()->route('bulk-invoices.show', $feeInvoice)->with('success', 'Successfully updated');
         } catch (Exception $e) {
             DB::rollBack();
             return redirect()->back()->withErrors($e->getMessage());
@@ -235,7 +215,7 @@ class FeeInvoiceController extends Controller
             ->where('invoice_no', $request->invoice_no)
             ->latest()
             ->paginate(5);
-        return redirect()->route('fee-invoices.index')->with('feeInvoices', $feeInvoices);
+        return redirect()->route('bulk-invoices.index')->with('feeInvoices', $feeInvoices);
     }
     public function searchByName(Request $request)
     {
@@ -249,7 +229,7 @@ class FeeInvoiceController extends Controller
             })
             ->latest()
             ->paginate(5);
-        return redirect()->route('fee-invoices.index')->with('feeInvoices', $feeInvoices);
+        return redirect()->route('bulk-invoices.index')->with('feeInvoices', $feeInvoices);
     }
 
     public function searchByClass(Request $request)
@@ -266,7 +246,7 @@ class FeeInvoiceController extends Controller
             })
             ->latest()
             ->paginate(5);
-        return redirect()->route('fee-invoices.index')->with('feeInvoices', $feeInvoices);
+        return redirect()->route('bulk-invoices.index')->with('feeInvoices', $feeInvoices);
     }
     public function  print(Request $request)
     {

@@ -95,7 +95,7 @@
 
                                 <!-- Foreground Content -->
                                 <div class="card-content">
-                                    <div><img src="{{ public_path('images/logo/bin_tariq.png') }}" alt=""
+                                    <div><img src="{{ public_path('images/logo/ghs-32.png') }}" alt=""
                                             width="36px" height="36px"></div>
                                     <p class="text-xs mt-2">Govt. High School 32/2L, Okara</p>
 

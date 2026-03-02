@@ -10,6 +10,49 @@
             <div>History</div>
         </div>
 
+        <!-- Absence Statistics Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:w-4/5 mx-auto mt-8">
+            <!-- Card 1: Current Month Absence -->
+            <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-orange-500">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-slate-700 font-semibold text-sm">Current Month</h3>
+                    <i class="bi bi-calendar-month text-orange-500 text-2xl"></i>
+                </div>
+                <div class="flex items-center justify-between">
+                    <div class="flex items-baseline gap-2">
+                        <span class="text-3xl font-bold text-slate-800">{{ $currentMonthAbsences }}</span>
+                        <span class="text-sm text-slate-500">/ {{ $currentMonthTotal }}</span>
+                        <span class="text-xs text-slate-600 ml-1">{{ $currentMonthRate }}%</span>
+                    </div>
+                    @if ($currentMonthTrend === 'up')
+                        <i class="bx bx-trending-up text-red-500 text-2xl font-bold"></i>
+                    @else
+                        <i class="bx bx-trending-down text-green-500 text-2xl font-bold"></i>
+                    @endif
+                </div>
+            </div>
+
+            <!-- Card 2: Overall Session Absence -->
+            <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-indigo-500">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-slate-700 font-semibold text-sm">Overall ({{ $sessionStart->format('M Y') }} - Now)</h3>
+                    <i class="bi bi-pie-chart text-indigo-500 text-2xl"></i>
+                </div>
+                <div class="flex items-center justify-between">
+                    <div class="flex items-baseline gap-2">
+                        <span class="text-3xl font-bold text-slate-800">{{ $totalAbsencesInPeriod }}</span>
+                        <span class="text-sm text-slate-500">/ {{ $totalDaysInPeriod }}</span>
+                        <span class="text-xs text-slate-600 ml-1">{{ $absenceRateOverall }}%</span>
+                    </div>
+                    @if ($absenceRateOverall < 15)
+                        <span class="text-2xl">😊</span>
+                    @else
+                        <span class="text-2xl">😔</span>
+                    @endif
+                </div>
+            </div>
+        </div>
+
         <div class="md:w-4/5 mx-auto overflow-x-auto bg-white w-full mt-8">
             <h2>{{ $student->name }} <br><span class="text-slate-500">{{ $student->father_name }}</span></h2>
             @if ($attendances->count())
