@@ -25,15 +25,42 @@ class FeeInvoiceController extends Controller
 
         $sections = Section::all();
         // $feeInvoices = FeeInvoice::all();
-        if (session('feeInvoices'))
-            $feeInvoices = session('feeInvoices');
-        else
-            $feeInvoices = FeeInvoice::with(['student.section'])
-                ->where('status', 0)
-                ->latest()
-                ->paginate(5);
 
-        // $feeInvoices = $feeInvoices->where('status', 0);
+        // if session has section_id, then filter fee invoices by that section
+        if (session('section_id')) {
+            $sectionId = session('section_id');
+            $feeInvoicesFiltered = FeeInvoice::with(['student.section'])
+                ->whereHas('student', function ($q) use ($sectionId) {
+                    $q->where('section_id', $sectionId);
+                });
+
+            $feeInvoices = $feeInvoicesFiltered->latest()->paginate($feeInvoicesFiltered->count());
+
+            return view('fee.invoices.index', compact('feeInvoices', 'sections'));
+        }
+        // if session has name, filter fee invoices by name
+        if (session('name')) {
+            $name = session('name');
+            $feeInvoicesFiltered = FeeInvoice::with(['student.section'])
+                ->whereHas('student', function ($q) use ($name) {
+                    $q->where('name', 'like', "%{$name}%");
+                });
+            $feeInvoices = $feeInvoicesFiltered->latest()->paginate($feeInvoicesFiltered->count());
+
+            // $feeInvoices = $feeInvoices->where('status', 0);
+            return view('fee.invoices.index', compact('feeInvoices', 'sections'));
+        }
+
+        //if session has invoice_no, filter fee invoices by invoice_no
+        if (session('invoice_no')) {
+            $invoiceNo = session('invoice_no');
+            $feeInvoicesFiltered = FeeInvoice::with(['student.section'])
+                ->where('invoice_no', $invoiceNo);
+            $feeInvoices = $feeInvoicesFiltered->latest()->paginate($feeInvoicesFiltered->count());
+            return view('fee.invoices.index', compact('feeInvoices', 'sections'));
+        }
+
+        $feeInvoices = FeeInvoice::with(['student.section'])->latest()->paginate(20);
         return view('fee.invoices.index', compact('feeInvoices', 'sections'));
     }
 
@@ -231,11 +258,8 @@ class FeeInvoiceController extends Controller
         $request->validate([
             'invoice_no' => 'required|string',
         ]);
-        $feeInvoices = FeeInvoice::with(['student.section'])
-            ->where('invoice_no', $request->invoice_no)
-            ->latest()
-            ->paginate(5);
-        return redirect()->route('fee-invoices.index')->with('feeInvoices', $feeInvoices);
+        $invoiceNo = $request->invoice_no;
+        return redirect()->route('fee-invoices.index')->with('invoice_no', $invoiceNo);
     }
     public function searchByName(Request $request)
     {
@@ -243,13 +267,7 @@ class FeeInvoiceController extends Controller
             'name' => 'required|string',
         ]);
         $name = $request->name;
-        $feeInvoices = FeeInvoice::with(['student.section'])
-            ->whereHas('student', function ($q) use ($name) {
-                $q->where('name', 'like', "%{$name}%");
-            })
-            ->latest()
-            ->paginate(5);
-        return redirect()->route('fee-invoices.index')->with('feeInvoices', $feeInvoices);
+        return redirect()->route('fee-invoices.index')->with('name', $name);
     }
 
     public function searchByClass(Request $request)
@@ -257,16 +275,15 @@ class FeeInvoiceController extends Controller
         $request->validate([
             'section_id' => 'required|numeric',
         ]);
-        $name = $request->name;
         $sectionId = $request->section_id;
+        // $feeInvoices = FeeInvoice::with(['student.section'])
+        //     ->whereHas('student', function ($q) use ($sectionId) {
+        //         $q->where('section_id', $sectionId);
+        //     })
+        //     ->latest()
+        //     ->paginate(20);
 
-        $feeInvoices = FeeInvoice::with(['student.section'])
-            ->whereHas('student', function ($q) use ($sectionId) {
-                $q->where('section_id', $sectionId);
-            })
-            ->latest()
-            ->paginate(5);
-        return redirect()->route('fee-invoices.index')->with('feeInvoices', $feeInvoices);
+        return redirect()->route('fee-invoices.index')->with('section_id', $sectionId);
     }
     public function  print(Request $request)
     {
